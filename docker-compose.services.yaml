@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'bitnami/postgresql:16'
+    container_name: ${POSTGRES_CONTAINER_NAME}
+    ports:
+      - ${POSTGRES_PORT_LISTEN}:${POSTGRES_PORT}
+    restart: always
+    environment:
+      - POSTGRESQL_HOST=${POSTGRES_HOST}
+      - POSTGRESQL_USERNAME=${POSTGRES_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRESQL_DATABASE=${POSTGRES_DATABASE}
+      - TZ=${POSTGRES_TZ}
+    volumes:
+      - ${POSTGRES_VOLUMES}:/bitnami/postgresql
+      - /etc/localtime:/etc/localtime:ro
+  # minio:
+  #   image: 'bitnami/minio:latest'
+  #   container_name: ${MINIO_CONTAINER_NAME}
+  #   restart: always
+  #   ports:
+  #     - 9000:9000
+  #     - 9001:9001
+  #   environment:
+  #     - MINIO_SERVER_ACCESS_KEY=${MINIO_SERVER_ACCESS_KEY}
+  #     - MINIO_SERVER_SECRET_KEY=${MINIO_SERVER_SECRET_KEY}
+  #     - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+  #     - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+  #     - TZ=Asia/Saigon
+  #   volumes:
+  #     - ./minio-persistence:/bitnami/minio/data
+  #     - /etc/localtime:/etc/localtime:ro

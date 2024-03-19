@@ -1,0 +1,30 @@
+{
+  "name": "placepad",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/**/*"
+  ],
+  "scripts": {
+    "all": "concurrently --kill-others-on-fail \"yarn fe\" \"yarn lb\"",
+    "next": "yarn workspace next dev",
+    "fe": "yarn workspace placepad-zmi dev",
+    "be": "yarn workspace placepad-be start",
+    "migrate:dev": "yarn workspace be migrate:dev",
+    "be:prod": "yarn workspace be start:prod",
+    "gen-permission": "yarn workspace lb migrate-permission",
+    "gen-permission:production": "NODE_ENV=production RUN_MODE=migrate-permission yarn gen-permission",
+    "gen-permission:dev": "NODE_ENV=development RUN_MODE=migrate-permission yarn gen-permission",
+    "gen-permission:local": "NODE_ENV=local RUN_MODE=migrate-permission yarn gen-permission",
+    "docker-up:local": "sh ./dc-up.sh local ",
+    "docker-down:local": "sh ./dc-down.sh local ",
+    "rebuild:fe": "yarn workspace fe build",
+    "preview": "yarn workspace fe preview"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  },
+  "devDependencies": {
+    "prettier-plugin-organize-imports": "^3.2.4"
+  }
+}
