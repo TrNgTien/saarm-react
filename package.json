@@ -7,9 +7,9 @@
   ],
   "scripts": {
     "all": "concurrently --kill-others-on-fail \"yarn fe\" \"yarn lb\"",
-    "next": "yarn workspace next dev",
-    "fe": "yarn workspace placepad-zmi dev",
-    "be": "yarn workspace placepad-be start",
+    "fe": "yarn workspace fe dev",
+    "be": "yarn workspace be start",
+    "be:test": "yarn workspace be test",
     "migrate:dev": "yarn workspace be migrate:dev",
     "be:prod": "yarn workspace be start:prod",
     "gen-permission": "yarn workspace lb migrate-permission",
