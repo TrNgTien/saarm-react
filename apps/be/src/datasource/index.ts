@@ -8,17 +8,28 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService<AllConfigType>) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    const data = this.configService.get('database.type', { infer: true });
+    console.log('createTypeOrmOptions - data', data);
     return {
-      type: this.configService.get('database.type', { infer: true }),
-      url: this.configService.get('database.url', { infer: true }),
-      host: this.configService.get('database.host', { infer: true }),
-      port: this.configService.get('database.port', { infer: true }),
-      username: this.configService.get('database.username', { infer: true }),
-      password: this.configService.get('database.password', { infer: true }),
-      database: this.configService.get('database.name', { infer: true }),
-      synchronize: this.configService.get('database.synchronize', {
-        infer: true,
-      }),
+      url: process.env.DATABASE_URL,
+      type: process.env.DATABASE_TYPE ?? 'postgres',
+      host: process.env.DATABASE_HOST,
+      port: process.env.DATABASE_PORT
+        ? parseInt(process.env.DATABASE_PORT, 10)
+        : 5432,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      username: process.env.DATABASE_USERNAME,
+      synchronize: process.env.DATABASE_SYNCHRONIZE === 'true',
+      // type: this.configService.get('database.type', { infer: true }),
+      // url: this.configService.get('database.url', { infer: true }),
+      // host: this.configService.get('database.host', { infer: true }),
+      // port: this.configService.get('database.port', { infer: true }),
+      // username: this.configService.get('database.username', { infer: true }),
+      // password: this.configService.get('database.password', { infer: true }),
+      // synchronize: this.configService.get('database.synchronize', {
+      //   infer: true,
+      // }),
       dropSchema: false,
       keepConnectionAlive: true,
       logging:

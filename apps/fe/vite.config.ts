@@ -1,39 +1,13 @@
-import react from '@vitejs/plugin-react-swc';
-import checker from 'vite-plugin-checker';
-import { resolve } from 'path';
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
 export default defineConfig({
-  resolve: {
-    alias: {
-      '@': resolve('src/'),
-    },
-  },
-  build: {
-    minify: true,
-    reportCompressedSize: false,
-    sourcemap: false,
-  },
-  plugins: [
-    splitVendorChunkPlugin(),
-    react(),
-    checker({
-      overlay: { initialIsOpen: false },
-      typescript: true,
-    }),
-  ],
+  plugins: [react()],
   server: {
-    open: true,
+    port: 3009,
+    host: true,
     hmr: true,
-    strictPort: true,
-    port: 3004,
-    watch: {
-      usePolling: true,
-    },
-  },
-  preview: {
     open: true,
     strictPort: true,
-    port: 3444,
   },
 });
-

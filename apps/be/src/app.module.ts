@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Room } from './models';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { TypeOrmConfigService } from './datasource';
 import {
   AuthModule,
   DetectionModule,
@@ -9,17 +10,17 @@ import {
   RoomModule,
 } from './modules';
 
-const postgresqlConf: TypeOrmModuleOptions = {
-  type: 'postgres',
-  host: '127.0.0.1',
-  port: 5400,
-  username: 'tientran',
-  password: 'tien123@',
-  database: 'saarm_db',
-  entities: [Room],
-  synchronize: true, // true is Unsafe, not use for product and migration
-  migrations: ['dist/src/migrations/*{.ts,.js}'],
-};
+// const postgresqlConf: TypeOrmModuleOptions = {
+//   type: 'postgres',
+//   host: '127.0.0.1',
+//   port: 5400,
+//   username: 'tientran',
+//   password: 'tien123@',
+//   database: 'saarm_db',
+//   entities: [Room],
+//   synchronize: true, // true is Unsafe, not use for product and migration
+//   migrations: ['dist/src/migrations/*{.ts,.js}'],
+// };
 
 @Module({
   imports: [
@@ -28,7 +29,12 @@ const postgresqlConf: TypeOrmModuleOptions = {
       // load: [databaseConfig],
       envFilePath: ['.env'],
     }),
-    TypeOrmModule.forRoot(postgresqlConf),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService,
+      dataSourceFactory: async (options: DataSourceOptions) => {
+        return new DataSource(options).initialize();
+      },
+    }),
     DetectionModule,
     RoomModule,
     AuthModule,
