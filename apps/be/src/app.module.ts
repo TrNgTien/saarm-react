@@ -8,26 +8,14 @@ import {
   DetectionModule,
   HouseModule,
   RoomModule,
+  UserModule,
 } from './modules';
-
-// const postgresqlConf: TypeOrmModuleOptions = {
-//   type: 'postgres',
-//   host: '127.0.0.1',
-//   port: 5400,
-//   username: 'tientran',
-//   password: 'tien123@',
-//   database: 'saarm_db',
-//   entities: [Room],
-//   synchronize: true, // true is Unsafe, not use for product and migration
-//   migrations: ['dist/src/migrations/*{.ts,.js}'],
-// };
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      // load: [databaseConfig],
-      envFilePath: ['.env'],
+      envFilePath: ['.env.development'],
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,
@@ -35,6 +23,7 @@ import {
         return new DataSource(options).initialize();
       },
     }),
+    UserModule,
     DetectionModule,
     RoomModule,
     AuthModule,

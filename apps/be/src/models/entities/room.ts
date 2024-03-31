@@ -1,10 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseTzEntity } from '@/base';
+import { Column, Entity } from 'typeorm';
 
 @Entity('Room')
-export class Room {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class Room extends BaseTzEntity {
   @Column()
   name: string;
 

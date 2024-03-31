@@ -1,4 +1,4 @@
-import { RoomDto } from '@/models';
+import { Room } from '@/models';
 import {
   Body,
   Controller,
@@ -34,7 +34,7 @@ export class RoomController {
   @Post('')
   create(
     @Body()
-    payload: RoomDto,
+    payload: Omit<Room, 'id'>,
   ) {
     return this.roomService.create(payload);
   }

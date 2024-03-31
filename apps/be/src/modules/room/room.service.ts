@@ -1,8 +1,9 @@
 import { Room } from '@/models/entities';
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Scope } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+@Injectable({ scope: Scope.REQUEST })
 export class RoomService {
   constructor(
     @InjectRepository(Room)

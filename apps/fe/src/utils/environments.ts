@@ -16,5 +16,3 @@ class Environment {
 }
 
 export const environment = Environment.getInstance();
-
-export const BASE_URL = environment.get('VITE_BASE_URL');

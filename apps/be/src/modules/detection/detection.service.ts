@@ -1,22 +1,14 @@
-import vision from '@google-cloud/vision';
+import { CloudVisionService } from '@/services/cloud-vision';
 import { Injectable, Scope } from '@nestjs/common';
-import { resolve } from 'path';
 
 @Injectable({ scope: Scope.REQUEST })
 export class DetectionService {
+  constructor(private cloudVisionService: CloudVisionService) {}
   async getWaterMeter() {
-    const pathData = resolve(__dirname, `../../../resources/img.jpeg`);
-    const googleKeys = resolve(__dirname, `../../../google-vision.json`);
+    const result = await this.cloudVisionService.extractText();
 
-    const client = new vision.ImageAnnotatorClient({
-      keyFilename: googleKeys,
-    });
-
-    const [result] = await client.textDetection(pathData);
-
-    const labels = result.textAnnotations ?? [];
     const data = [];
-    for (const d of labels) {
+    for (const d of result) {
       if (isNaN(Number(d?.description))) {
         continue;
       }
