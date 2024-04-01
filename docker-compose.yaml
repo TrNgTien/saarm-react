@@ -19,8 +19,7 @@ services:
     image: 'node:18.20-slim'
     container_name: 'fe_build_develop'
     restart: always
-    commands:
-      - sh ./scripts/build.sh
+    entrypoint: ['sh', './scripts/build.sh']
     volumes:
       - ./apps/fe:/app
 
