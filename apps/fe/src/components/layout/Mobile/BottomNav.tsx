@@ -3,8 +3,10 @@ import { Color } from '@/theme';
 import clsx from 'clsx';
 import { useMemo } from 'react';
 import { IconBaseProps } from 'react-icons';
-import { IoHomeOutline as HomeIcon } from "react-icons/io5";
-import { IoSettingsOutline as SettingIcons } from 'react-icons/io5';
+import {
+  IoHomeOutline as HomeIcon,
+  IoSettingsOutline as SettingIcons,
+} from 'react-icons/io5';
 import { LuClipboardList as BillIcon } from 'react-icons/lu';
 import { Link, useLocation } from 'react-router-dom';
 interface INavItems {
@@ -78,16 +80,18 @@ const BottomNav = () => {
       {navItems.map((i) => {
         const { icon, path, name, id } = i;
         return (
-          <div
-            key={id}
-            className={clsx(
-              'flex flex-col items-center',
-              'text-black-500',
-              pathname === path && 'text-green-100',
-            )}>
-            <>{icon}</>
-            <Link to={path}>{name}</Link>
-          </div>
+          <Link to={path}>
+            <div
+              key={id}
+              className={clsx(
+                'flex flex-col items-center',
+                'text-black-500',
+                pathname === path && 'text-green-100',
+              )}>
+              <>{icon}</>
+              <p> {name}</p>
+            </div>
+          </Link>
         );
       })}
     </div>

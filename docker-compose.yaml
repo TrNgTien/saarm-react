@@ -15,6 +15,15 @@ services:
       - TZ=${POSTGRES_TZ}
     volumes:
       - ${POSTGRES_VOLUMES}:/bitnami/postgresql
+  fe_build:
+    image: 'node:18.20-slim'
+    container_name: 'fe_build_develop'
+    restart: always
+    commands:
+      - sh ./scripts/build.sh
+    volumes:
+      - ./apps/fe:/app
+
   fe_develop:
     image: 'bitnami/nginx:1.25.4'
     container_name: ${REACT_CONTAINER_NAME}

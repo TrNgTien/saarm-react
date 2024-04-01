@@ -1,0 +1,46 @@
+name: Placepad FE Deployment
+on:
+  push:
+    branches: [develop]
+jobs:
+  prepare_source:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Deploy Placepad develop start"
+      - name: prepare_source
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.PLACEPAD_IP }}
+          username: root
+          key: ${{ secrets.PLACEPAD_KEY }}
+          script: |
+            echo "Pulling latest source code..."
+            cd saarm
+
+            # update latest code
+            git checkout -f main
+            git branch -D develop
+            git fetch -p
+            git checkout develop
+
+            # build project
+            docker restart fe_build
+
+            echo "DONE"
+  deploy_develop:
+    runs-on: ubuntu-latest
+    needs: [prepare_source]
+    steps:
+      - run: echo "Placepad FE deployment start"
+      - name: deploy_develop
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.PLACEPAD_IP }}
+          username: root
+          key: ${{ secrets.PLACEPAD_KEY }}
+          script: |
+            echo "Restarting fe_develop..."
+
+            docker restart fe_develop
+
+            echo "DONE"

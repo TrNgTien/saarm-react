@@ -19,6 +19,10 @@ module.exports = {
         },
         black: {
           500: '#999798',
+          900: '#0A150F',
+        },
+        white: {
+          10: '#FDFFFE',
         },
       },
     },
