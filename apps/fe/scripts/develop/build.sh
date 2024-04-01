@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "Install dependencies...."
-npm install -g pnpm
+npm install -g yarn
 
 
 echo "Cleaning up...."
