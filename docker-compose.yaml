@@ -1,21 +1,6 @@
 version: '3'
 
 services:
-  postgres:
-    image: 'bitnami/postgresql:16'
-    container_name: ${POSTGRES_CONTAINER_NAME}
-    ports:
-      - ${POSTGRES_PORT_LISTEN}:${POSTGRES_PORT}
-    restart: always
-    environment:
-      - POSTGRESQL_HOST=${POSTGRES_HOST}
-      - POSTGRESQL_USERNAME=${POSTGRES_USERNAME}
-      - POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRESQL_DATABASE=${POSTGRES_DATABASE}
-      - TZ=${POSTGRES_TZ}
-    volumes:
-      - ${POSTGRES_VOLUMES}:/bitnami/postgresql
-
   fe_build:
     image: 'node:18.20-slim'
     working_dir: ${REACT_BUILD_WORK_DIR}
@@ -33,3 +18,4 @@ services:
     volumes:
       - ${REACT_APPLICATION}:/app
       - ${REACT_NGINX_CONF}:/opt/bitnami/nginx/conf/nginx.conf:ro
+      - /etc/localtime:/etc/localtime:ro
