@@ -17,11 +17,11 @@ services:
       - ${POSTGRES_VOLUMES}:/bitnami/postgresql
   fe_build:
     image: 'node:18.20-slim'
+    working_dir: /app
     container_name: 'fe_build_develop'
-    restart: always
-    entrypoint: ['sh', './scripts/build.sh']
     volumes:
       - ./apps/fe:/app
+    entrypoint: ["sh", "./scripts/develop/build.sh"] 
 
   fe_develop:
     image: 'bitnami/nginx:1.25.4'
