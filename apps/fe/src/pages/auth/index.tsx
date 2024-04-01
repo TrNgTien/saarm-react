@@ -1,8 +1,10 @@
 import { EMethods } from '@/common';
-import { RestEndpoints } from '@/common/constants';
+import { RestEndpoints, RoutePath } from '@/common/constants';
 import { networkInstance } from '@/services';
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
+import { isEmpty } from 'lodash';
 import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface IUserGoogle {
   userId: string;
@@ -11,6 +13,7 @@ interface IUserGoogle {
   lastName: string;
 }
 export const Login: React.FC = () => {
+  const navigate = useNavigate();
   const handleLoginGoogle = useCallback(
     async (credentialResponse: CredentialResponse) => {
       try {
@@ -21,6 +24,9 @@ export const Login: React.FC = () => {
             token: credentialResponse.credential,
           },
         });
+        if (!isEmpty(googleInformation)) {
+          navigate(RoutePath.HOME);
+        }
       } catch (e) {
         console.error('[handleLoginGoogle] | %s', e);
       }

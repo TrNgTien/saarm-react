@@ -21,3 +21,6 @@ export class Statuses {
   static readonly SENT = '107_SENT';
 }
 
+export class RoutePath {
+  static readonly HOME = '/home';
+}
