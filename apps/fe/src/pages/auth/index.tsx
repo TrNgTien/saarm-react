@@ -24,6 +24,7 @@ export const Login: React.FC = () => {
             token: credentialResponse.credential,
           },
         });
+
         if (!isEmpty(googleInformation)) {
           navigate(RoutePath.HOME);
         }

@@ -6,7 +6,7 @@ const Home = () => {
       <div className="bg-[#0A150F] h-2/5 text-white-10 p-4">
         <Banner />
       </div>
-      <div className="h-3/6 text-red-500">Changed</div>
+      <div className="h-3/6 text-red-500">Tien ich</div>
     </div>
   );
 };

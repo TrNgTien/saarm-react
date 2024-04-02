@@ -5,8 +5,8 @@ interface IRequestOptions {
   baseUrl?: string;
   path: string;
   method: keyof typeof EMethods;
-  body?: any;
-  headers?: Record<string, any>;
+  body?: unknown;
+  headers?: Record<string, string>;
   configs?: object;
 }
 
@@ -57,9 +57,7 @@ export class NetworkService {
       const response = await fetch(requestUrl, props);
       const result = await response.json();
 
-      console.log(
-        `[send] Response | Took: ${performance.now() - t}(ms)`,
-      );
+      console.log(`[send] Response | Took: ${performance.now() - t}(ms)`);
 
       return result;
     } catch (e) {

@@ -15,7 +15,7 @@ import {
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env.development'],
+      envFilePath: ['.env'],
     }),
     TypeOrmModule.forRootAsync({
       useClass: TypeOrmConfigService,

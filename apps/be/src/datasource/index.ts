@@ -17,6 +17,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
   constructor(private configService: ConfigService<AllConfigType>) {}
 
   createTypeOrmOptions(): TypeOrmModuleOptions {
+    console.log('[createTypeOrmOptions] ', process.env.DATABASE_PASSWORD)
     return {
       url: process.env.DATABASE_URL,
       type: process.env.DATABASE_TYPE ?? 'postgres',
