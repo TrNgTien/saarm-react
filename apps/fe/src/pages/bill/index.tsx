@@ -1,13 +1,14 @@
 import { Loading } from '@/components';
 import { lazy, Suspense } from 'react';
-const HomeMobile = lazy(() => import('./HomeMobile'));
 
-const Home = () => {
+const BillPage = lazy(() => import('./BillPage'));
+
+const Billing = () => {
   return (
     <Suspense fallback={<Loading />}>
-      <HomeMobile />
+      <BillPage />
     </Suspense>
   );
 };
 
-export default Home;
+export default Billing;

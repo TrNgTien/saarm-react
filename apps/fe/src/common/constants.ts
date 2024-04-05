@@ -22,5 +22,12 @@ export class Statuses {
 }
 
 export class RoutePath {
-  static readonly HOME = '/home';
+  static readonly HOME = '/';
+  static readonly LOGIN = '/login';
+  static readonly REGISTER = '/register';
+  static readonly WATER_METER = '/water-meter';
+  static readonly NOTIFICATION = '/notification';
+  static readonly BILLING = '/billing';
+  static readonly SETTING = '/setting';
+  static readonly UTIL = '/util';
 }

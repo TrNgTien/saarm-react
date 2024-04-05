@@ -12,7 +12,7 @@ interface IUserGoogle {
   firstName: string;
   lastName: string;
 }
-export const Login: React.FC = () => {
+const Login: React.FC = () => {
   const navigate = useNavigate();
   const handleLoginGoogle = useCallback(
     async (credentialResponse: CredentialResponse) => {
@@ -56,3 +56,4 @@ export const Login: React.FC = () => {
     </div>
   );
 };
+export default Login
