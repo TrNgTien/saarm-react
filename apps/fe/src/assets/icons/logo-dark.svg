@@ -1,38 +1,80 @@
-<svg width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_1500_167)">
-<rect width="47" height="47" rx="8" fill="#0A150F"/>
-<g filter="url(#filter0_d_1500_167)">
-<path d="M15.3732 13.2231L34.5941 8.41791V22.8336L15.3732 27.6388V13.2231Z" fill="white" fill-opacity="0.6"/>
-<path d="M23.6087 33.4016L12.6514 38.6207L12.6269 19.4769L23.6087 13.9106V33.4016Z" fill="url(#paint0_linear_1500_167)"/>
-<g style="mix-blend-mode:hard-light">
-<path d="M23.6087 25.5799V33.1315L15.3732 27.6388L23.6087 25.5799Z" fill="#0F5B09"/>
-</g>
-<g style="mix-blend-mode:multiply">
-<path d="M15.3732 13.2231L34.5941 8.41791V22.8336L15.3732 27.6388V13.2231Z" fill="url(#paint1_linear_1500_167)"/>
-</g>
-</g>
-</g>
-<defs>
-<filter id="filter0_d_1500_167" x="0.926862" y="-3.28209" width="53.3672" height="61.6028" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dx="4" dy="4"/>
-<feGaussianBlur stdDeviation="7.85"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.517969 0 0 0 0 0.920833 0 0 0 0 0.517969 0 0 0 0.2 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1500_167"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1500_167" result="shape"/>
-</filter>
-<linearGradient id="paint0_linear_1500_167" x1="18.1178" y1="13.9106" x2="18.1178" y2="38.6207" gradientUnits="userSpaceOnUse">
-<stop stop-color="#3CED00"/>
-<stop offset="1" stop-color="#00ED0B" stop-opacity="0.25"/>
-</linearGradient>
-<linearGradient id="paint1_linear_1500_167" x1="15.5" y1="19.5" x2="36" y2="16.25" gradientUnits="userSpaceOnUse">
-<stop stop-color="#28CC28"/>
-<stop offset="1" stop-color="#28CC28" stop-opacity="0.37"/>
-</linearGradient>
-<clipPath id="clip0_1500_167">
-<rect width="47" height="47" rx="8" fill="white"/>
-</clipPath>
-</defs>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47 47">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0f5b09;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: rgba(255, 255, 255, .6);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-6 {
+        isolation: isolate;
+      }
+
+      .cls-4 {
+        fill: #0a150f;
+      }
+
+      .cls-7 {
+        filter: url(#drop-shadow-1);
+      }
+
+      .cls-8 {
+        mix-blend-mode: hard-light;
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-9 {
+        mix-blend-mode: multiply;
+      }
+    </style>
+    <filter id="drop-shadow-1" filterUnits="userSpaceOnUse">
+      <feOffset dx="4" dy="4"/>
+      <feGaussianBlur result="blur" stdDeviation="10"/>
+      <feFlood flood-color="#84eb84" flood-opacity=".25"/>
+      <feComposite in2="blur" operator="in"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <linearGradient id="linear-gradient" x1="18.12" y1="34.09" x2="18.12" y2="9.38" gradientTransform="translate(0 48) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3ced00"/>
+      <stop offset="1" stop-color="#00ed0b" stop-opacity=".25"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="15.5" y1="28.47" x2="36" y2="31.72" gradientTransform="translate(0 48) scale(1 -1)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#28cc28"/>
+      <stop offset="1" stop-color="#28cc28" stop-opacity=".37"/>
+    </linearGradient>
+  </defs>
+  <g class="cls-6">
+    <g id="Layer_2" data-name="Layer 2">
+      <g id="Layer_1-2" data-name="Layer 1">
+        <g>
+          <rect class="cls-4" width="47" height="47" rx="8" ry="8"/>
+          <g class="cls-7">
+            <path class="cls-2" d="M15.37,13.22l19.22-4.81v14.42l-19.22,4.81v-14.42Z"/>
+            <path class="cls-3" d="M23.61,33.4l-10.96,5.22-.02-19.14,10.98-5.57v19.49Z"/>
+            <g class="cls-8">
+              <path class="cls-1" d="M23.61,25.58v7.55l-8.24-5.49,8.24-2.06Z"/>
+            </g>
+            <g class="cls-9">
+              <path class="cls-5" d="M15.37,13.22l19.22-4.81v14.42l-19.22,4.81v-14.42Z"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
 </svg>

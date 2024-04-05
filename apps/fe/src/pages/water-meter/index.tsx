@@ -1,13 +1,13 @@
 import { Loading } from '@/components';
 import { lazy, Suspense } from 'react';
-const HomeMobile = lazy(() => import('./HomeMobile'));
+const WaterMeterCapture = lazy(() => import('./WaterMeter'));
 
-const Home = () => {
+const WaterMeter = () => {
   return (
     <Suspense fallback={<Loading />}>
-      <HomeMobile />
+      <WaterMeterCapture />
     </Suspense>
   );
 };
 
-export default Home;
+export default WaterMeter;

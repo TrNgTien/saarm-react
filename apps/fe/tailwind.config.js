@@ -10,6 +10,11 @@ module.exports = {
     },
     extend: {
       colors: {
+        zIndex: {
+          100: '100',
+          500: '500',
+          1000: '1000',
+        },
         green: {
           80: '#004701',
           100: '#00920F',
@@ -23,6 +28,7 @@ module.exports = {
         },
         white: {
           10: '#FDFFFE',
+          20: '#D9D9D9',
         },
       },
     },

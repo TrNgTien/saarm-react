@@ -8,11 +8,11 @@ interface IMobileLayoutProps {
 const MobileLayout = (props: IMobileLayoutProps) => {
   const { children } = props;
   return (
-    <React.Fragment>
+    <div>
       <Header />
       {children}
       <BottomNav />
-    </React.Fragment>
+    </div>
   );
 };
 
