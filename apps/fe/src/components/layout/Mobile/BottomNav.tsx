@@ -1,7 +1,6 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
-import { Color, Style } from '@/theme';
-import clsx from 'clsx';
+import { Color } from '@/theme';
 import { useMemo } from 'react';
 import { IconBaseProps } from 'react-icons';
 import {
@@ -11,7 +10,8 @@ import {
 } from 'react-icons/io5';
 import { LuClipboardList as BillIcon } from 'react-icons/lu';
 import { TbMessageCircle2 as MessageIcon } from 'react-icons/tb';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { NavigationItem } from './components/NavigationItems';
 
 interface INavItems {
   id: string;
@@ -114,30 +114,6 @@ const BottomNav = () => {
     ];
   }, [pathname]);
 
-  const NavigationItem = (item: {
-    styleOverride?: string;
-    name?: string;
-    icon?: IconBaseProps;
-    path?: string;
-    onClick: () => void;
-  }) => {
-    const { icon, path, name, styleOverride, onClick } = item;
-
-    return (
-      <div
-        onClick={onClick}
-        className={clsx(
-          `${Style.FLEX_CENTER} flex-col text-black-500 md:text-sm text-xs`,
-          'text-center',
-          !styleOverride ? null : styleOverride,
-          pathname === path && 'text-green-100',
-        )}>
-        <>{icon}</>
-        <p className="mt-6">{name}</p>
-      </div>
-    );
-  };
-
   return (
     <div className={WRAPPER_BOTTOM_NAV}>
       {navItems.map((i) => {
@@ -148,7 +124,6 @@ const BottomNav = () => {
             <NavigationItem
               key={id}
               styleOverride="text-black-900 font-semibold"
-              name={name}
               icon={icon}
               onClick={() =>
                 navigate(path, {
@@ -156,25 +131,26 @@ const BottomNav = () => {
                     headerTitle: 'Chụp ảnh',
                   },
                 })
-              }
-            />
+              }>
+              <p className="mt-6">{name}</p>
+            </NavigationItem>
           );
         }
 
         return (
-          <Link key={id} to={path}>
-            <div
-              className={clsx(
-                'flex flex-col items-center justify-center',
-                'text-black-500',
-                'md:text-sm text-xs',
-                'text-center',
-                pathname === path && 'text-green-100',
-              )}>
-              <>{icon}</>
-              <p> {name}</p>
-            </div>
-          </Link>
+          <NavigationItem
+            key={id}
+            styleOverride="text-black-500"
+            icon={icon}
+            onClick={() =>
+              navigate(path, {
+                state: {
+                  headerTitle: 'Chụp ảnh',
+                },
+              })
+            }>
+            <p>{name}</p>
+          </NavigationItem>
         );
       })}
     </div>
