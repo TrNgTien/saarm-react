@@ -1,8 +1,10 @@
 import WaterMeter from '@/assets/icons/water-meter.svg';
 import { RoutePath } from '@/common/constants';
 import { Link, useNavigate } from 'react-router-dom';
+
 export const Banner = () => {
   const navigate = useNavigate();
+
   return (
     <div
       className="rounded-2xl flex items-center justify-between bg-white-10 h-2/6"
@@ -17,7 +19,7 @@ export const Banner = () => {
           Chụp ảnh
         </Link>
       </div>
-      <img src={WaterMeter} className="rounded-2xl h-full" />
+      <img src={WaterMeter} loading="lazy" className="rounded-2xl h-full" />
     </div>
   );
 };

@@ -26,6 +26,7 @@ export class RoutePath {
   static readonly LOGIN = '/login';
   static readonly REGISTER = '/register';
   static readonly WATER_METER = '/water-meter';
+  static readonly MESSAGE = '/message';
   static readonly NOTIFICATION = '/notification';
   static readonly BILLING = '/billing';
   static readonly SETTING = '/setting';
