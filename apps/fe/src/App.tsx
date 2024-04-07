@@ -9,6 +9,7 @@ import {
   WaterMeter,
 } from './pages';
 import { HomeMobile } from './pages/home';
+import MessagePage from './pages/message/MessagePage';
 
 const routes: RouteProps[] = [
   {
@@ -27,11 +28,8 @@ const routes: RouteProps[] = [
   },
   {
     id: 'water-meter',
-    element: (
-      <MobileLayout>
-        <WaterMeter />
-      </MobileLayout>
-    ),
+    element: <WaterMeter />,
+
     path: RoutePath.WATER_METER,
   },
   {
@@ -51,6 +49,15 @@ const routes: RouteProps[] = [
       </MobileLayout>
     ),
     path: RoutePath.NOTIFICATION,
+  },
+  {
+    id: 'message-mobile',
+    element: (
+      <MobileLayout>
+        <MessagePage />
+      </MobileLayout>
+    ),
+    path: RoutePath.MESSAGE,
   },
   {
     id: 'setting',

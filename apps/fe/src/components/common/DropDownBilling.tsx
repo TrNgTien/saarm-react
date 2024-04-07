@@ -5,7 +5,7 @@ import { MoneyText } from '../text';
 export const DropDownBilling = (props: { value: string }) => {
   const { value } = props;
   return (
-    <div className="flex w-full items-center p-4 shadow-md border border-white-10 rounded-lg overflow-y-auto">
+    <div className="flex w-full items-center p-4 shadow-md border border-white-20 rounded-lg overflow-y-auto">
       <div className="p-2 bg-green-200 rounded-full ml-2 mr-4">
         <HomeIcon size={24} strokeWidth={0.5} color={Color.BLACK} />
       </div>

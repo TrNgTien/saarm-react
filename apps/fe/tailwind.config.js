@@ -3,7 +3,7 @@ module.exports = {
   content: ['./src/**/*.{html,js,ts,tsx,jsx}'],
   theme: {
     screens: {
-      sm: '480px',
+      sm: '375px',
       md: '768px',
       lg: '976px',
       xl: '1440px',
@@ -23,6 +23,7 @@ module.exports = {
           900: '#00920F',
         },
         black: {
+          400: '#777474',
           500: '#999798',
           900: '#0A150F',
         },

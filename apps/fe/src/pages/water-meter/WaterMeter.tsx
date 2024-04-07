@@ -1,5 +1,14 @@
+import { PageHeader } from '@/components';
+import { Location, useLocation } from 'react-router-dom';
+
 const WaterMeter = () => {
-  return <div>WaterMeter</div>;
+  const { state }: Location<{ headerTitle: string }> = useLocation();
+
+  return (
+    <div>
+      <PageHeader title={state.headerTitle} />
+    </div>
+  );
 };
 
 export default WaterMeter;

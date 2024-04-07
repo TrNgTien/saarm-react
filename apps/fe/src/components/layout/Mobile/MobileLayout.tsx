@@ -1,17 +1,18 @@
 import React from 'react';
 import BottomNav from './BottomNav';
-import Header from './Header';
+import Header from './headers/HomeHeader';
 
 interface IMobileLayoutProps {
   children: React.ReactNode;
+  hasNav?: boolean;
 }
 const MobileLayout = (props: IMobileLayoutProps) => {
-  const { children } = props;
+  const { children, hasNav = true } = props;
   return (
     <div>
       <Header />
       {children}
-      <BottomNav />
+      {hasNav && <BottomNav />}
     </div>
   );
 };
