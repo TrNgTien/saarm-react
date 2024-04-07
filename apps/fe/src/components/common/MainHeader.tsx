@@ -1,7 +1,7 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
 import { Color, Style } from '@/theme';
-import { FaArrowLeft as BackIcon } from 'react-icons/fa';
+import { IoIosArrowBack as BackIcon } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 
 export const PageHeader = (props: {
@@ -21,7 +21,9 @@ export const PageHeader = (props: {
         onClick={() => navigate(-1)}>
         <BackIcon />
       </IconWrapper>
-      <p className="text-white-20 text-lg font-extrabold flex-1 text-center">{title}</p>
+      <p className="text-white-20 text-lg font-extrabold flex-1 text-center">
+        {title}
+      </p>
       {actionIcon && (
         <IconWrapper
           size={24}

@@ -1,5 +1,6 @@
 import { Style } from '@/theme';
 import React from 'react';
+import { IoIosArrowForward as RightArrow } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 
 interface IProps {
@@ -14,9 +15,9 @@ export const ShowMore = (props: IProps) => {
     <React.Fragment>
       <div className={`${Style.FLEX_BETWEEN}`}>
         <h1 className="font-semibold">{title}</h1>
-        <Link className="flex" to={path}>
-          <p className="underline underline-offset-1 mr-1">{navigateTitle}</p>
-          &gt;
+        <Link className={Style.FLEX_CENTER} to={path}>
+          <p className="font-medium">{navigateTitle}</p>
+          <RightArrow />
         </Link>
       </div>
       {children}
