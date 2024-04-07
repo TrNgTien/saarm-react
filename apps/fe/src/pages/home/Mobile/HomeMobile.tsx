@@ -52,7 +52,7 @@ const HomeMobile = () => {
         </ShowMore>
         <div className="mt-2">
           <ShowMore path={RoutePath.UTIL} title={'Hóa đơn gần đây'}>
-            <div className="max-h-40 overflow-auto">
+            <div className="max-h-60 overflow-auto">
               {utilityItems.map((i, idx) => {
                 const { id } = i;
                 return (

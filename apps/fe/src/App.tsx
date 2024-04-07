@@ -72,13 +72,15 @@ const routes: RouteProps[] = [
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        {routes.map((r) => (
-          <Route key={r.id} path={r.path} element={r.element} />
-        ))}
-      </Routes>
-    </BrowserRouter>
+    <div className="h-full">
+      <BrowserRouter>
+        <Routes>
+          {routes.map((r) => (
+            <Route key={r.id} path={r.path} element={r.element} />
+          ))}
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 };
 

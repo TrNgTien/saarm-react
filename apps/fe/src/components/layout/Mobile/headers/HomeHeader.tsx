@@ -9,7 +9,7 @@ const Header = () => {
 
   return (
     <div
-      className={`${Style.STICKY_FLEX} p-4 bg-[#0A150F] leading-4 ${Style.Z_INDEX}`}>
+      className={`${Style.FLEX_BETWEEN} p-4 bg-[#0A150F] leading-4 ${Style.Z_INDEX}`}>
       <div className={Style.FLEX_CENTER}>
         <img
           src={
