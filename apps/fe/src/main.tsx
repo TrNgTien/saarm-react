@@ -6,11 +6,17 @@ import { EnvironmentVariables } from './common';
 import './index.css';
 import { environment } from './utils';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <GoogleOAuthProvider
-      clientId={environment.get(EnvironmentVariables.APP_GOOGLE_CLIENT_ID)}>
-      <App />
-    </GoogleOAuthProvider>
-  </React.StrictMode>,
-);
+const rootDom = ReactDOM.createRoot(document.getElementById('root')!);
+
+const MainApplication = () => {
+  return (
+    <React.StrictMode>
+      <GoogleOAuthProvider
+        clientId={environment.get(EnvironmentVariables.APP_GOOGLE_CLIENT_ID)}>
+        <App />
+      </GoogleOAuthProvider>
+    </React.StrictMode>
+  );
+};
+
+rootDom.render(<MainApplication />);
