@@ -12,16 +12,15 @@ export const PageHeader = (props: {
   const navigate = useNavigate();
 
   return (
-    <div
-      className={`${Style.STICKY_FLEX} p-4 bg-[#0A150F] leading-4 ${Style.Z_INDEX}`}>
+    <div className={`${Style.STICKY_FLEX} p-4 leading-4 ${Style.Z_INDEX} text-black-900`}>
       <IconWrapper
         size={24}
         hasAmount={false}
-        color={Color.MAIN_WHITE}
+        color={Color.BLACK_900}
         onClick={() => navigate(-1)}>
         <BackIcon />
       </IconWrapper>
-      <p className="text-white-20 text-lg font-extrabold flex-1 text-center">
+      <p className="text-lg font-semibold flex-1 text-center">
         {title}
       </p>
       {actionIcon && (

@@ -63,14 +63,14 @@ const HomeMobile = () => {
             })}
           </div>
         </ShowMore>
-        <div className="mt-8">
+        <div className="xs:mt-4 mt-8">
           <ShowMore path={RoutePath.UTIL} title={'Hóa đơn gần đây'}>
-            <div className="max-h-60 overflow-auto">
+            <div className="xs:max-h-28 sm:max-h-60 overflow-auto">
               {utilityItems.map((i, idx) => {
                 const { id } = i;
                 return (
                   <div className="my-2" key={`${id}-${idx}`}>
-                    <DropDownBilling value={'200000'} />
+                    <DropDownBilling value={'20000000'} />
                   </div>
                 );
               })}

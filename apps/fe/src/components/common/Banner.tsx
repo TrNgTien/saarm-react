@@ -15,11 +15,11 @@ export const Banner = () => {
           },
         })
       }>
-      <div className="text-black-900 pl-6">
+      <div className="text-black-900 ml-6">
         <p className="font-medium leading-5 mb-1">
           Đã đến hạn cập nhật chỉ số nước!
         </p>
-        <span className="bg-green-80 py-1 px-4 text-white-10 text-xs rounded-lg">
+        <span className="bg-green-80 py-1 px-4 text-white-10 text-xs rounded-md">
           Chụp ảnh
         </span>
       </div>
