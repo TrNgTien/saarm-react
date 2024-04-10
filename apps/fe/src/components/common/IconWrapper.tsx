@@ -12,7 +12,7 @@ export const IconWrapper = (props: {
   return (
     <div className="relative">
       {hasAmount && (
-        <p className="absolute text-white-10 text-xs font-semibold bg-red-500 rounded-full right-[-4px] top-[-6px] px-1">
+        <p className="absolute text-white-10 text-xs font-semibold bg-red-500 rounded-full right-[-4px] top-[-6px] px-1.5">
           3
         </p>
       )}

@@ -1,10 +1,10 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
+import { CameraButton } from '@/components/feat';
 import { Color } from '@/theme';
 import { useMemo } from 'react';
 import { IconBaseProps } from 'react-icons';
 import {
-  IoCameraOutline as Camera,
   IoHomeOutline as HomeIcon,
   IoSettingsOutline as SettingIcon,
 } from 'react-icons/io5';
@@ -76,13 +76,7 @@ const BottomNav = () => {
         name: 'Chụp số nước',
         headerTitle: 'Chụp ảnh',
         path: RoutePath.WATER_METER,
-        icon: (
-          <div className="rounded-full bg-black-900 p-6 absolute xs:p-4 top-[-2rem] border-4 border-t- border-white-20">
-            <IconWrapper size={24} color={Color.MAIN_WHITE}>
-              <Camera />
-            </IconWrapper>
-          </div>
-        ),
+        icon: <CameraButton />,
       },
       {
         id: 'message',

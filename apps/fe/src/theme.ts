@@ -4,6 +4,7 @@ export class Color {
   // black
   static readonly BLACK = '#0A150F';
   static readonly BLACK_500 = '#999798';
+  static readonly BLACK_900 = '#0A150F';
 
   //white
   //
