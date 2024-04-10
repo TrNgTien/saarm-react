@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 sh ./clean.sh
 
 echo "Install packages...."
-npm 
+npm ci
 
 echo "Building application...!"
 npm run build:dev
