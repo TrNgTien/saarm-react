@@ -3,7 +3,7 @@ import Citizen from '@/assets/icons/citizen.svg';
 import Statistic from '@/assets/icons/statistic.svg';
 import UpdateWater from '@/assets/icons/update-water.svg';
 import { RoutePath } from '@/common/constants';
-import { Banner, DropDownBilling } from '@/components';
+import { Banner, DropDownBilling, IconImage } from '@/components';
 import { UtilityCircle } from '@/components/common/UtilityCircle';
 import { ShowMore } from '@/components/layout/ShowMoreList';
 import { Style } from '@/theme';
@@ -14,36 +14,23 @@ const ICON_STYLE = 'bg-green-200 rounded-full p-2 h-14';
 const utilityItems = [
   {
     id: 'update-water-meter',
-    name: 'Cap nhật đồng hồ nước',
-    icon: (
-      <img
-        alt={'icon'}
-        src={UpdateWater}
-        loading="lazy"
-        className={ICON_STYLE}
-      />
-    ),
+    name: 'Cập nhật đồng hồ nước',
+    icon: <IconImage src={UpdateWater} styles={ICON_STYLE} />,
   },
   {
     id: 'bill',
     name: 'Thanh toán tiền nhà',
-    icon: (
-      <img alt={'icon'} src={Billing} loading="lazy" className={ICON_STYLE} />
-    ),
+    icon: <IconImage src={Billing} styles={ICON_STYLE} />,
   },
   {
     id: 'citizen',
-    name: 'Thong tin lưu trú',
-    icon: (
-      <img alt={'icon'} src={Citizen} loading="lazy" className={ICON_STYLE} />
-    ),
+    name: 'Thông tin lưu trú',
+    icon: <IconImage src={Citizen} styles={ICON_STYLE} />,
   },
   {
     id: 'statistic',
     name: 'Thống kê chi phí',
-    icon: (
-      <img alt={'icon'} src={Statistic} loading="lazy" className={ICON_STYLE} />
-    ),
+    icon: <IconImage src={Statistic} styles={ICON_STYLE} />,
   },
 ];
 
