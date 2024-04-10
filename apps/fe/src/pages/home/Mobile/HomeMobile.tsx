@@ -14,23 +14,36 @@ const ICON_STYLE = 'bg-green-200 rounded-full p-2 h-14';
 const utilityItems = [
   {
     id: 'update-water-meter',
-    name: 'Cap nhat dong ho nuoc',
-    icon: <img src={UpdateWater} loading="lazy" className={ICON_STYLE} />,
+    name: 'Cap nhật đồng hồ nước',
+    icon: (
+      <img
+        alt={'icon'}
+        src={UpdateWater}
+        loading="lazy"
+        className={ICON_STYLE}
+      />
+    ),
   },
   {
     id: 'bill',
-    name: 'Thanh toan tien nha',
-    icon: <img src={Billing} loading="lazy" className={ICON_STYLE} />,
+    name: 'Thanh toán tiền nhà',
+    icon: (
+      <img alt={'icon'} src={Billing} loading="lazy" className={ICON_STYLE} />
+    ),
   },
   {
     id: 'citizen',
-    name: 'Thong tin luu tru',
-    icon: <img src={Citizen} loading="lazy" className={ICON_STYLE} />,
+    name: 'Thong tin lưu trú',
+    icon: (
+      <img alt={'icon'} src={Citizen} loading="lazy" className={ICON_STYLE} />
+    ),
   },
   {
     id: 'statistic',
-    name: 'Thong ke chi phi',
-    icon: <img src={Statistic} loading="lazy" className={ICON_STYLE} />,
+    name: 'Thống kê chi phí',
+    icon: (
+      <img alt={'icon'} src={Statistic} loading="lazy" className={ICON_STYLE} />
+    ),
   },
 ];
 
@@ -41,7 +54,7 @@ const HomeMobile = () => {
         {true ? <Banner /> : null}
         <CurrentBill />
       </div>
-      <div className="mt-8 text-black-900 p-4">
+      <div className="xs:mt-14 mt-8 text-black-900 p-4">
         <ShowMore path={RoutePath.UTIL} title={'Tiện ích'}>
           <div className={`${Style.FLEX_BETWEEN} pt-2`}>
             {utilityItems.map((i) => {
@@ -50,7 +63,7 @@ const HomeMobile = () => {
             })}
           </div>
         </ShowMore>
-        <div className="mt-2">
+        <div className="mt-8">
           <ShowMore path={RoutePath.UTIL} title={'Hóa đơn gần đây'}>
             <div className="max-h-60 overflow-auto">
               {utilityItems.map((i, idx) => {

@@ -14,9 +14,9 @@ export const ShowMore = (props: IProps) => {
   return (
     <React.Fragment>
       <div className={`${Style.FLEX_BETWEEN}`}>
-        <h1 className="font-semibold">{title}</h1>
+        <h1 className="xs:text-sm font-semibold">{title}</h1>
         <Link className={Style.FLEX_CENTER} to={path}>
-          <p className="font-medium">{navigateTitle}</p>
+          <p className="xs:text-sm font-medium">{navigateTitle}</p>
           <RightArrow />
         </Link>
       </div>

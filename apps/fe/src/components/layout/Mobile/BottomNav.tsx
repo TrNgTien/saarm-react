@@ -18,11 +18,13 @@ interface INavItems {
   name: string;
   icon: IconBaseProps;
   path: string;
+  headerTitle?: string;
 }
 
 const WRAPPER_BOTTOM_NAV = `border-2
                  fixed
                  flex
+                 xs:p-4
                  p-8
                  items-center
                  bottom-0
@@ -72,9 +74,10 @@ const BottomNav = () => {
       {
         id: 'camera',
         name: 'Chụp số nước',
+        headerTitle: 'Chụp ảnh',
         path: RoutePath.WATER_METER,
         icon: (
-          <div className="rounded-full bg-black-900 p-6 absolute top-[-2rem] border-4 border-t- border-white-20">
+          <div className="rounded-full bg-black-900 p-6 absolute xs:p-4 top-[-2rem] border-4 border-t- border-white-20">
             <IconWrapper size={24} color={Color.MAIN_WHITE}>
               <Camera />
             </IconWrapper>
@@ -117,7 +120,7 @@ const BottomNav = () => {
   return (
     <div className={WRAPPER_BOTTOM_NAV}>
       {navItems.map((i) => {
-        const { icon, path, name, id } = i;
+        const { icon, path, name, id, headerTitle } = i;
 
         if (id === 'camera') {
           return (
@@ -132,7 +135,7 @@ const BottomNav = () => {
                   },
                 })
               }>
-              <p className="mt-6">{name}</p>
+              <p className="xs:text-xs mt-6">{name}</p>
             </NavigationItem>
           );
         }
@@ -145,11 +148,11 @@ const BottomNav = () => {
             onClick={() =>
               navigate(path, {
                 state: {
-                  headerTitle: 'Chụp ảnh',
+                  headerTitle,
                 },
               })
             }>
-            <p>{name}</p>
+            <p className="xs:text-xs">{name}</p>
           </NavigationItem>
         );
       })}

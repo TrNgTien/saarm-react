@@ -12,7 +12,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/naming-convention': 'off',
-    '@typescript-eslint/return-await': 'warn',
+    '@typescript-eslint/return-await': 'error',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-inferrable-types': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
