@@ -6,10 +6,13 @@ cd "$(dirname "$0")"
 
 sh ./clean.sh
 
+echo "Install yarn...."
+npm i -g yarn
+
 echo "Install packages...."
-npm ci
+yarn install
 
 echo "Building application...!"
-npm run build:dev
+yarn build:dev
 
 echo "Building Done......"
