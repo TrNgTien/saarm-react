@@ -7,15 +7,9 @@ export const Banner = () => {
 
   return (
     <div
-      className="rounded-2xl flex items-center justify-between bg-white-10 h-2/6"
-      onClick={() =>
-        navigate(RoutePath.WATER_METER, {
-          state: {
-            headerTitle: 'Chụp ảnh',
-          },
-        })
-      }>
-      <div className="text-black-900 ml-6">
+      className="rounded-2xl flex items-center justify-between bg-white-10 h-2/5"
+      onClick={() => navigate(RoutePath.WATER_METER)}>
+      <div className="text-black-900 ml-6 pt-1 h-full">
         <p className="font-medium leading-5 mb-1">
           Đã đến hạn cập nhật chỉ số nước!
         </p>

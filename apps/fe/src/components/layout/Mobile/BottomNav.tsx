@@ -1,10 +1,11 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
-import { CameraButton } from '@/components/feat';
 import { Color } from '@/theme';
+import clsx from 'clsx';
 import { useMemo } from 'react';
 import { IconBaseProps } from 'react-icons';
 import {
+  IoCameraOutline as Camera,
   IoHomeOutline as HomeIcon,
   IoSettingsOutline as SettingIcon,
 } from 'react-icons/io5';
@@ -20,20 +21,6 @@ interface INavItems {
   path: string;
   headerTitle?: string;
 }
-
-const WRAPPER_BOTTOM_NAV = `border-2
-                 fixed
-                 flex
-                 xs:p-4
-                 p-8
-                 items-center
-                 bottom-0
-                 bg-white-10
-                 w-full
-                 rounded-t-3xl
-                 justify-between
-                 lg:hidden
-                 `;
 
 const BottomNav = () => {
   const { pathname = '' } = useLocation();
@@ -76,7 +63,13 @@ const BottomNav = () => {
         name: 'Chụp số nước',
         headerTitle: 'Chụp ảnh',
         path: RoutePath.WATER_METER,
-        icon: <CameraButton />,
+        icon: (
+          <div className="rounded-full bg-black-900 p-6 absolute xs:p-4 top-[-2rem] border-4 border-white-20">
+            <IconWrapper size={24} color={Color.MAIN_WHITE}>
+              <Camera />
+            </IconWrapper>
+          </div>
+        ),
       },
       {
         id: 'message',
@@ -112,10 +105,11 @@ const BottomNav = () => {
   }, [pathname]);
 
   return (
-    <div className={WRAPPER_BOTTOM_NAV}>
+    <div className="border-2 fixed flex xs:p-4 sm:p-6 items-center bottom-0 bg-white-10 w-full rounded-t-3xl justify-between lg:hidden">
       {navItems.map((i) => {
         const { icon, path, name, id, headerTitle } = i;
 
+        console.log(pathname === path ? 'text-green-80' : 'text-black-500');
         if (id === 'camera') {
           return (
             <NavigationItem
@@ -146,7 +140,13 @@ const BottomNav = () => {
                 },
               })
             }>
-            <p className="xs:text-xs">{name}</p>
+            <p
+              className={clsx(
+                'xs:text-xs',
+                pathname === path ? 'text-green-100' : 'text-black-500',
+              )}>
+              {name}
+            </p>
           </NavigationItem>
         );
       })}

@@ -41,7 +41,7 @@ const HomeMobile = () => {
         {true ? <Banner /> : null}
         <CurrentBill />
       </div>
-      <div className="xs:mt-14 mt-8 text-black-900 p-4">
+      <div className="xs:mt-20 mt-8 text-black-900 p-4">
         <ShowMore path={RoutePath.UTIL} title={'Tiện ích'}>
           <div className={`${Style.FLEX_BETWEEN} pt-2`}>
             {utilityItems.map((i) => {
