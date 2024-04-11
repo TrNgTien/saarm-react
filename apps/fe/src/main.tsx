@@ -1,5 +1,5 @@
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { EnvironmentVariables } from './common';
@@ -9,7 +9,6 @@ import { environment } from './utils';
 const rootDom = ReactDOM.createRoot(document.getElementById('root')!);
 
 const MainApplication = () => {
-
   return (
     <React.StrictMode>
       <GoogleOAuthProvider
