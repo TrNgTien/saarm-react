@@ -9,9 +9,6 @@ import { environment } from './utils';
 const rootDom = ReactDOM.createRoot(document.getElementById('root')!);
 
 const MainApplication = () => {
-  useEffect(() => {
-    window.location.reload();
-  }, []);
 
   return (
     <React.StrictMode>
