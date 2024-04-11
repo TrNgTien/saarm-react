@@ -8,11 +8,9 @@ import { IoCameraOutline as Camera } from 'react-icons/io5';
 import 'react-image-crop/dist/ReactCrop.css';
 import Webcam from 'react-webcam';
 
-console.log('checking ', window.innerHeight * 10);
-
 const WaterMeter = () => {
   const webcamRef = useRef<any>(null);
-  const [imgSrc, setImgSrc] = useState(null);
+  // const [imgSrc, setImgSrc] = useState(null);
   const [isFrontCamera, setIsFrontCamera] = useState<boolean>(true);
 
   const videoConstraints = useMemo(() => {
@@ -80,20 +78,3 @@ const WaterMeter = () => {
 };
 
 export default WaterMeter;
-
-// <ReactCrop
-//   locked
-//   onDragStart={() => {}}
-//   onDragEnd={() => {}}
-//   crop={crop}
-//   onChange={(c) => setCrop(c)}>
-//   <Webcam
-//     audio={false}
-//     height={720}
-//     ref={webcamRef}
-//     screenshotFormat="image/jpeg"
-//     width={1280}
-//     videoConstraints={videoConstraints}
-//   />
-// </ReactCrop>
-// <button onClick={capture}>Capture photo</button>
