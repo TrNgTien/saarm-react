@@ -43,4 +43,7 @@ jobs:
 
             docker restart fe_develop
 
+            echo "Restarting Nginx..."
+            systemctl restart nginx
+
             echo "DONE"
