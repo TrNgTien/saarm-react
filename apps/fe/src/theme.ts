@@ -14,8 +14,10 @@ export class Color {
 export class Style {
   static readonly FLEX_CENTER = 'flex items-center justify-center';
   static readonly FLEX_BETWEEN = 'flex items-center justify-between';
+  static readonly FLEX_AROUND = 'flex items-center justify-around';
   static readonly FIXED_FLEX = `fixed ${this.FLEX_BETWEEN} top-0`;
   static readonly STICKY_FLEX = `sticky ${this.FLEX_BETWEEN} top-0`;
+  static readonly FLEX_COL_CENTER = 'flex flex-col items-center';
 
   static readonly Z_INDEX = {
     100: 'z-100',

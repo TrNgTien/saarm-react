@@ -35,7 +35,7 @@ const Header = () => {
           }
           loading="lazy"
           alt={'Avatar'}
-          className="ml-2 w-8 h-8 rounded-full object-cover border border-white-20 bg-gray-200"
+          className="ml-2 size-8 rounded-full object-cover border border-white-20 bg-gray-200"
         />
       </div>
     </div>
