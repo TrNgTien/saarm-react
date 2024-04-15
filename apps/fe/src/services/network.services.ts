@@ -7,7 +7,7 @@ interface IRequestOptions {
   method: keyof typeof EMethods;
   body?: unknown;
   headers?: Record<string, string>;
-  configs?: object;
+  configs?: Record<string, unknown>;
 }
 
 export class NetworkService {

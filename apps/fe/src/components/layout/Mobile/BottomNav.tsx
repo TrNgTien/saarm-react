@@ -20,6 +20,7 @@ interface INavItems {
   icon: IconBaseProps;
   path: string;
   headerTitle?: string;
+  disable?: boolean;
 }
 
 const BottomNav = () => {
@@ -64,7 +65,7 @@ const BottomNav = () => {
         headerTitle: 'Chụp ảnh',
         path: RoutePath.WATER_METER,
         icon: (
-          <div className="rounded-full bg-black-900 p-6 absolute xs:p-4 top-[-2rem] border-4 border-white-20">
+          <div className="rounded-full bg-black-900 p-6 absolute xs:p-4 top-[-2rem] border-4 border-white-900">
             <IconWrapper size={24} color={Color.MAIN_WHITE}>
               <Camera />
             </IconWrapper>
@@ -74,11 +75,11 @@ const BottomNav = () => {
       {
         id: 'message',
         name: 'Tin nhắn',
+        disable: true,
         path: RoutePath.MESSAGE,
         icon: (
           <IconWrapper
             size={24}
-            hasAmount
             color={
               pathname === RoutePath.MESSAGE ? Color.PRIMARY : Color.BLACK_500
             }>
@@ -90,6 +91,7 @@ const BottomNav = () => {
         id: 'settings',
         name: 'Cài Đặt',
         path: RoutePath.SETTING,
+        disable: true,
         icon: (
           <IconWrapper
             size={24}
@@ -105,24 +107,25 @@ const BottomNav = () => {
   }, [pathname]);
 
   return (
-    <div className="border-2 fixed flex xs:p-4 sm:p-6 items-center bottom-0 bg-white-10 w-full rounded-t-3xl justify-between lg:hidden">
+    <div className="fixed flex xs:p-4 sm:p-6 items-center bottom-0 bg-[#F1F1F1] w-full rounded-t-3xl justify-between lg:hidden">
       {navItems.map((i) => {
-        const { icon, path, name, id, headerTitle } = i;
+        const { icon, path, name, id, headerTitle, disable } = i;
 
-        console.log(pathname === path ? 'text-green-80' : 'text-black-500');
         if (id === 'camera') {
           return (
             <NavigationItem
               key={id}
               styleOverride="text-black-900 font-semibold"
               icon={icon}
-              onClick={() =>
-                navigate(path, {
-                  state: {
-                    headerTitle: 'Chụp ảnh',
-                  },
-                })
-              }>
+              onClick={() => {
+                if (!disable) {
+                  navigate(path, {
+                    state: {
+                      headerTitle: 'Chụp ảnh',
+                    },
+                  });
+                }
+              }}>
               <p className="xs:text-xs mt-6">{name}</p>
             </NavigationItem>
           );
@@ -133,13 +136,15 @@ const BottomNav = () => {
             key={id}
             styleOverride="text-black-500"
             icon={icon}
-            onClick={() =>
-              navigate(path, {
-                state: {
-                  headerTitle,
-                },
-              })
-            }>
+            onClick={() => {
+              if (!disable) {
+                navigate(path, {
+                  state: {
+                    headerTitle,
+                  },
+                });
+              }
+            }}>
             <p
               className={clsx(
                 'xs:text-xs',
