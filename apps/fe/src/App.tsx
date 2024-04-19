@@ -5,17 +5,30 @@ import {
   BillPage,
   LoginPage,
   Notification,
+  RegisterPage,
   SettingMobile,
   WaterMeter,
+  WelcomePage,
 } from './pages';
 import { HomeMobile } from './pages/home';
 import MessagePage from './pages/message/MessagePage';
 
 const routes: RouteProps[] = [
   {
+    id: 'welcome',
+    element: <WelcomePage />,
+    path: RoutePath.WELCOME,
+    index: true,
+  },
+  {
     id: 'login',
     element: <LoginPage />,
     path: RoutePath.LOGIN,
+  },
+  {
+    id: 'register',
+    element: <RegisterPage />,
+    path: RoutePath.REGISTER,
   },
   {
     id: 'home',
@@ -76,7 +89,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {routes.map((r) => (
-            <Route key={r.id} path={r.path} element={r.element} />
+            <Route key={r.id} {...r} />
           ))}
         </Routes>
       </BrowserRouter>
