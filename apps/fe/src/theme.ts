@@ -1,5 +1,6 @@
 export class Color {
   static readonly PRIMARY = '#00920F';
+  static readonly PRIMARY_200 = '#B6FF92';
 
   // black
   static readonly BLACK = '#0A150F';
@@ -12,6 +13,7 @@ export class Color {
 }
 
 export class Style {
+  static readonly FLEX_ALIGN_CENTER = 'flex items-center';
   static readonly FLEX_CENTER = 'flex items-center justify-center';
   static readonly FLEX_BETWEEN = 'flex items-center justify-between';
   static readonly FLEX_AROUND = 'flex items-center justify-around';

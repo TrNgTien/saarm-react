@@ -10,7 +10,7 @@ class Environment {
   }
 
   //-------------------------------------------------------------------------
-  get(key: string, defaultValue?: unknown) {
+  get(key: string, defaultValue?: unknown): string {
     return import.meta.env[key] ?? defaultValue;
   }
 }
