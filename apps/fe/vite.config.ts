@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
-import { splitVendorChunkPlugin, UserConfig } from 'vite';
+import { UserConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import { VitePWA } from 'vite-plugin-pwa';
 
@@ -11,11 +11,27 @@ export default (): UserConfig => {
         '@': resolve('src/'),
       },
     },
+
     build: {
       minify: true,
-      reportCompressedSize: false,
       sourcemap: false,
+      reportCompressedSize: false,
+      rollupOptions: {
+        external: [/^\/fonts*:.*/, /^\/locales*:.*/],
+        output: {
+          manualChunks: (id: string) => {
+            if (id.includes('node_modules')) {
+              return 'vendor_saarm';
+            }
+          },
+        },
+      },
+      cssCodeSplit: true,
+      emptyOutDir: true,
+      manifest: true,
+      chunkSizeWarningLimit: 626,
     },
+
     plugins: [
       VitePWA({
         registerType: 'autoUpdate',
@@ -29,7 +45,6 @@ export default (): UserConfig => {
           enabled: false,
         },
       }),
-      splitVendorChunkPlugin(),
       react(),
       checker({
         overlay: { initialIsOpen: false },
