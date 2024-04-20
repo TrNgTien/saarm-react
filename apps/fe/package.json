@@ -51,6 +51,7 @@
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
     "vite-plugin-checker": "^0.6.2",
+    "vite-plugin-inspect": "^0.8.3",
     "vite-plugin-pwa": "^0.19.7"
   }
 }

@@ -2,6 +2,7 @@ import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
 import { UserConfig } from 'vite';
 import checker from 'vite-plugin-checker';
+import Inspect from 'vite-plugin-inspect';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default (): UserConfig => {
@@ -37,6 +38,7 @@ export default (): UserConfig => {
         registerType: 'autoUpdate',
         injectRegister: 'auto',
         workbox: {
+          cleanupOutdatedCaches: false,
           globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         },
         //Will have the Web App Manifest and the generated service worker
@@ -46,6 +48,7 @@ export default (): UserConfig => {
         },
       }),
       react(),
+      Inspect(),
       checker({
         overlay: { initialIsOpen: false },
         typescript: true,
