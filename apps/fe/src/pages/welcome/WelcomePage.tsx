@@ -12,7 +12,7 @@ const WelcomePage: React.FC = () => {
   return (
     <div className="p-4">
       <div className={clsx(Style.FLEX_ALIGN_CENTER, 'mb-8')}>
-        <img src={LogoDark} width={32} height={32} />
+        <img src={LogoDark} width={32} height={32} loading="lazy" />
         <h1 className="font-bold text-xl ml-2">Placepad</h1>
       </div>
       <div className="p-4 text-center">
