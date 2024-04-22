@@ -142,9 +142,7 @@ const AuthPage: React.FC = () => {
       <Button
         title={'Đăng nhập'}
         titleStyles="text-black-100 font-semibold text-sm"
-        onClick={() => {
-          handleBasicLogin();
-        }}
+        onClick={handleBasicLogin}
         btnStyles={'bg-green-300 text-black-100 font-semibold text-sm'}
       />
       <div className={clsx(Styles.FLEX_CENTER, 'mt-2')}>
