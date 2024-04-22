@@ -85,7 +85,7 @@ const routes: RouteProps[] = [
 
 const App = () => {
   return (
-    <div className="h-full">
+    <div className="h-screen bg-[#FBFBFB]">
       <BrowserRouter>
         <Routes>
           {routes.map((r) => (

@@ -1,4 +1,4 @@
-import { Style } from '@/theme';
+import { Styles } from '@/theme';
 import clsx from 'clsx';
 import { IconBaseProps } from 'react-icons';
 import { useLocation } from 'react-router-dom';
@@ -17,7 +17,7 @@ export const NavigationItem = (item: {
     <div
       onClick={onClick}
       className={clsx(
-        `${Style.FLEX_CENTER} flex-col text-black-500 md:text-sm text-xs text-center`,
+        `${Styles.FLEX_CENTER} flex-col text-black-500 md:text-sm text-xs text-center`,
         styleOverride && styleOverride,
         pathname === path && 'text-green-100',
       )}>

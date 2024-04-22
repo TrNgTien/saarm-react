@@ -1,6 +1,6 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
-import { Color, Style } from '@/theme';
+import { Color, Styles } from '@/theme';
 import { IoIosArrowBack as BackIcon } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ export const PageHeader = (props: {
   const navigate = useNavigate();
 
   return (
-    <div className={`${Style.STICKY_FLEX} p-4 leading-4 ${Style.Z_INDEX} text-black-900`}>
+    <div className={`${Styles.STICKY_FLEX} p-4 leading-4 ${Styles.Z_INDEX} text-black-900`}>
       <IconWrapper
         size={24}
         hasAmount={false}
