@@ -149,7 +149,9 @@ const AuthPage: React.FC = () => {
       />
       <div className={clsx(Styles.FLEX_CENTER, 'mt-2')}>
         <h3 className="text-sm mr-2 text-black-400">Chưa có tài khoản?</h3>
-        <h1 className="font-semibold text-black-900 text-sm my-2">
+        <h1
+          className="font-semibold text-black-900 text-sm my-2"
+          onClick={() => navigate(RoutePath.REGISTER)}>
           Đăng kí ngay
         </h1>
       </div>
