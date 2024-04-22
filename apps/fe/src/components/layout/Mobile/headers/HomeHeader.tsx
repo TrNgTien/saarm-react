@@ -1,6 +1,6 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
-import { Color, Style } from '@/theme';
+import { Color, Styles } from '@/theme';
 import { memo } from 'react';
 import { IoMdNotificationsOutline as NotificationIcon } from 'react-icons/io';
 import { MdOutlineHomeWork as RoomIcon } from 'react-icons/md';
@@ -11,8 +11,8 @@ const Header = () => {
 
   return (
     <div
-      className={`${Style.FLEX_BETWEEN} ${Style.Z_INDEX} p-4 leading-4 bg-[#0A150F]`}>
-      <div className={Style.FLEX_CENTER}>
+      className={`${Styles.FLEX_BETWEEN} ${Styles.Z_INDEX} p-4 leading-4 bg-[#0A150F]`}>
+      <div className={Styles.FLEX_CENTER}>
         <IconWrapper size={24} color={Color.MAIN_WHITE}>
           <RoomIcon />
         </IconWrapper>
@@ -21,7 +21,7 @@ const Header = () => {
           <p className="text-black-500 text-xs">24 Linh Trung, Thủ Đức</p>
         </div>
       </div>
-      <div className={Style.FLEX_BETWEEN}>
+      <div className={Styles.FLEX_BETWEEN}>
         <IconWrapper
           size={24}
           hasAmount

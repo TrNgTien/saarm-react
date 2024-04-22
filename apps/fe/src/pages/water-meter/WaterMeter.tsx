@@ -1,6 +1,6 @@
 import { IconWrapper, PageHeader } from '@/components';
 import ImageCropper from '@/components/feat/ImageCropper';
-import { Style } from '@/theme';
+import { Styles } from '@/theme';
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 import { CiImageOn as UploadIcon } from 'react-icons/ci';
@@ -22,8 +22,8 @@ const WaterMeter = () => {
     <div className="flex flex-col">
       <PageHeader title={'Chup anh'} />
       {imageBase64 && <ImageCropper imageSrc={imageBase64} />}
-      <div className={clsx(Style.FLEX_BETWEEN, 'mt-4 p-4')}>
-        <label className={clsx(Style.FLEX_COL_CENTER)} htmlFor="upload-file">
+      <div className={clsx(Styles.FLEX_BETWEEN, 'mt-4 p-4')}>
+        <label className={clsx(Styles.FLEX_COL_CENTER)} htmlFor="upload-file">
           <IconWrapper size={24}>
             <UploadIcon />
           </IconWrapper>

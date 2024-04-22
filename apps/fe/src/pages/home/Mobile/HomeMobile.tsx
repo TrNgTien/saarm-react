@@ -6,7 +6,7 @@ import { RoutePath } from '@/common/constants';
 import { Banner, DropDownBilling, IconImage } from '@/components';
 import { UtilityCircle } from '@/components/common/UtilityCircle';
 import { ShowMore } from '@/components/layout/ShowMoreList';
-import { Style } from '@/theme';
+import { Styles } from '@/theme';
 import { memo } from 'react';
 import { CurrentBill } from './components';
 
@@ -37,13 +37,13 @@ const utilityItems = [
 const HomeMobile = () => {
   return (
     <div className="text-white-10 h-screen bg-white-50">
-      <div className="bg-[#0A150F] h-2/6 text-white-10 p-4">
+      <div className="bg-[#0A150F] h-2/6 text-white-0 p-4">
         {true ? <Banner /> : null}
         <CurrentBill />
       </div>
       <div className="xs:mt-20 mt-8 text-black-900 p-4 ">
         <ShowMore path={RoutePath.UTIL} title={'Tiện ích'}>
-          <div className={`${Style.FLEX_BETWEEN} pt-2`}>
+          <div className={`${Styles.FLEX_BETWEEN} pt-2`}>
             {utilityItems.map((i) => {
               const { id, ...rest } = i;
               return <UtilityCircle key={id} {...rest} />;

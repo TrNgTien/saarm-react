@@ -1,7 +1,7 @@
 import { RoutePath } from '@/common/constants';
 import { Divider, MoneyText } from '@/components';
 import { ShowMore } from '@/components/layout/ShowMoreList';
-import { Style } from '@/theme';
+import { Styles } from '@/theme';
 import dayjs from 'dayjs';
 import { FaMoneyCheckDollar } from 'react-icons/fa6';
 
@@ -33,10 +33,13 @@ export const CurrentBill = () => {
           navigateTitle={'Xem chi tiết'}>
           <div className="flex items-center jutify-center my-4 shadow-2xl">
             <FaMoneyCheckDollar size={24} />
-            <MoneyText styling="ml-2 font-black text-3xl" value={'2739000'} />
+            <MoneyText
+              styling="ml-2 font-semibold text-3xl"
+              value={'2739000'}
+            />
           </div>
-          <Divider />
-          <div className={`${Style.FLEX_BETWEEN} w-full mt-6`}>
+          <Divider lineStyle="border border-white-10" />
+          <div className={`${Styles.FLEX_BETWEEN} w-full mt-6`}>
             {billItems.map((i) => {
               const { name, id, content } = i;
               return (
