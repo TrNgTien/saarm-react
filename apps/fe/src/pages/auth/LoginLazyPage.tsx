@@ -11,14 +11,9 @@ import {
 } from '@/components';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
-import {
-  CredentialResponse,
-  GoogleLogin,
-  useGoogleLogin,
-} from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import clsx from 'clsx';
-import { isEmpty } from 'lodash';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { BsQuestionCircle as QuestionIcon } from 'react-icons/bs';
 import { FaRegEyeSlash as ClosedIcon } from 'react-icons/fa';
 import { LiaEyeSolid as EyeOpenIcon } from 'react-icons/lia';
@@ -40,32 +35,19 @@ const AuthPage: React.FC = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   const loginGoogle = useGoogleLogin({
-    onSuccess: (tokenResponse) =>
-      console.log('[loginGoogle tokenResponse]', tokenResponse),
-  });
+    onSuccess: async ({ code }) => {
+      const googleInformation: IUserGoogle = await networkInstance.send({
+        method: EMethods.POST,
+        path: RestEndpoints.LOGIN_GOOGLE,
+        body: {
+          code,
+        },
+      });
 
-  const handleLoginGoogle = useCallback(
-    async (credentialResponse: CredentialResponse) => {
-      try {
-        const googleInformation: IUserGoogle = await networkInstance.send({
-          method: EMethods.POST,
-          path: RestEndpoints.LOGIN,
-          body: {
-            token: credentialResponse.credential,
-          },
-        });
-
-        if (!isEmpty(googleInformation)) {
-          navigate(RoutePath.HOME);
-        }
-      } catch (e) {
-        console.error('[handleLoginGoogle] | %s', e);
-      }
-      // localStorage.setItem("AuthData", JSON.stringify(data));
-      // setAuthData(data);
+      console.log(googleInformation);
     },
-    [],
-  );
+    flow: 'auth-code',
+  });
 
   return (
     <div className="p-8">
@@ -82,13 +64,6 @@ const AuthPage: React.FC = () => {
           Đăng nhập để tiếp tục
         </h3>
       </div>
-      <GoogleLogin
-        useOneTap={true}
-        onSuccess={handleLoginGoogle}
-        onError={() => {
-          console.log('Login Failed');
-        }}
-      />
       <Button
         title="Đăng nhập với Google"
         onClick={loginGoogle}

@@ -1,5 +1,6 @@
 export class RestEndpoints {
   static readonly LOGIN = 'login';
+  static readonly LOGIN_GOOGLE = 'auth/google';
 }
 
 export class LimitRecords {
