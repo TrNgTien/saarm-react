@@ -1,5 +1,6 @@
 export class RestEndpoints {
-  static readonly LOGIN = 'login';
+  static readonly SIGN_IN = 'auth/sign-in';
+  static readonly SIGN_UP = 'auth/sign-up';
   static readonly LOGIN_GOOGLE = 'auth/google';
 }
 
