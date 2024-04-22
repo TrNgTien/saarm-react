@@ -8,6 +8,7 @@
   "scripts": {
     "all": "concurrently --kill-others-on-fail \"yarn fe\" \"yarn be\"",
     "fe": "yarn workspace fe dev",
+    "fe:local": "yarn workspace fe local",
     "fe:build": "yarn workspace fe build --mode development",
     "be": "yarn workspace be start",
     "be:test": "yarn workspace be test",

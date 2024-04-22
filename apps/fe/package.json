@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "local": "vite --mode:local",
+    "local": "vite --mode dev-local",
     "prebuild": "sh clean-build.sh",
     "build": "tsc && vite build",
     "build:dev": "tsc && vite build --mode development",

@@ -59,7 +59,7 @@ export default (): UserConfig => {
       host: true,
       port: 3009,
       hmr: true,
-      strictPort: false,
+      strictPort: true,
     },
     preview: {
       open: true,

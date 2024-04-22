@@ -11,9 +11,10 @@ import {
 } from '@/components';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
+import { isEmpty } from '@/utils';
 import { useGoogleLogin } from '@react-oauth/google';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { BsQuestionCircle as QuestionIcon } from 'react-icons/bs';
 import { FaRegEyeSlash as ClosedIcon } from 'react-icons/fa';
 import { LiaEyeSolid as EyeOpenIcon } from 'react-icons/lia';
@@ -36,18 +37,38 @@ const AuthPage: React.FC = () => {
 
   const loginGoogle = useGoogleLogin({
     onSuccess: async ({ code }) => {
-      const googleInformation: IUserGoogle = await networkInstance.send({
-        method: EMethods.POST,
-        path: RestEndpoints.LOGIN_GOOGLE,
-        body: {
-          code,
-        },
-      });
-
-      console.log(googleInformation);
+      try {
+        const googleInformation: IUserGoogle = await networkInstance.send({
+          method: EMethods.POST,
+          path: RestEndpoints.LOGIN_GOOGLE,
+          body: {
+            code,
+          },
+        });
+      } catch (e) {
+        console.error('[loginGoogle]: ', e);
+      }
     },
     flow: 'auth-code',
   });
+
+  const handleBasicLogin = useCallback(async () => {
+    try {
+      const userData = await networkInstance.send({
+        method: EMethods.POST,
+        path: RestEndpoints.SIGN_IN,
+        body: userInfo,
+      });
+
+      if (isEmpty(userData)) {
+        return;
+      }
+
+      navigate(RoutePath.HOME);
+    } catch (e) {
+      console.error('[handleBasicLogin] | %s', e);
+    }
+  }, [navigate, userInfo]);
 
   return (
     <div className="p-8">
@@ -77,7 +98,7 @@ const AuthPage: React.FC = () => {
         lineStyle="border border-black-300 my-6"
         textStyle="text-black-400 text-sm"
       />
-      <form className="">
+      <form>
         <LabelInput
           title={'Tên đăng nhập'}
           onChange={(e: any) => {
@@ -121,7 +142,9 @@ const AuthPage: React.FC = () => {
       <Button
         title={'Đăng nhập'}
         titleStyles="text-black-100 font-semibold text-sm"
-        onClick={() => navigate(RoutePath.LOGIN)}
+        onClick={() => {
+          handleBasicLogin();
+        }}
         btnStyles={'bg-green-300 text-black-100 font-semibold text-sm'}
       />
       <div className={clsx(Styles.FLEX_CENTER, 'mt-2')}>
