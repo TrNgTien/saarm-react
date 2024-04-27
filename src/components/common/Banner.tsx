@@ -7,10 +7,10 @@ export const Banner = () => {
 
   return (
     <div
-      className="rounded-2xl flex items-center justify-between bg-white-10 h-2/5"
+      className="rounded-2xl flex items-center justify-between bg-white-10 xs:h-2/4 sm:h-2/5"
       onClick={() => navigate(RoutePath.WATER_METER)}>
-      <div className="text-black-900 ml-6 sm:pt-4 h-full">
-        <p className="font-medium leading-5 mb-1">
+      <div className="text-black-900 ml-6 xs:p-1 sm:pt-4 h-full">
+        <p className="font-medium xs:text-sm leading-5 mb-1">
           Đã đến hạn cập nhật chỉ số nước!
         </p>
         <span className="bg-green-80 py-1 px-4 text-white-10 text-xs rounded-md">

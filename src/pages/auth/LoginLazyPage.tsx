@@ -1,14 +1,17 @@
-import GoogleIc from '@/assets/icons/google.svg';
+// import GoogleIc from '@/assets/icons/google.svg';
 import Logo from '@/assets/icons/logo-dark.svg';
 import { EMethods } from '@/common';
 import { RestEndpoints, RoutePath } from '@/common/constants';
 import {
   Button,
+  Loading,
   Divider,
   IconImage,
   IconWrapper,
   LabelInput,
 } from '@/components';
+import { useAppDispatch } from '@/hooks/redux.hook';
+import { getUserData } from '@/redux/slices/user.slice';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
 import { isEmpty } from '@/utils';
@@ -17,34 +20,38 @@ import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 import { BsQuestionCircle as QuestionIcon } from 'react-icons/bs';
 import { FaRegEyeSlash as ClosedIcon } from 'react-icons/fa';
+import { FaGoogle as GoogleDisable } from 'react-icons/fa6';
 import { LiaEyeSolid as EyeOpenIcon } from 'react-icons/lia';
 import { useNavigate } from 'react-router-dom';
 
-interface IUserGoogle {
-  userId: string;
-  username: string;
-  firstName: string;
-  lastName: string;
-}
+// interface IUserGoogle {
+//   userId: string;
+//   username: string;
+//   firstName: string;
+//   lastName: string;
+// }
 
 const AuthPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({
     username: '',
     password: '',
   });
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loginGoogle = useGoogleLogin({
     onSuccess: async ({ code }) => {
       try {
-        const googleInformation: IUserGoogle = await networkInstance.send({
-          method: EMethods.POST,
-          path: RestEndpoints.LOGIN_GOOGLE,
-          body: {
-            code,
-          },
-        });
+        // const googleInformation: IUserGoogle = await networkInstance.send({
+        //   method: EMethods.POST,
+        //   path: RestEndpoints.LOGIN_GOOGLE,
+        //   body: {
+        //     code,
+        //   },
+        // });
+        console.log('[loginGoogle] ', code);
       } catch (e) {
         console.error('[loginGoogle]: ', e);
       }
@@ -54,6 +61,7 @@ const AuthPage: React.FC = () => {
 
   const handleBasicLogin = useCallback(async () => {
     try {
+      setIsLoading(true);
       const userData = await networkInstance.send({
         method: EMethods.POST,
         path: RestEndpoints.SIGN_IN,
@@ -64,7 +72,12 @@ const AuthPage: React.FC = () => {
         return;
       }
 
-      navigate(RoutePath.HOME);
+      dispatch(getUserData(userData?.data ?? {}));
+
+      setTimeout(() => {
+        setIsLoading(false);
+        navigate(RoutePath.HOME);
+      }, 1000);
     } catch (e) {
       console.error('[handleBasicLogin] | %s', e);
     }
@@ -72,6 +85,7 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="p-8">
+      {isLoading && <Loading />}
       <div className="flex items-center justify-end text-black-400 text-sm">
         <IconWrapper size={20}>
           <QuestionIcon />
@@ -87,10 +101,13 @@ const AuthPage: React.FC = () => {
       </div>
       <Button
         title="Đăng nhập với Google"
+        disabled
         onClick={loginGoogle}
         titleStyles="text-sm font-semibold text-black-200"
         btnStyles="mt-4 border">
-        <IconImage src={GoogleIc} height={24} width={24} styles="mr-2" />
+        <GoogleDisable height={24} width={24} className="mr-2" />
+
+        {/*<IconImage src={GoogleIc} height={24} width={24} styles="mr-2" /> */}
       </Button>
       <Divider
         textSeparate={true}
@@ -142,14 +159,14 @@ const AuthPage: React.FC = () => {
       <Button
         title={'Đăng nhập'}
         titleStyles="text-black-100 font-semibold text-sm"
-        onClick={() => {
-          handleBasicLogin();
-        }}
+        onClick={handleBasicLogin}
         btnStyles={'bg-green-300 text-black-100 font-semibold text-sm'}
       />
       <div className={clsx(Styles.FLEX_CENTER, 'mt-2')}>
         <h3 className="text-sm mr-2 text-black-400">Chưa có tài khoản?</h3>
-        <h1 className="font-semibold text-black-900 text-sm my-2">
+        <h1
+          className="font-semibold text-black-900 text-sm my-2"
+          onClick={() => navigate(RoutePath.REGISTER)}>
           Đăng kí ngay
         </h1>
       </div>
