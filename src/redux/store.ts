@@ -1,33 +1,17 @@
 import { ReduxActionTypes } from '@/common/redux';
 import {
-  AnyAction,
+  Reducer,
+  UnknownAction,
   combineReducers,
   configureStore,
-  Reducer,
 } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
-import {
-  configReducer,
-  fileUploadReducer,
-  formReducer,
-  infiniteTableReducer,
-  inquiryReducer,
-  routeReducer,
-  toolbarReducer,
-  userReducer,
-} from './slices';
+import { userReducer } from './slices';
 
 //----------------------------------------------------------------------------
 // Combine reducers
 const appReducer = combineReducers({
-  config: configReducer,
-  fileUpload: fileUploadReducer,
-  form: formReducer,
-  infiniteTable: infiniteTableReducer,
-  inquiry: inquiryReducer,
-  route: routeReducer,
-  toolbar: toolbarReducer,
   user: userReducer,
 });
 
@@ -41,7 +25,7 @@ export type RootState = ReturnType<typeof appReducer>;
 
 //----------------------------------------------------------------------------
 // Reset store after logout
-const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
+const rootReducer: Reducer = (state: RootState, action: UnknownAction) => {
   if (action.type === ReduxActionTypes.RESET_APP) {
     state = {} as RootState;
   }
@@ -52,7 +36,7 @@ const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
 // Create store
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: (getDefaultMiddleware: () => string | any[]) =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
 });
 

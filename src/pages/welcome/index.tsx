@@ -1,11 +1,11 @@
-import { CommonLoading } from '@/components';
+import { Loading } from '@/components';
 import { Suspense, lazy } from 'react';
 
 const WelcomeLazyPage = lazy(() => import('./WelcomePage'));
 
 const WelcomePage = () => {
   return (
-    <Suspense fallback={<CommonLoading />}>
+    <Suspense fallback={<Loading />}>
       <WelcomeLazyPage />
     </Suspense>
   );

@@ -1,1 +1,1 @@
-export * from './CommonLoading';
+export * from './Loading';

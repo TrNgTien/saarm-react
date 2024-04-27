@@ -1,3 +1,4 @@
+import { Provider } from 'react-redux';
 import { BrowserRouter, Route, RouteProps, Routes } from 'react-router-dom';
 import { RoutePath } from './common/constants';
 import MobileLayout from './components/layout/Mobile/MobileLayout';
@@ -12,6 +13,7 @@ import {
 } from './pages';
 import { HomeMobile } from './pages/home';
 import MessagePage from './pages/message/MessagePage';
+import { store } from './redux/store';
 
 const routes: RouteProps[] = [
   {
@@ -85,15 +87,17 @@ const routes: RouteProps[] = [
 
 const App = () => {
   return (
-    <div className="h-screen bg-[#FBFBFB]">
-      <BrowserRouter>
-        <Routes>
-          {routes.map((r) => (
-            <Route key={r.id} {...r} />
-          ))}
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <Provider store={store}>
+      <div className="h-screen bg-[#FBFBFB]">
+        <BrowserRouter>
+          <Routes>
+            {routes.map((r) => (
+              <Route key={r.id} {...r} />
+            ))}
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </Provider>
   );
 };
 

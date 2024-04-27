@@ -8,13 +8,19 @@ interface IButtonProps {
   btnStyles: string;
   titleStyles: string;
   children?: React.ReactNode;
+  disabled?: boolean;
 }
 export const Button = (props: IButtonProps) => {
-  const { title, onClick, btnStyles, children, titleStyles } = props;
+  const { title, onClick, btnStyles, children, titleStyles, disabled } = props;
   return (
     <button
       onClick={onClick}
-      className={clsx('shadow-md rounded-md w-full p-2', btnStyles)}>
+      disabled={disabled}
+      className={clsx(
+        'shadow-md rounded-md w-full p-2',
+        btnStyles,
+        disabled && 'text-gray-400 bg-gray-200 hover:cursor-not-allowed',
+      )}>
       <div className={clsx(Styles.FLEX_CENTER)}>
         {children}
         <p className={clsx(titleStyles)}>{title}</p>

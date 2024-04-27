@@ -5,7 +5,7 @@ interface ICommonLoadingProps {
   color?: string;
 }
 
-export const CommonLoading = (props: ICommonLoadingProps) => {
+export const Loading = (props: ICommonLoadingProps) => {
   const { color = Color.PRIMARY } = props;
   return (
     <div className="z-50 bg-black-100 opacity-65 fixed top-0 right-0 left-0 bottom-0">

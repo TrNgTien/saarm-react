@@ -15,6 +15,7 @@
   "dependencies": {
     "@formatjs/intl-numberformat": "^8.10.1",
     "@react-oauth/google": "^0.12.1",
+    "@reduxjs/toolkit": "^2.2.3",
     "@types/offscreencanvas": "^2019.7.3",
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
