@@ -1,6 +1,6 @@
 import { Styles } from '@/theme';
 import clsx from 'clsx';
-import { HTMLInputTypeAttribute } from 'react';
+import { HTMLInputTypeAttribute, KeyboardEvent } from 'react';
 
 export const LabelInput = (props: {
   title: string;
@@ -14,6 +14,8 @@ export const LabelInput = (props: {
   required?: boolean | undefined;
   value?: string | readonly string[] | number | undefined;
   name?: string;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
+  errorText?: string;
 }) => {
   const {
     title,
@@ -27,6 +29,8 @@ export const LabelInput = (props: {
     readOnly,
     required,
     name,
+    errorText,
+    onKeyDown,
   } = props;
   return (
     <div className={clsx(Styles.FLEX_COL, wrapperStyles)}>
@@ -40,6 +44,7 @@ export const LabelInput = (props: {
         )}
         type={type}
         autoComplete="off"
+        onKeyDown={onKeyDown}
         readOnly={readOnly}
         required={required}
         name={name}
@@ -47,6 +52,7 @@ export const LabelInput = (props: {
         placeholder={placeholder}
         onChange={onChange}
       />
+      <p className="text-red-400">{errorText}</p>
     </div>
   );
 };

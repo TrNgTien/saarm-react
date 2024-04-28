@@ -5,6 +5,7 @@ module.exports = {
     screens: {
       xs: '320px',
       sm: '375px',
+      lsm: '425px',
       md: '768px',
       lg: '1024px',
       xl: '1440px',
@@ -16,6 +17,7 @@ module.exports = {
         zIndex: {
           100: '100',
           500: '500',
+          900: '900',
           1000: '1000',
         },
         green: {

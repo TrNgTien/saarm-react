@@ -61,7 +61,7 @@ export class NetworkService {
 
       return result;
     } catch (e) {
-      console.error('[network][send] | %s', e);
+      throw Error(`${e}`)
     }
   }
   async get(opts: IRequestOptions) {

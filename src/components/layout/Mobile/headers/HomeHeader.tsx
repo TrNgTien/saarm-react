@@ -23,8 +23,8 @@ const Header = () => {
       </div>
       <div className={Styles.FLEX_BETWEEN}>
         <IconWrapper
-          size={24}
-          hasAmount
+          size={30}
+          iconAmount={11111112}
           color={Color.MAIN_WHITE}
           onClick={() => navigate(RoutePath.NOTIFICATION)}>
           <NotificationIcon />
