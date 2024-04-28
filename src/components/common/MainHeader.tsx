@@ -1,4 +1,3 @@
-import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
 import { Color, Styles } from '@/theme';
 import { IoIosArrowBack as BackIcon } from 'react-icons/io';
@@ -12,10 +11,9 @@ export const PageHeader = (props: {
   const navigate = useNavigate();
 
   return (
-    <div className={`${Styles.STICKY_FLEX} p-4 leading-4 ${Styles.Z_INDEX} text-black-900`}>
+    <div className={`${Styles.FLEX_BETWEEN} p-4 leading-4 text-black-900 shadow-md bg-white-900`}>
       <IconWrapper
         size={24}
-        hasAmount={false}
         color={Color.BLACK_900}
         onClick={() => navigate(-1)}>
         <BackIcon />
@@ -26,9 +24,8 @@ export const PageHeader = (props: {
       {actionIcon && (
         <IconWrapper
           size={24}
-          hasAmount
           color={Color.MAIN_WHITE}
-          onClick={() => navigate(RoutePath.NOTIFICATION)}>
+          onClick={() => {}}>
           {actionIcon}
         </IconWrapper>
       )}

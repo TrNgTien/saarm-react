@@ -6,3 +6,11 @@ export enum EMethods {
   DELETE = 'DELETE',
   OPTIONS = 'OPTIONS',
 }
+
+export interface IUserGoogle {
+  userId: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+}
+

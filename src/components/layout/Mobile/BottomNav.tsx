@@ -118,13 +118,12 @@ const BottomNav = () => {
               styleOverride="text-black-900 font-semibold"
               icon={icon}
               onClick={() => {
-                if (!disable) {
+                !disable &&
                   navigate(path, {
                     state: {
                       headerTitle: 'Chụp ảnh',
                     },
                   });
-                }
               }}>
               <p className="xs:text-xs mt-6">{name}</p>
             </NavigationItem>
@@ -137,13 +136,12 @@ const BottomNav = () => {
             styleOverride="text-black-500"
             icon={icon}
             onClick={() => {
-              if (!disable) {
+              !disable &&
                 navigate(path, {
                   state: {
                     headerTitle,
                   },
                 });
-              }
             }}>
             <p
               className={clsx(
