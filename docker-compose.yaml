@@ -7,7 +7,7 @@ services:
     working_dir: ${REACT_BUILD_WORK_DIR}
     container_name: ${REACT_BUILD_CONTAINER_NAME}
     volumes:
-      - ${REACT_DIR}:${REACT_BUILD_WORK_DIR}
+      - .:${REACT_BUILD_WORK_DIR}
     entrypoint: ['sh', './scripts/develop/build.sh']
 
   fe_develop:
