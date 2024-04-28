@@ -1,44 +1,41 @@
-// import GoogleIc from '@/assets/icons/google.svg';
+import GoogleIc from '@/assets/icons/google.svg';
 import Logo from '@/assets/icons/logo-dark.svg';
 import { EMethods } from '@/common';
 import { RestEndpoints, RoutePath } from '@/common/constants';
+import { ILoginForm } from '@/common/types/login';
 import {
   Button,
-  Loading,
   Divider,
   IconImage,
   IconWrapper,
   LabelInput,
+  Loading,
 } from '@/components';
 import { useAppDispatch } from '@/hooks/redux.hook';
-import { getUserData } from '@/redux/slices/user.slice';
+import { setUserData } from '@/redux/slices/user.slice';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
 import { isEmpty } from '@/utils';
 import { useGoogleLogin } from '@react-oauth/google';
 import clsx from 'clsx';
-import { useCallback, useState } from 'react';
+import { useSnackbar } from 'notistack';
+import { KeyboardEvent, useCallback, useState } from 'react';
 import { BsQuestionCircle as QuestionIcon } from 'react-icons/bs';
 import { FaRegEyeSlash as ClosedIcon } from 'react-icons/fa';
 import { FaGoogle as GoogleDisable } from 'react-icons/fa6';
 import { LiaEyeSolid as EyeOpenIcon } from 'react-icons/lia';
 import { useNavigate } from 'react-router-dom';
 
-// interface IUserGoogle {
-//   userId: string;
-//   username: string;
-//   firstName: string;
-//   lastName: string;
-// }
-
 const AuthPage: React.FC = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = useState<ILoginForm>({
     username: '',
     password: '',
   });
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
+  const [isTriggeredLogin, setIsTriggeredLogin] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const loginGoogle = useGoogleLogin({
@@ -61,27 +58,54 @@ const AuthPage: React.FC = () => {
 
   const handleBasicLogin = useCallback(async () => {
     try {
+      setIsTriggeredLogin(true);
+
+      if (!userInfo.username || !userInfo.password) {
+        return;
+      }
+
       setIsLoading(true);
+
       const userData = await networkInstance.send({
         method: EMethods.POST,
         path: RestEndpoints.SIGN_IN,
-        body: userInfo,
+        body: {
+          ...userInfo,
+          username: userInfo.username.toLowerCase(),
+          password: userInfo.password.toLowerCase(),
+        },
       });
 
       if (isEmpty(userData)) {
         return;
       }
 
-      dispatch(getUserData(userData?.data ?? {}));
+      dispatch(setUserData(userData?.data ?? {}));
 
       setTimeout(() => {
-        setIsLoading(false);
         navigate(RoutePath.HOME);
       }, 1000);
     } catch (e) {
       console.error('[handleBasicLogin] | %s', e);
+
+      setTimeout(() => {
+        enqueueSnackbar(`${e}`);
+      }, 1000);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
   }, [navigate, userInfo]);
+
+  const handleEnterLogin = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key == 'Enter') {
+        handleBasicLogin();
+      }
+    },
+    [handleBasicLogin],
+  );
 
   return (
     <div className="p-8">
@@ -90,7 +114,9 @@ const AuthPage: React.FC = () => {
         <IconWrapper size={20}>
           <QuestionIcon />
         </IconWrapper>
-        <p className="ml-2">Hỗ trợ</p>
+        <a href="mailto:trngtien.dev@gmail.com" className="ml-2 underline">
+          Hỗ trợ
+        </a>
       </div>
       <div className="mt-8 text-center">
         <IconImage src={Logo} height={60} width={60} styles="mx-auto" />
@@ -101,13 +127,22 @@ const AuthPage: React.FC = () => {
       </div>
       <Button
         title="Đăng nhập với Google"
-        disabled
-        onClick={loginGoogle}
+        onClick={() => {
+          enqueueSnackbar('Hiện tại chưa hỗ trợ đăng nhập với Google', {
+            variant: 'error',
+            anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
+            autoHideDuration: 2000,
+          });
+          // loginGoogle;
+        }}
         titleStyles="text-sm font-semibold text-black-200"
-        btnStyles="mt-4 border">
-        <GoogleDisable height={24} width={24} className="mr-2" />
-
-        {/*<IconImage src={GoogleIc} height={24} width={24} styles="mr-2" /> */}
+        btnStyles="mt-4 border text-gray-400 bg-gray-200 hover:cursor-not-allowed">
+        {true ? (
+          //TODO: current not implement Login with Google
+          <GoogleDisable height={24} width={24} className="mr-2" />
+        ) : (
+          <IconImage src={GoogleIc} height={24} width={24} styles="mr-2" />
+        )}
       </Button>
       <Divider
         textSeparate={true}
@@ -124,7 +159,11 @@ const AuthPage: React.FC = () => {
               [e.target.name]: e.target.value,
             }));
           }}
+          errorText={
+            !userInfo.username && isTriggeredLogin ? 'Thieu tên đăng nhập' : ''
+          }
           name="username"
+          required
           placeholder="Tên đăng nhập"
           labelStyles="font-semibold text-black-400"
           wrapperStyles="mb-4"
@@ -138,6 +177,10 @@ const AuthPage: React.FC = () => {
                 [e.target.name]: e.target.value,
               }));
             }}
+            onKeyDown={handleEnterLogin}
+            errorText={
+              !userInfo.password && isTriggeredLogin ? 'Thieu mật khẩu' : ''
+            }
             title={'Mật khẩu'}
             name="password"
             type={isShowPassword ? 'text' : 'password'}

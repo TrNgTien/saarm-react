@@ -1,81 +1,76 @@
-import { useRef, useState } from 'react';
-import ReactCrop, { Crop, PixelCrop } from 'react-image-crop';
+import 'cropperjs/dist/cropper.css';
+import React, { Dispatch, useCallback, useRef, useState } from 'react';
+import Cropper, { ReactCropperElement } from 'react-cropper';
+import { Button } from '../common';
 
 function ImageCropper({
   imageSrc,
-  onCropComplete,
+  setImageBase64,
 }: {
   imageSrc: string | undefined;
   onCropComplete?: any;
+  setImageBase64: Dispatch<string | undefined>;
 }) {
-  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const [crop, setCrop] = useState<Crop>({
-    unit: '%',
-    width: 50,
-    height: 50,
-    x: 25,
-    y: 25,
-  });
+  const [imgCropped, setCropData] = useState('');
 
-  const handleImageChange = (crop: any) => setCrop(crop);
+  const cropperRef = useRef<ReactCropperElement>(null);
 
-  async function handleDection() {
-    const image = imgRef.current;
-    const previewCanvas = previewCanvasRef.current;
-    if (!image || !previewCanvas || !completedCrop) {
-      throw new Error('Crop canvas does not exist');
+  const getCropData = useCallback(() => {
+    if (typeof cropperRef.current?.cropper === 'undefined') {
+      return;
     }
 
-    const scaleX = image.naturalWidth / image.width;
-    const scaleY = image.naturalHeight / image.height;
+    setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+  }, [cropperRef]);
 
-    const offscreen = new OffscreenCanvas(
-      completedCrop.width * scaleX,
-      completedCrop.height * scaleY,
-    );
-    const ctx = offscreen.getContext('2d');
-    if (!ctx) {
-      throw new Error('No 2d context');
-    }
-
-    ctx.drawImage(
-      previewCanvas,
-      0,
-      0,
-      previewCanvas.width,
-      previewCanvas.height,
-      0,
-      0,
-      offscreen.width,
-      offscreen.height,
-    );
-    const blob = await offscreen.convertToBlob({
-      type: 'image/png',
-      quality: 1,
-    });
-
-    console.log('check blob', blob);
-  }
-
-  // Assuming webcamRef is passed as a prop from ImageCapture (explained later)
   return (
     <div>
-      {imageSrc && (
-        <div>
-          <ReactCrop
-            crop={crop}
-            locked
-            onChange={(_, percentCrop) => handleImageChange(percentCrop)}
-            onComplete={(c) => setCompletedCrop(c)}
-            aspect={16 / 9}
-            keepSelection
-            minHeight={100}>
-            <img src={imageSrc} />
-          </ReactCrop>
-          <button onClick={handleDection}>Crop</button>
-        </div>
+      {imgCropped ? (
+        <React.Fragment>
+          <img className="w-full" src={imgCropped} alt="cropped" />
+          <Button
+            onClick={() => {
+              setCropData('');
+              setImageBase64('');
+            }}
+            title="Retake"
+            btnStyles="mx-auto border mt-4"
+            titleStyles=""
+          />
+          <Button
+            onClick={() => {}}
+            title="Gui anh"
+            btnStyles="w-full border mt-4"
+            titleStyles=""
+          />
+        </React.Fragment>
+      ) : (
+        imageSrc && (
+          <div>
+            <Cropper
+              ref={cropperRef}
+              style={{ height: 400, width: '100%' }}
+              initialAspectRatio={1}
+              preview=".img-preview"
+              src={imageSrc}
+              viewMode={1}
+              minCropBoxHeight={10}
+              minCropBoxWidth={10}
+              alt="crop-image"
+              background={false}
+              responsive={true}
+              autoCropArea={1}
+              checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
+              guides={true}
+            />
+            <Button
+              onClick={getCropData}
+              title="Crop"
+              btnStyles="w-1/2 mx-auto border border-red-500"
+              titleStyles=""
+            />
+          </div>
+        )
       )}
     </div>
   );
