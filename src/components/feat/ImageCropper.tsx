@@ -3,14 +3,12 @@ import React, { Dispatch, useCallback, useRef, useState } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
 import { Button } from '../common';
 
-function ImageCropper({
-  imageSrc,
-  setImageBase64,
-}: {
+interface IImageCropperProps {
   imageSrc: string | undefined;
-  onCropComplete?: any;
   setImageBase64: Dispatch<string | undefined>;
-}) {
+}
+
+function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
   const [imgCropped, setCropData] = useState('');
 
   const cropperRef = useRef<ReactCropperElement>(null);
