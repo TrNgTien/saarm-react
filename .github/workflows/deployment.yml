@@ -24,7 +24,7 @@ jobs:
             git checkout develop
 
             # build project
-            docker restart fe_build_develop
+            docker restart saarm_build_develop
 
             echo "DONE"
   deploy_develop:
@@ -41,7 +41,7 @@ jobs:
           script: |
             echo "Restarting fe_develop..."
 
-            docker restart fe_develop
+            docker restart saarm_fe_develop
 
             echo "Restarting Nginx..."
             systemctl restart nginx
