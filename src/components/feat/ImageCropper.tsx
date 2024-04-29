@@ -1,3 +1,6 @@
+import { EMethods } from '@/common';
+import { RestEndpoints } from '@/common/constants';
+import { networkInstance } from '@/services';
 import 'cropperjs/dist/cropper.css';
 import React, { Dispatch, useCallback, useRef, useState } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
@@ -9,7 +12,7 @@ interface IImageCropperProps {
 }
 
 function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
-  const [imgCropped, setCropData] = useState('');
+  const [imgCropped, setImgCropped] = useState('');
 
   const cropperRef = useRef<ReactCropperElement>(null);
 
@@ -18,8 +21,26 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       return;
     }
 
-    setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+    setImgCropped(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
   }, [cropperRef]);
+
+  const handleSubmitImage = useCallback(async () => {
+    try {
+      if (!imgCropped) {
+        throw Error('Cannot get image cropped');
+      }
+
+      const waterMeter = await networkInstance.send({
+        method: EMethods.POST,
+        path: RestEndpoints.SUBMIT_WATER_METER,
+        body: { file: imgCropped },
+      });
+
+      console.log('checki', waterMeter);
+    } catch (e) {
+      console.error('[handleSubmitImage] | %s', e);
+    }
+  }, [imgCropped]);
 
   return (
     <div>
@@ -28,7 +49,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
           <img className="w-full" src={imgCropped} alt="cropped" />
           <Button
             onClick={() => {
-              setCropData('');
+              setImgCropped('');
               setImageBase64('');
             }}
             title="Retake"
@@ -36,7 +57,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
             titleStyles=""
           />
           <Button
-            onClick={() => {}}
+            onClick={handleSubmitImage}
             title="Gui anh"
             btnStyles="w-full border mt-4"
             titleStyles=""

@@ -6,7 +6,7 @@ interface IRequestOptions {
   path: string;
   method: keyof typeof EMethods;
   body?: unknown;
-  headers?: Record<string, string>;
+  headers?: Record<string, string >;
   configs?: Record<string, unknown>;
 }
 
