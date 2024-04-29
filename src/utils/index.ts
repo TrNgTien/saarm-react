@@ -1,3 +1,4 @@
-export * from './environments'
-export * from './date'
-export * from './lodash'
+export * from './browser';
+export * from './date';
+export * from './environments';
+export * from './lodash';

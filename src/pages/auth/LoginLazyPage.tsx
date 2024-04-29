@@ -15,7 +15,6 @@ import { useAppDispatch } from '@/hooks/redux.hook';
 import { setUserData } from '@/redux/slices/user.slice';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
-import { isEmpty } from '@/utils';
 import { useGoogleLogin } from '@react-oauth/google';
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
@@ -76,8 +75,8 @@ const AuthPage: React.FC = () => {
         },
       });
 
-      if (isEmpty(userData)) {
-        return;
+      if (!userData.success) {
+        throw Error('Can not get user!');
       }
 
       dispatch(setUserData(userData?.data ?? {}));
@@ -89,7 +88,9 @@ const AuthPage: React.FC = () => {
       console.error('[handleBasicLogin] | %s', e);
 
       setTimeout(() => {
-        enqueueSnackbar(`${e}`);
+        enqueueSnackbar(`${e}`, {
+          variant: 'error',
+        });
       }, 1000);
     } finally {
       setTimeout(() => {

@@ -37,3 +37,9 @@ export class RoutePath {
 }
 
 export const MONTHS: string[] = ['Thang 1', 'Thang 2', 'Thang 3', 'Thang 4'];
+
+export class DevicesBoundary {
+  static readonly TABLET_PORTRAIT_LOWER_BOUNDARY = 768;
+  static readonly TABLET_LADNSCAPE_LOWER_BOUNDARY = 1024;
+  static readonly DESKTOP_LOWER_BOUNDARY = 1280;
+}

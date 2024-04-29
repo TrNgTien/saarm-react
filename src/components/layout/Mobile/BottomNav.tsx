@@ -1,6 +1,6 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
-import { Color } from '@/theme';
+import { Color, Styles } from '@/theme';
 import clsx from 'clsx';
 import { useMemo } from 'react';
 import { IconBaseProps } from 'react-icons';
@@ -107,7 +107,11 @@ const BottomNav = () => {
   }, [pathname]);
 
   return (
-    <div className="fixed flex xs:p-4 sm:p-6 items-center bottom-0 bg-[#F1F1F1] w-full rounded-t-3xl justify-between lg:hidden">
+    <div
+      className={clsx(
+        Styles.FLEX_BETWEEN,
+        'fixed xs:p-4 sm:p-6 bottom-0 bg-white-10 w-full rounded-t-3xl lg:hidden',
+      )}>
       {navItems.map((i) => {
         const { icon, path, name, id, headerTitle, disable } = i;
 

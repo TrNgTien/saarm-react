@@ -1,5 +1,5 @@
-import { SnackbarProvider } from 'notistack';
-import { useEffect } from 'react';
+import { useOnPhone } from '@/hooks';
+import { SnackbarOrigin, SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, RouteProps, Routes } from 'react-router-dom';
 import { RoutePath } from './common/constants';
@@ -73,15 +73,25 @@ const mobileLayouts: RouteProps[] = [
   },
 ];
 
+const getPositionSnackbar = (): SnackbarOrigin => {
+  const isMobile = useOnPhone();
+  return isMobile
+    ? {
+        horizontal: 'center',
+        vertical: 'bottom',
+      }
+    : {
+        horizontal: 'right',
+        vertical: 'top',
+      };
+};
+
 const App = () => {
-  useEffect(() => {
-    (document.body.style as any).zoom = '100%';
-  }, []);
   return (
     <SnackbarProvider
       variant="info"
-      autoHideDuration={1500}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+      autoHideDuration={2000}
+      anchorOrigin={getPositionSnackbar()}>
       <Provider store={store}>
         <div className="h-screen bg-[#FBFBFB]">
           <BrowserRouter>
