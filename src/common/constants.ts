@@ -3,7 +3,7 @@ export class RestEndpoints {
   static readonly SIGN_UP = 'auth/sign-up';
   static readonly LOGIN_GOOGLE = 'auth/google';
   static readonly ROOM = 'rooms';
-  static readonly SUBMIT_WATER_METER = `${this.ROOM}/water-meter`;
+  static readonly SUBMIT_WATER_METER = `water-meter`;
 }
 
 export class LimitRecords {

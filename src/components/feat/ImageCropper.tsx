@@ -32,7 +32,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
 
       const waterMeter = await networkInstance.send({
         method: EMethods.POST,
-        path: RestEndpoints.SUBMIT_WATER_METER,
+        path: `${RestEndpoints.ROOM}/2/${RestEndpoints.SUBMIT_WATER_METER}`,
         body: { file: imgCropped },
       });
 
