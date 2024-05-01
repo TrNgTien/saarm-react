@@ -3,7 +3,6 @@ version: '3'
 services:
   fe_build:
     image: 'node:18.20-slim'
-    restart: always
     working_dir: ${REACT_BUILD_WORK_DIR}
     container_name: ${REACT_BUILD_CONTAINER_NAME}
     volumes:
