@@ -43,14 +43,18 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
         body: { file: imgCropped },
       });
 
+      if (!rs.data?.[0]) {
+        throw Error('Không nhận diện được, vui lòng chọn ảnh khác!');
+      }
+
       setWaterDetected(rs.data[0]);
 
       setIsLoading(false);
-    } catch (e) {
+    } catch (e: any) {
       console.error('[handleSubmitImage] | %s', e);
       setTimeout(() => {
         setIsLoading(false);
-        enqueueSnackbar(`${e}`, {
+        enqueueSnackbar(`${e.toString().split(":")[1]}`, {
           variant: 'error',
         });
       }, 1000);
@@ -63,15 +67,6 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       {imgCropped ? (
         <React.Fragment>
           <img className="w-full" src={imgCropped} alt="cropped" />
-          <Button
-            onClick={() => {
-              setImgCropped('');
-              setImageBase64('');
-            }}
-            title="Chọn lại ảnh"
-            btnStyles="mx-auto border mt-4"
-            titleStyles=""
-          />
           {waterDetected ? (
             <div className="text-center mt-8">
               <h1>Số nhận diện được:</h1>
@@ -106,9 +101,18 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
               guides={true}
             />
             <Button
+              onClick={() => {
+                setImgCropped('');
+                setImageBase64('');
+              }}
+              title="Chọn lại ảnh"
+              btnStyles="mx-auto border mt-4 select-none"
+              titleStyles=""
+            />
+            <Button
               onClick={getCropData}
-              title="Crop"
-              btnStyles="w-1/2 mx-auto border border-red-500 select-none"
+              title="Xác nhận vùng đã chọn"
+              btnStyles="mx-auto border mt-4 select-none"
               titleStyles=""
             />
           </div>
