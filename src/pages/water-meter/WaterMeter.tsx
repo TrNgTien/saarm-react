@@ -1,6 +1,5 @@
 import WaterMeterImg from '@/assets/images/crop-guide.jpeg';
 import { CameraButton, InformationCard, PageHeader } from '@/components';
-
 import ImageCropper from '@/components/feat/ImageCropper';
 import { isValidFileUploaded } from '@/helpers';
 import { Styles } from '@/theme';
