@@ -40,7 +40,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       const rs = await networkInstance.send({
         method: EMethods.POST,
         path: `${RestEndpoints.ROOM}/2/${RestEndpoints.SUBMIT_WATER_METER}`,
-        body: { file: imgCropped },
+        body: { croppedFile: imgCropped, originalFile: imageSrc },
       });
 
       if (!rs.data?.[0]) {
@@ -54,7 +54,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       console.error('[handleSubmitImage] | %s', e);
       setTimeout(() => {
         setIsLoading(false);
-        enqueueSnackbar(`${e.toString().split(":")[1]}`, {
+        enqueueSnackbar(`${e.toString().split(':')[1]}`, {
           variant: 'error',
         });
       }, 1000);
@@ -88,7 +88,6 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
               ref={cropperRef}
               style={{ height: 400, width: '100%' }}
               initialAspectRatio={1}
-              preview=".img-preview"
               src={imageSrc}
               viewMode={1}
               minCropBoxHeight={10}

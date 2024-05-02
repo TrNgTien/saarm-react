@@ -10,7 +10,7 @@
     "build": "tsc && vite build",
     "build:dev": "tsc && vite build --mode development",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "npm run build && vite preview"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@formatjs/intl-numberformat": "^8.10.1",
