@@ -7,5 +7,6 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true
   },
-  "include": ["vite.config.ts", "env.d.ts", "package.json"]
+  "include": ["vite.config.ts", "env.d.ts", "package.json", "setup/**/*.ts"],
+  "exclude": ["dist", "node_modules"]
 }
