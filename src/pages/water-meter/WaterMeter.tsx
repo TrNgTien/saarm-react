@@ -1,7 +1,7 @@
 import WaterMeterImg from '@/assets/images/crop-guide.jpeg';
 import { CameraButton, InformationCard, PageHeader } from '@/components';
 import ImageCropper from '@/components/feat/ImageCropper';
-import { isValidFileUploaded } from '@/helpers';
+import { MAX_FILE_SIZE, isValidFileUploaded } from '@/helpers';
 import { Styles } from '@/theme';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
@@ -14,29 +14,45 @@ const WaterMeter = () => {
 
   const handlePreviewFile = useCallback(
     (e: any) => {
-      if (e.target.files.length < 1) {
+      const fileList: FileList = e.target.files;
+      if (!fileList.length) {
         return;
       }
-      const reader = new FileReader();
-      const file = e.target.files[0];
 
-      if (!isValidFileUploaded(file.type)) {
-        return enqueueSnackbar('Chỉ chấp nhận tệp ảnh!', {
+      const file = fileList[0];
+
+      if (file.size > MAX_FILE_SIZE) {
+        return enqueueSnackbar(`Tệp không được lớn hơn ${MAX_FILE_SIZE}mb!`, {
           variant: 'error',
         });
       }
 
+      if (!isValidFileUploaded(file.type)) {
+        return enqueueSnackbar(
+          'Chỉ chấp nhận tệp ảnh loại png, jpeg, jpg, webp',
+          {
+            variant: 'error',
+          },
+        );
+      }
+
+      const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setImageBase64(reader.result?.toString());
       };
     },
-    [enqueueSnackbar, isValidFileUploaded],
+    [enqueueSnackbar],
   );
 
   return (
     <div className={Styles.FLEX_COL}>
-      <PageHeader title={'Cập nhật đồng hồ nước'} />
+      <PageHeader
+        title={'Cập nhật đồng hồ nước'}
+        onClickPrevious={() => {
+          setImageBase64(undefined)
+        }}
+      />
       <div className={clsx(Styles.FLEX_BETWEEN, 'mt-4 p-4')}>
         {imageBase64 ? (
           <div className="w-full">
