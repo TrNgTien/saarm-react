@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 export const PageHeader = (props: {
   title: string;
   actionIcon?: JSX.Element;
-  onClickPrevious: () => void;
+  onClickPrevious?: () => void;
 }) => {
   const { title, actionIcon, onClickPrevious } = props;
   const navigate = useNavigate();

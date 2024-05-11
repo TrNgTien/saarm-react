@@ -1,5 +1,6 @@
 import { RoutePath } from '@/common/constants';
 import { IconWrapper } from '@/components/common';
+import { cn } from '@/lib/utils';
 import { Color, Styles } from '@/theme';
 import clsx from 'clsx';
 import { useMemo } from 'react';
@@ -12,6 +13,7 @@ import {
 import { LuClipboardList as BillIcon } from 'react-icons/lu';
 import { TbMessageCircle2 as MessageIcon } from 'react-icons/tb';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useWindowScroll } from 'react-use';
 import { NavigationItem } from './components/NavigationItems';
 
 interface INavItems {
@@ -20,12 +22,12 @@ interface INavItems {
   icon: IconBaseProps;
   path: string;
   headerTitle?: string;
-  disable?: boolean;
 }
 
 const BottomNav = () => {
   const { pathname = '' } = useLocation();
   const navigate = useNavigate();
+  const windowScroll = useWindowScroll();
 
   const navItems: Array<INavItems> = useMemo(() => {
     return [
@@ -65,7 +67,7 @@ const BottomNav = () => {
         headerTitle: 'Chụp ảnh',
         path: RoutePath.WATER_METER,
         icon: (
-          <div className="rounded-full bg-black-900 p-6 absolute xs:p-4 top-[-2rem] border-4 border-white-900">
+          <div className="rounded-full bg-black-900 p-6 absolute xs:p-4 top-[-2rem] border-4 border-white-20">
             <IconWrapper size={24} color={Color.MAIN_WHITE}>
               <Camera />
             </IconWrapper>
@@ -75,7 +77,6 @@ const BottomNav = () => {
       {
         id: 'message',
         name: 'Tin nhắn',
-        disable: true,
         path: RoutePath.MESSAGE,
         icon: (
           <IconWrapper
@@ -91,7 +92,6 @@ const BottomNav = () => {
         id: 'settings',
         name: 'Cài Đặt',
         path: RoutePath.SETTING,
-        disable: true,
         icon: (
           <IconWrapper
             size={24}
@@ -108,12 +108,13 @@ const BottomNav = () => {
 
   return (
     <div
-      className={clsx(
+      className={cn(
         Styles.FLEX_BETWEEN,
-        'fixed xs:p-4 sm:p-6 bottom-0 bg-white-10 w-full rounded-t-3xl lg:hidden',
+        'fixed xs:p-4 sm:p-6 bottom-0 bg-white-10 border w-full rounded-t-3xl lg:hidden',
+        'xs:text-xs',
       )}>
       {navItems.map((i) => {
-        const { icon, path, name, id, headerTitle, disable } = i;
+        const { icon, path, name, id, headerTitle } = i;
 
         if (id === 'camera') {
           return (
@@ -121,14 +122,13 @@ const BottomNav = () => {
               key={id}
               styleOverride="text-black-900 font-semibold"
               icon={icon}
-              onClick={() => {
-                !disable &&
-                  navigate(path, {
-                    state: {
-                      headerTitle: 'Chụp ảnh',
-                    },
-                  });
-              }}>
+              onClick={() =>
+                navigate(path, {
+                  state: {
+                    headerTitle: 'Chụp ảnh',
+                  },
+                })
+              }>
               <p className="xs:text-xs mt-6">{name}</p>
             </NavigationItem>
           );
@@ -139,14 +139,13 @@ const BottomNav = () => {
             key={id}
             styleOverride="text-black-500"
             icon={icon}
-            onClick={() => {
-              !disable &&
-                navigate(path, {
-                  state: {
-                    headerTitle,
-                  },
-                });
-            }}>
+            onClick={() =>
+              navigate(path, {
+                state: {
+                  headerTitle,
+                },
+              })
+            }>
             <p
               className={clsx(
                 'xs:text-xs',

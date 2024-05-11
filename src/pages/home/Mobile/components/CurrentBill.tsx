@@ -1,4 +1,4 @@
-import { MONTHS, RoutePath } from '@/common/constants';
+import { RoutePath } from '@/common/constants';
 import { Divider, MoneyText } from '@/components';
 import { ShowMore } from '@/components/layout/ShowMoreList';
 import { Styles } from '@/theme';
@@ -25,8 +25,8 @@ const billItems = [
 
 export const CurrentBill = () => {
   return (
-    <div className="shadow-2xl mt-2 text-white-10 rounded-3xl bg-green-80">
-      <div className="p-6">
+    <div className="shadow-2xl mt-2 text-white-10 xs:rounded-xl lsm:rounded-3xl bg-green-80">
+      <div className="xs:p-4 lsm:p-6">
         <ShowMore
           path={RoutePath.WATER_METER}
           title={`Tiền nhà tháng ${dayjs().month()}, ${dayjs().year()}`}

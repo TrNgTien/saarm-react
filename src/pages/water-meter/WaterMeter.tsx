@@ -47,12 +47,7 @@ const WaterMeter = () => {
 
   return (
     <div className={Styles.FLEX_COL}>
-      <PageHeader
-        title={'Cập nhật đồng hồ nước'}
-        onClickPrevious={() => {
-          setImageBase64(undefined)
-        }}
-      />
+      <PageHeader title={'Cập nhật đồng hồ nước'} />
       <div className={clsx(Styles.FLEX_BETWEEN, 'mt-4 p-4')}>
         {imageBase64 ? (
           <div className="w-full">

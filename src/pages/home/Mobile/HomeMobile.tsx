@@ -3,7 +3,12 @@ import Citizen from '@/assets/icons/citizen.svg';
 import Statistic from '@/assets/icons/statistic.svg';
 import UpdateWater from '@/assets/icons/update-water.svg';
 import { RoutePath } from '@/common/constants';
-import { Banner, DropDownBilling, IconImage } from '@/components';
+import {
+  Banner,
+  DropDownBilling,
+  IconImage,
+  SkeletonWrapper,
+} from '@/components';
 import { UtilityCircle } from '@/components/common/UtilityCircle';
 import { ShowMore } from '@/components/layout/ShowMoreList';
 import { Styles } from '@/theme';
@@ -11,6 +16,7 @@ import { memo } from 'react';
 import { CurrentBill } from './components';
 
 const ICON_STYLE = 'bg-green-200 rounded-full p-2 h-14';
+
 const utilityItems = [
   {
     id: 'update-water-meter',
@@ -37,13 +43,13 @@ const utilityItems = [
 const HomeMobile = () => {
   return (
     <div className="text-white-10 h-screen bg-white-50">
-      <div className="bg-[#0A150F] h-2/6 text-white-0 p-4">
-        {true ? <Banner /> : null}
-        <CurrentBill />
+      <div className="bg-[#0A150F] text-white-0 p-4">
+        {false ? <Banner /> : <SkeletonWrapper stylesOverride="mt-2" />}
+        {true ? <CurrentBill /> : <SkeletonWrapper stylesOverride="mt-2" />}
       </div>
-      <div className="xs:mt-20 lsm:mt-10 mt-8 text-black-900 p-4 ">
+      <div className="text-black-900 p-4">
         <ShowMore path={RoutePath.UTIL} title={'Tiện ích'}>
-          <div className={`${Styles.FLEX_BETWEEN} pt-2`}>
+          <div className={`${Styles.FLEX_BETWEEN} pt-2 xs:text-sm`}>
             {utilityItems.map((i) => {
               const { id, ...rest } = i;
               return <UtilityCircle key={id} {...rest} />;
@@ -52,7 +58,7 @@ const HomeMobile = () => {
         </ShowMore>
         <div className="xs:mt-4 mt-8">
           <ShowMore path={RoutePath.UTIL} title={'Hóa đơn gần đây'}>
-            <div className="xs:max-h-28 sm:max-h-60 overflow-auto">
+            <div className="xs:max-h-28 sm:max-h-60 lsm:max-h-64 overflow-auto">
               {utilityItems.map((i, idx) => {
                 const { id } = i;
                 return (

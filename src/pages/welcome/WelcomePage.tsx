@@ -1,22 +1,41 @@
-import LogoDark from '@/assets/icons/logo-dark.svg';
+import LogoDarkUrl from '@/assets/icons/logo-dark.svg';
 import OnBoard from '@/assets/images/on-board.svg';
-import { RoutePath } from '@/common/constants';
 import { Button } from '@/components';
+import { cn } from '@/lib/utils';
 import { Styles } from '@/theme';
 import clsx from 'clsx';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+const { Skeleton } = await import('@/components/ui/skeleton');
+const { RoutePath } = await import('@/common/constants');
 
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
+  const [imageLoading, setImageLoading] = useState<boolean>(true);
+
+  const handleImageLoaded = useCallback(() => {
+    setImageLoading(false);
+  }, []);
 
   return (
     <div className="p-4">
       <div className={clsx(Styles.FLEX_ALIGN_CENTER, 'mb-8')}>
-        <img src={LogoDark} width={32} height={32} loading="lazy" />
+        <img src={LogoDarkUrl} width={32} height={32} loading="lazy" />
         <h1 className="font-bold text-xl ml-2">Placepad</h1>
       </div>
       <div className="p-4 text-center">
-        <img src={OnBoard} className="mx-auto" />
+        {imageLoading && (
+          <div className={cn(Styles.FLEX_COL, 'space-y-2 w-full mt-8')}>
+            <Skeleton className="h-[300px] rounded-xl w-full bg-gray-300" />
+          </div>
+        )}
+        <img
+          src={OnBoard}
+          className="mx-auto"
+          loading="lazy"
+          alt="image"
+          onLoad={handleImageLoaded}
+        />
         <h1 className="font-semibold text-xl mt-8">
           Giải pháp quản lý nhà cửa thông minh
         </h1>

@@ -1,4 +1,4 @@
-import replace from '@rollup/plugin-replace';
+import replace, { RollupReplaceOptions } from '@rollup/plugin-replace';
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
 import { UserConfig } from 'vite';
@@ -21,7 +21,10 @@ const __APP_INFO__ = {
   // env: process.env
 };
 
-const replaceOptions = { __DATE__: new Date().toISOString() };
+const replaceOptions: RollupReplaceOptions = {
+  __DATE__: new Date().toISOString(),
+  preventAssignment: true,
+};
 
 export default (): UserConfig => {
   return {
