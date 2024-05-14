@@ -93,7 +93,7 @@ const App = () => {
       autoHideDuration={2000}
       anchorOrigin={getPositionSnackbar()}>
       <Provider store={store}>
-        <div className="h-screen bg-[#FBFBFB]">
+        <div className="">
           <BrowserRouter>
             <Routes>
               {publicRoutes.map((r) => (

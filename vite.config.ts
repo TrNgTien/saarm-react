@@ -6,7 +6,6 @@ import checker from 'vite-plugin-checker';
 import Inspect from 'vite-plugin-inspect';
 import { VitePWA } from 'vite-plugin-pwa';
 import pkg from './package.json';
-import { pwaOptions } from './setup/setupPWA';
 
 const { dependencies, devDependencies, name, version } = pkg;
 
@@ -55,18 +54,20 @@ export default (): UserConfig => {
     },
 
     plugins: [
-      VitePWA(pwaOptions),
-      //   registerType: 'autoUpdate',
-      //   injectRegister: 'auto',
-      //   workbox: {
-      //     globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
-      //   },
-      //   //Will have the Web App Manifest and the generated service worker
-      //   //if enabled: true
-      //   devOptions: {
-      //     enabled: false,
-      //   },
-      // }),
+      // VitePWA(pwaOptions),
+      VitePWA({
+        registerType: 'autoUpdate',
+        injectRegister: 'auto',
+        workbox: {
+          cleanupOutdatedCaches: false,
+          globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        },
+        //Will have the Web App Manifest and the generated service worker
+        //if enabled: true
+        devOptions: {
+          enabled: false,
+        },
+      }),
       react(),
       Inspect(),
       replace(replaceOptions) as any,

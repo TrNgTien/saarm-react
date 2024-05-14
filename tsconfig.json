@@ -19,7 +19,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "setup/**/*.ts", "./svg-imports.d.ts"],
+  "include": ["src", "setup/**/*.ts"],
   "exclude": ["dist", "node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
