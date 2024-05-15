@@ -59,7 +59,7 @@ export default (): UserConfig => {
         registerType: 'autoUpdate',
         injectRegister: 'auto',
         workbox: {
-          cleanupOutdatedCaches: false,
+          cleanupOutdatedCaches: true,
           globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
         },
         //Will have the Web App Manifest and the generated service worker
