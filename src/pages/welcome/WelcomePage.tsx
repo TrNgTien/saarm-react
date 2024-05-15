@@ -1,13 +1,13 @@
 import LogoDarkUrl from '@/assets/icons/logo-dark.svg';
 import OnBoard from '@/assets/images/on-board.svg';
+import { RoutePath } from '@/common/constants';
 import { Button } from '@/components';
+import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { Styles } from '@/theme';
 import clsx from 'clsx';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-const { Skeleton } = await import('@/components/ui/skeleton');
-const { RoutePath } = await import('@/common/constants');
 
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
