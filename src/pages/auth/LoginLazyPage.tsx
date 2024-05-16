@@ -1,7 +1,7 @@
 import GoogleIc from '@/assets/icons/google.svg';
 import Logo from '@/assets/icons/logo-dark.svg';
 import { EMethods } from '@/common';
-import { RestEndpoints, RoutePath } from '@/common/constants';
+import { RestEndpoints, RoutePath, UserType } from '@/common/constants';
 import { ILoginForm } from '@/common/types/login';
 import {
   Button,
@@ -11,11 +11,8 @@ import {
   LabelInput,
   Loading,
 } from '@/components';
-import { useAppDispatch } from '@/hooks/redux.hook';
-import { setUserData } from '@/redux/slices/user.slice';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
-import { useGoogleLogin } from '@react-oauth/google';
 import clsx from 'clsx';
 import { useSnackbar } from 'notistack';
 import { KeyboardEvent, useCallback, useState } from 'react';
@@ -23,12 +20,13 @@ import { BsQuestionCircle as QuestionIcon } from 'react-icons/bs';
 import { FaRegEyeSlash as ClosedIcon } from 'react-icons/fa';
 import { FaGoogle as GoogleDisable } from 'react-icons/fa6';
 import { LiaEyeSolid as EyeOpenIcon } from 'react-icons/lia';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocalStorage } from 'react-use';
 
 const AuthPage: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [userInfo, setUserInfo] = useState<ILoginForm>({
     username: '',
     password: '',
@@ -36,24 +34,28 @@ const AuthPage: React.FC = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isTriggeredLogin, setIsTriggeredLogin] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const loginGoogle = useGoogleLogin({
-    onSuccess: async ({ code }) => {
-      try {
-        // const googleInformation: IUserGoogle = await networkInstance.send({
-        //   method: EMethods.POST,
-        //   path: RestEndpoints.LOGIN_GOOGLE,
-        //   body: {
-        //     code,
-        //   },
-        // });
-        console.log('[loginGoogle] ', code);
-      } catch (e) {
-        console.error('[loginGoogle]: ', e);
-      }
-    },
-    flow: 'auth-code',
+  const [_, setToken] = useLocalStorage('token', '', {
+    raw: true,
   });
+  const { userType = '' } = location.state;
+
+  // const loginGoogle = useGoogleLogin({
+  //   onSuccess: async ({ code }) => {
+  //     try {
+  //       // const googleInformation: IUserGoogle = await networkInstance.send({
+  //       //   method: EMethods.POST,
+  //       //   path: RestEndpoints.LOGIN_GOOGLE,
+  //       //   body: {
+  //       //     code,
+  //       //   },
+  //       // });
+  //       console.log('[loginGoogle] ', code);
+  //     } catch (e) {
+  //       console.error('[loginGoogle]: ', e);
+  //     }
+  //   },
+  //   flow: 'auth-code',
+  // });
 
   const handleBasicLogin = useCallback(async () => {
     try {
@@ -67,7 +69,10 @@ const AuthPage: React.FC = () => {
 
       const userData = await networkInstance.send({
         method: EMethods.POST,
-        path: RestEndpoints.SIGN_IN,
+        path:
+          userType === UserType.TENANT
+            ? RestEndpoints.SIGN_IN_TENANT
+            : RestEndpoints.SIGN_IN,
         body: {
           ...userInfo,
           username: userInfo.username.toLowerCase(),
@@ -79,7 +84,7 @@ const AuthPage: React.FC = () => {
         throw Error('Can not get user!');
       }
 
-      dispatch(setUserData(userData?.data ?? {}));
+      setToken(userData?.data?.value);
 
       setTimeout(() => {
         navigate(RoutePath.HOME);
@@ -101,9 +106,11 @@ const AuthPage: React.FC = () => {
 
   const handleEnterLogin = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key == 'Enter') {
-        handleBasicLogin();
+      if (e.key !== 'Enter') {
+        return;
       }
+
+      return handleBasicLogin();
     },
     [handleBasicLogin],
   );

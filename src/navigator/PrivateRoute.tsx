@@ -1,16 +1,30 @@
 import { RoutePath } from '@/common/constants';
-import { useAppSelector } from '@/hooks/redux.hook';
-import { RootState } from '@/redux/store';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { Navigate } from 'react-router-dom';
+import { useLocalStorage } from 'react-use';
 
 interface IPrivateRoutesProps {
   children: React.ReactNode;
 }
 const PrivateRoute = (props: IPrivateRoutesProps) => {
   const { children } = props;
-  const token = useAppSelector((state: RootState) => state.user.token);
+  const [value] = useLocalStorage('token', '', {
+    raw: true,
+  });
 
-  return !token ? <Navigate to={RoutePath.WELCOME} replace /> : children;
+  if (!value) {
+    return <Navigate to={RoutePath.WELCOME} replace />;
+  }
+
+  const decoded = jwtDecode<JwtPayload>(value);
+  const currentTime = new Date();
+  const exp = decoded.exp ?? 0;
+
+  if (exp < currentTime.getTime() / 1000) {
+    return <Navigate to={RoutePath.WELCOME} replace />;
+  }
+
+  return children;
 };
 
 export default PrivateRoute;

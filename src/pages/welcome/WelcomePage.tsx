@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 const WelcomePage: React.FC = () => {
   const navigate = useNavigate();
   const [imageLoading, setImageLoading] = useState<boolean>(true);
+  const [userType, setUserType] = useState<string>('finder');
 
   const handleImageLoaded = useCallback(() => {
     setImageLoading(false);
@@ -45,10 +46,20 @@ const WelcomePage: React.FC = () => {
       </div>
 
       <div className="w-10/12 mx-auto">
+        <select
+          className="border p-2 rounded-xl w-full my-4"
+          onChange={(e) => setUserType(e.target.value)}>
+          <option value="finder">Tìm trọ</option>
+          <option value="landlord">Chủ nhà</option>
+          <option value="tenant">Người ở</option>
+        </select>
+
         <Button
-          title={'Đăng nhập'}
+          title={'Tiếp Tục'}
           titleStyles="text-black-100 font-semibold text-sm"
-          onClick={() => navigate(RoutePath.LOGIN)}
+          onClick={() =>
+            navigate(RoutePath.LOGIN, { state: {  userType } })
+          }
           btnStyles={'bg-green-300 text-black-100 font-semibold text-sm'}
         />
 

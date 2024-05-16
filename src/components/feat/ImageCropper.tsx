@@ -17,7 +17,6 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
   const { enqueueSnackbar } = useSnackbar();
   const [imgCropped, setImgCropped] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [waterDetected, setWaterDetected] = useState<number>();
 
   const cropperRef = useRef<ReactCropperElement>(null);

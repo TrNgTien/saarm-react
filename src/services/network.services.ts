@@ -6,7 +6,7 @@ interface IRequestOptions {
   path: string;
   method: keyof typeof EMethods;
   body?: unknown;
-  headers?: Record<string, string >;
+  headers?: Record<string, string>;
   configs?: Record<string, unknown>;
 }
 
@@ -30,6 +30,7 @@ export class NetworkService {
   }
 
   async send(opts: IRequestOptions) {
+    const token = localStorage.getItem('token');
     try {
       const t = performance.now();
 
@@ -40,6 +41,7 @@ export class NetworkService {
         // params = {},
         body: data,
         headers = {
+          Authorization: token ? `Bearer ${token}` : '',
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
@@ -61,7 +63,7 @@ export class NetworkService {
 
       return result;
     } catch (e) {
-      throw Error(`${e}`)
+      throw Error(`${e}`);
     }
   }
   async get(opts: IRequestOptions) {

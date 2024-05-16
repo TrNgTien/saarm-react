@@ -1,9 +1,15 @@
 export class RestEndpoints {
   static readonly SIGN_IN = 'auth/sign-in';
+  static readonly SIGN_IN_TENANT = 'auth/sign-in/tenant';
   static readonly SIGN_UP = 'auth/sign-up';
   static readonly LOGIN_GOOGLE = 'auth/google';
   static readonly ROOM = 'rooms';
   static readonly SUBMIT_WATER_METER = `water-meter`;
+}
+
+export class UserType {
+  static readonly TENANT = 'tenant';
+  static readonly LANDLORD = 'landlord';
 }
 
 export class LimitRecords {
