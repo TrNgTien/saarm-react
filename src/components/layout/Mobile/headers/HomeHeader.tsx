@@ -21,7 +21,7 @@ const Header = () => {
           <p className="text-black-500 text-xs">24 Linh Trung, Thủ Đức</p>
         </div>
       </div>
-      <div className={Styles.FLEX_BETWEEN}>
+      {/* <div className={Styles.FLEX_BETWEEN}>
         <IconWrapper
           size={30}
           iconAmount={11111112}
@@ -37,7 +37,7 @@ const Header = () => {
           alt={'Avatar'}
           className="ml-2 size-8 rounded-full object-cover border border-white-20 bg-gray-200"
         />
-      </div>
+      </div> */}
     </div>
   );
 };
