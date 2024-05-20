@@ -4,7 +4,11 @@ export class RestEndpoints {
   static readonly SIGN_UP = 'auth/sign-up';
   static readonly LOGIN_GOOGLE = 'auth/google';
   static readonly ROOM = 'rooms';
-  static readonly SUBMIT_WATER_METER = `water-meter`;
+  static readonly ROOM_BILL = 'bills';
+  static readonly HISTORY_WATER_METER = `water-meters/histories`;
+  static readonly DETECT_WATER_METER = `water-meters/detect`;
+  static readonly SUBMIT_WATER_METER = `water-meters/submit`;
+  static readonly IS_SUBMIT_WATER_METER = `water-meters/is-submitted`;
 }
 
 export class UserType {

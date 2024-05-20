@@ -7,12 +7,13 @@ import {
 } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas';
-import { userReducer } from './slices';
+import { roomReducer, userReducer } from './slices';
 
 //----------------------------------------------------------------------------
 // Combine reducers
 const appReducer = combineReducers({
   user: userReducer,
+  room: roomReducer,
 });
 
 //----------------------------------------------------------------------------

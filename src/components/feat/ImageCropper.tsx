@@ -1,13 +1,14 @@
 import { EMethods } from '@/common';
-import { RestEndpoints } from '@/common/constants';
+import { RestEndpoints, RoutePath } from '@/common/constants';
 import { getDecodedToken } from '@/helpers';
 import { cn } from '@/lib/utils';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
 import 'cropperjs/dist/cropper.css';
 import { useSnackbar } from 'notistack';
-import React, { Dispatch, useCallback, useRef, useState } from 'react';
+import React, { Dispatch, useCallback, useMemo, useRef, useState } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../common';
 import { Loading } from '../loading';
 
@@ -18,10 +19,11 @@ interface IImageCropperProps {
 
 function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
   const [imgCropped, setImgCropped] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [waterDetected, setWaterDetected] = useState<string>('');
-  const token = getDecodedToken();
+  const token = useMemo(getDecodedToken, [getDecodedToken]);
 
   const cropperRef = useRef<ReactCropperElement>(null);
 
@@ -43,7 +45,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
 
       const rs = await networkInstance.send({
         method: EMethods.POST,
-        path: `${RestEndpoints.ROOM}/${token?.roomId}/${RestEndpoints.SUBMIT_WATER_METER}`,
+        path: `${RestEndpoints.ROOM}/${token?.roomId}/${RestEndpoints.DETECT_WATER_METER}`,
         body: { croppedFile: imgCropped, originalFile: imageSrc },
       });
 
@@ -69,18 +71,26 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
     try {
       setIsLoading(true);
 
-      console.log('checking token', token);
-      // const rs = await networkInstance.send({
-      //   method: EMethods.POST,
-      //   path: `${RestEndpoints.ROOM}/2/${RestEndpoints.SUBMIT_WATER_METER}`,
-      //   body: { croppedFile: imgCropped, originalFile: imageSrc },
-      // });
-      //
-      // if (!rs.data?.[0]) {
-      //   throw Error('Không nhận diện được, vui lòng chọn ảnh khác!');
-      // }
-      //
-      // setWaterDetected(rs.data[0]);
+      const rs = await networkInstance.send({
+        method: EMethods.POST,
+        path: `${RestEndpoints.ROOM}/${token?.roomId}/${RestEndpoints.SUBMIT_WATER_METER}`,
+        body: { waterMeter: waterDetected },
+      });
+
+      const message = !rs.success
+        ? 'Vui lòng thử lại!'
+        : `Cập nhật thành công!`;
+      setIsLoading(false);
+
+      enqueueSnackbar(message, {
+        variant: !rs.success ? 'error' : 'success',
+      });
+
+      if (rs.success) {
+        setTimeout(() => {
+          navigate(RoutePath.HOME);
+        }, 1000);
+      }
 
       setIsLoading(false);
     } catch (e: any) {
@@ -93,7 +103,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
         });
       }, 1000);
     }
-  }, [token]);
+  }, [token, waterDetected]);
 
   return (
     <div>
@@ -112,7 +122,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
               <div>
                 <h1 className="font-semibold text-xl">Số nước ghi nhận:</h1>
                 <p className="text-green-80 text-3xl font-bold">
-                  {waterDetected.slice(0, 4)}
+                  {waterDetected}
                 </p>
               </div>
               <div className={cn(Styles.FLEX_AROUND, 'mt-24')}>

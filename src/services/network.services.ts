@@ -59,7 +59,8 @@ export class NetworkService {
       const response = await fetch(requestUrl, props);
       const result = await response.json();
 
-      console.log(`[send] Response | Took: ${performance.now() - t}(ms)`);
+      const milliSecs = performance.now() - t;
+      console.log(`[send] Response | Took: ${milliSecs / 1_000}(s)`);
 
       return result;
     } catch (e) {

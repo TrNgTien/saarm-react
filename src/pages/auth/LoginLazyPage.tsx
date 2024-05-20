@@ -1,7 +1,7 @@
 import GoogleIc from '@/assets/icons/google.svg';
 import Logo from '@/assets/icons/logo-dark.svg';
 import { EMethods } from '@/common';
-import { RestEndpoints, RoutePath, UserType } from '@/common/constants';
+import { RestEndpoints, RoutePath } from '@/common/constants';
 import { ILoginForm } from '@/common/types/login';
 import {
   Button,
@@ -20,13 +20,12 @@ import { BsQuestionCircle as QuestionIcon } from 'react-icons/bs';
 import { FaRegEyeSlash as ClosedIcon } from 'react-icons/fa';
 import { FaGoogle as GoogleDisable } from 'react-icons/fa6';
 import { LiaEyeSolid as EyeOpenIcon } from 'react-icons/lia';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'react-use';
 
 const AuthPage: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const location = useLocation();
   const [userInfo, setUserInfo] = useState<ILoginForm>({
     username: '',
     password: '',
@@ -37,7 +36,6 @@ const AuthPage: React.FC = () => {
   const [_, setToken] = useLocalStorage('token', '', {
     raw: true,
   });
-  const { userType = '' } = location.state;
 
   // const loginGoogle = useGoogleLogin({
   //   onSuccess: async ({ code }) => {
@@ -69,10 +67,7 @@ const AuthPage: React.FC = () => {
 
       const userData = await networkInstance.send({
         method: EMethods.POST,
-        path:
-          userType === UserType.TENANT
-            ? RestEndpoints.SIGN_IN_TENANT
-            : RestEndpoints.SIGN_IN,
+        path: RestEndpoints.SIGN_IN,
         body: {
           ...userInfo,
           username: userInfo.username.toLowerCase(),

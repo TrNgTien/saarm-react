@@ -2,7 +2,8 @@ import Billing from '@/assets/icons/billing.svg';
 import Citizen from '@/assets/icons/citizen.svg';
 import Statistic from '@/assets/icons/statistic.svg';
 import UpdateWater from '@/assets/icons/update-water.svg';
-import { RoutePath } from '@/common/constants';
+import { EMethods } from '@/common';
+import { RestEndpoints, RoutePath } from '@/common/constants';
 import {
   Banner,
   DropDownBilling,
@@ -11,8 +12,9 @@ import {
 } from '@/components';
 import { UtilityCircle } from '@/components/common/UtilityCircle';
 import { ShowMore } from '@/components/layout/ShowMoreList';
+import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { CurrentBill } from './components';
 
 const ICON_STYLE = 'bg-green-200 rounded-full p-2 h-14';
@@ -41,10 +43,24 @@ const utilityItems = [
 ];
 
 const HomeMobile = () => {
+  // const getRoomData = useCallback(async () => {
+  //   const rs = await networkInstance.send({
+  //     method: EMethods.GET,
+  //     path: `${RestEndpoints.ROOM}`,
+  //   });
+  //
+  //   if (!rs.data?.[0]) {
+  //     throw Error('Không nhận diện được, vui lòng chọn ảnh khác!');
+  //   }
+  //
+  //   // setWaterDetected(rs.data[0]);
+  // }, []);
+
   return (
     <div className="text-white-10 h-screen bg-white-50">
       <div className="bg-[#0A150F] text-white-0 p-4">
-        {false ? <Banner /> : <SkeletonWrapper stylesOverride="mt-2" />}
+        <Banner />
+
         {true ? <CurrentBill /> : <SkeletonWrapper stylesOverride="mt-2" />}
       </div>
       <div className="text-black-900 p-4">

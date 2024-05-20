@@ -1,6 +1,8 @@
 import { RoutePath } from '@/common/constants';
 import { Divider, MoneyText } from '@/components';
+import { IRoom } from '@/components/layout/Mobile/headers/HomeHeader';
 import { ShowMore } from '@/components/layout/ShowMoreList';
+import { useAppSelector } from '@/hooks';
 import { Styles } from '@/theme';
 import dayjs from 'dayjs';
 import { FaMoneyCheckDollar } from 'react-icons/fa6';
@@ -24,6 +26,12 @@ const billItems = [
 ];
 
 export const CurrentBill = () => {
+  const { roomPrice } = useAppSelector((state) => {
+    const roomData = state.room.room as IRoom;
+    console.log("roomData", roomData)
+    return { roomPrice: roomData.roomPrice };
+  });
+
   return (
     <div className="shadow-2xl mt-2 text-white-10 xs:rounded-xl lsm:rounded-3xl bg-green-80">
       <div className="xs:p-4 lsm:p-6">
@@ -35,7 +43,7 @@ export const CurrentBill = () => {
             <FaMoneyCheckDollar size={24} />
             <MoneyText
               styling="ml-2 font-semibold text-3xl"
-              value={'2739000'}
+              value={roomPrice}
             />
           </div>
           <Divider lineStyle="border border-white-10" />
