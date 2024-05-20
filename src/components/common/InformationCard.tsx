@@ -8,7 +8,7 @@ export const InformationCard = (
   props: { imgSrc: string | undefined } & IHistory,
 ) => {
   const { imgSrc, waterMeter, waterConsume, createdAt } = props;
-  const waterMoney = `${3500 * waterConsume}`;
+  const waterMoney = `${20_000 * waterConsume}`;
   const timeSubmit = dayjs(createdAt).format('DD-MM-YYYY HH:mm')
 
   return (
@@ -29,7 +29,7 @@ export const InformationCard = (
       <div className="flex-1 px-2">
         <div className={Styles.FLEX_BETWEEN}>
           <h1 className="font-semibold">{`Tháng ${dayjs().month()}/${dayjs().year()}`}</h1>
-          <p className="font-normal text-xs">{timeSubmit}</p>
+          <p className="font-normal text-xs">Gửi:&nbsp;{timeSubmit}</p>
         </div>
         <div>
           <div className={clsx(Styles.FLEX_BETWEEN)}>

@@ -15,6 +15,7 @@ const PrivateRoute = (props: IPrivateRoutesProps) => {
   if (!value) {
     return <Navigate to={RoutePath.WELCOME} replace />;
   }
+
   const decoded = getDecodedToken();
   const currentTime = new Date();
   const exp = decoded?.exp ?? 0;

@@ -1,5 +1,6 @@
 import { EMethods } from '@/common';
 import { RestEndpoints } from '@/common/constants';
+import { IRoom } from '@/common/types/room';
 import { IconWrapper } from '@/components/common';
 import { getDecodedToken } from '@/helpers';
 import { useAppDispatch } from '@/hooks';
@@ -9,14 +10,6 @@ import { Color, Styles } from '@/theme';
 import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { MdOutlineHomeWork as RoomIcon } from 'react-icons/md';
 
-export interface IRoom {
-  id: string;
-  roomName: string;
-  roomStatus: string;
-  roomPrice: string;
-  apartmentName: string;
-  apartmentAddress: string;
-}
 const Header = () => {
   const dispatch = useAppDispatch();
   const token = useMemo(getDecodedToken, [getDecodedToken]);
@@ -52,7 +45,7 @@ const Header = () => {
           <RoomIcon />
         </IconWrapper>
         <div className="p-2">
-          <p className="text-white-10 text-md">{room?.roomName}</p>
+          <p className="text-white-10 text-md">Phòng {room?.roomName}</p>
           <p className="text-black-500 text-xs mt-2">{room?.apartmentAddress}</p>
         </div>
       </div>

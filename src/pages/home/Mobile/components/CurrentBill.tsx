@@ -1,36 +1,58 @@
-import { RoutePath } from '@/common/constants';
+import { EMethods, IRoomBill } from '@/common';
+import { RestEndpoints, RoutePath } from '@/common/constants';
 import { Divider, MoneyText } from '@/components';
-import { IRoom } from '@/components/layout/Mobile/headers/HomeHeader';
 import { ShowMore } from '@/components/layout/ShowMoreList';
-import { useAppSelector } from '@/hooks';
+import { getDecodedToken } from '@/helpers';
+import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
 import dayjs from 'dayjs';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { FaMoneyCheckDollar } from 'react-icons/fa6';
 
-const billItems = [
-  {
-    id: 'electricity',
-    name: 'Điện',
-    content: '2000',
-  },
-  {
-    id: 'water',
-    name: 'Nước',
-    content: '200000',
-  },
-  {
-    id: 'others',
-    name: 'Khác',
-    content: '200000',
-  },
-];
-
 export const CurrentBill = () => {
-  const { roomPrice } = useAppSelector((state) => {
-    const roomData = state.room.room as IRoom;
-    console.log("roomData", roomData)
-    return { roomPrice: roomData.roomPrice };
-  });
+  const token = useMemo(getDecodedToken, [getDecodedToken]);
+  const [roomBill, setRoomBill] = useState<IRoomBill>();
+
+  const getRoomBill = useCallback(async () => {
+    try {
+      const params = new URLSearchParams({
+        monthRequest: dayjs().toISOString(),
+      });
+      const rs = await networkInstance.send({
+        method: EMethods.GET,
+        path: `${RestEndpoints.ROOM}/${token?.roomId}/bills`,
+        params,
+      });
+
+      if (!rs.success) {
+        return;
+      }
+
+      const waterMoney = Number(rs.data.waterConsume ?? 0) * 20_000;
+      const electricityMoney = Number(rs.data.electricityConsume ?? 0) * 3500;
+      const extraFeeMoney = 0;
+      const totalMoney =
+        waterMoney +
+        electricityMoney +
+        Number(rs.data.roomPrice) +
+        extraFeeMoney;
+
+      const bill = {
+        ...rs.data,
+        waterMoney,
+        electricityMoney: +rs.data.electricityConsume * 3500,
+        totalMoney,
+      };
+
+      setRoomBill(bill);
+    } catch (e) {
+      console.error('[getRoom] | %s', e);
+    }
+  }, [dayjs, token]);
+
+  useEffect(() => {
+    getRoomBill();
+  }, []);
 
   return (
     <div className="shadow-2xl mt-2 text-white-10 xs:rounded-xl lsm:rounded-3xl bg-green-80">
@@ -43,20 +65,27 @@ export const CurrentBill = () => {
             <FaMoneyCheckDollar size={24} />
             <MoneyText
               styling="ml-2 font-semibold text-3xl"
-              value={roomPrice}
+              value={`${roomBill?.roomPrice}`}
             />
           </div>
           <Divider lineStyle="border border-white-10" />
           <div className={`${Styles.FLEX_BETWEEN} w-full mt-6`}>
-            {billItems.map((i) => {
-              const { name, id, content } = i;
-              return (
-                <div key={id}>
-                  <p className="font-semibold">{name}</p>
-                  <MoneyText value={content} />
-                </div>
-              );
-            })}
+            <div>
+              <p className="font-semibold">{'Điện'}</p>
+              <MoneyText value={`${roomBill?.electricityMoney}`} />
+            </div>
+            <div>
+              <p className="font-semibold">{'Nước'}</p>
+              <MoneyText value={`${roomBill?.waterMoney}`} />
+            </div>
+            <div>
+              <p className="font-semibold">{'Khác'}</p>
+              <MoneyText value={`${roomBill?.extraFee}`} />
+            </div>
+          </div>
+          <div className="flex mt-8">
+            <p className="font-semibold text-xl mr-2">{'Tổng tiền: '}</p>
+            <MoneyText styling="text-lg" value={`${roomBill?.totalMoney}`} />
           </div>
         </ShowMore>
       </div>

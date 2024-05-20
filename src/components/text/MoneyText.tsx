@@ -9,7 +9,7 @@ export const MoneyText = (props: { value: string; styling?: string }) => {
 
   return (
     <p className={styling}>
-      {isNaN(number) ? 'Chua cap nhat' : formattedNumber}
+      {isNaN(number) ? 'N/A' : formattedNumber}
     </p>
   );
 };

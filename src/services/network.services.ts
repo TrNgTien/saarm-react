@@ -8,6 +8,7 @@ interface IRequestOptions {
   body?: unknown;
   headers?: Record<string, string>;
   configs?: Record<string, unknown>;
+  params?: URLSearchParams;
 }
 
 export class NetworkService {
@@ -38,7 +39,7 @@ export class NetworkService {
         baseUrl,
         path,
         method,
-        // params = {},
+        params,
         body: data,
         headers = {
           Authorization: token ? `Bearer ${token}` : '',
@@ -48,15 +49,19 @@ export class NetworkService {
         configs,
       } = opts;
       const requestUrl = this.getRequestUrl({ baseUrl, path });
-      const props: RequestInit = {
+      const props = {
         method,
         body: JSON.stringify(data),
         headers,
-        // paramsSerializer: { serialize: (p) => stringify(p) },
         ...configs,
       };
 
-      const response = await fetch(requestUrl, props);
+      const url =
+        (params?.size || 0) > 0
+          ? `${requestUrl}?${params?.toString()}`
+          : requestUrl;
+
+      const response = await fetch(url, props);
       const result = await response.json();
 
       const milliSecs = performance.now() - t;

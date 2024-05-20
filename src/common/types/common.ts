@@ -14,3 +14,8 @@ export interface IUserGoogle {
   lastName: string;
 }
 
+export interface IBase {
+  id: string;
+  createdAt: string;
+  modifiedAt: string;
+}
