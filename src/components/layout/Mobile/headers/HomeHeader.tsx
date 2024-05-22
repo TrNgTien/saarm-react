@@ -45,8 +45,12 @@ const Header = () => {
           <RoomIcon />
         </IconWrapper>
         <div className="p-2">
-          <p className="text-white-10 text-md">Phòng {room?.roomName}</p>
-          <p className="text-black-500 text-xs mt-2">{room?.apartmentAddress}</p>
+          <p className="text-white-10 text-md">
+            {room?.roomName && `Phòng ${room?.roomName}`}
+          </p>
+          <p className="text-black-500 text-xs mt-2">
+            {room?.apartmentAddress}
+          </p>
         </div>
       </div>
       {/* <div className={Styles.FLEX_BETWEEN}>

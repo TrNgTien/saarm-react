@@ -31,7 +31,7 @@ const WaterMeter = () => {
     }
 
     setHistories(rs.data);
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     getHistorySubmit();

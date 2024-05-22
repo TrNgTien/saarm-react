@@ -1,7 +1,9 @@
 import { EMethods } from '@/common';
 import { RestEndpoints, RoutePath } from '@/common/constants';
 import { getDecodedToken } from '@/helpers';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { cn } from '@/lib/utils';
+import { setIsFailDetection } from '@/redux/slices/detection.slice';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
 import 'cropperjs/dist/cropper.css';
@@ -11,6 +13,7 @@ import Cropper, { ReactCropperElement } from 'react-cropper';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common';
 import { Loading } from '../loading';
+import { ErrorModal } from '../modal';
 
 interface IImageCropperProps {
   imageSrc: string | undefined;
@@ -24,7 +27,8 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [waterDetected, setWaterDetected] = useState<string>('');
   const token = useMemo(getDecodedToken, [getDecodedToken]);
-
+  const isFailDetect = useAppSelector((state) => state.detection.isFailDetect);
+  const dispatch = useAppDispatch();
   const cropperRef = useRef<ReactCropperElement>(null);
 
   const getCropData = useCallback(() => {
@@ -50,7 +54,9 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       });
 
       if (!rs.data?.[0]) {
-        throw Error('Không nhận diện được, vui lòng chọn ảnh khác!');
+        setIsLoading(false);
+        dispatch(setIsFailDetection(true));
+        return;
       }
 
       setWaterDetected(rs.data[0]);
@@ -110,6 +116,7 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       {isLoading && <Loading />}
       {imgCropped ? (
         <React.Fragment>
+          {!!isFailDetect && <ErrorModal />}
           <img
             className="rounded-lg mx-auto my-10"
             width={250}
@@ -125,39 +132,40 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
                   {waterDetected}
                 </p>
               </div>
-              <div className={cn(Styles.FLEX_AROUND, 'mt-24')}>
+              <div className={cn(Styles.FLEX_AROUND, 'mt-20 font-semibold')}>
                 <Button
                   onClick={() => setImageBase64('')}
                   title="Chụp lại"
-                  btnStyles="w-5/12 border mt-4"
-                  titleStyles=""
+                  btnStyles="w-5/12 border mt-4 mr-4"
+                  titleStyles="text-green-80"
                 />
                 <Button
                   onClick={confirmWaterNumber}
                   title="Xác nhận"
                   btnStyles="w-5/12 border mt-4 bg-green-300"
-                  titleStyles=""
+                  titleStyles="text-black-100"
                 />
               </div>
             </div>
           ) : (
-            <>
-              <Button
-                onClick={handleSubmitImage}
-                title="Gửi ảnh"
-                btnStyles="w-full border mt-4"
-                titleStyles=""
-              />
+            <div
+              className={cn(Styles.FLEX_BETWEEN, 'mx-auto mt-4 select-none')}>
               <Button
                 onClick={() => {
                   setImgCropped('');
                   setImageBase64('');
                 }}
                 title="Chọn lại ảnh"
-                btnStyles="mx-auto border mt-4 select-none"
+                btnStyles="mr-4 text-black-100 font-semibold border "
                 titleStyles=""
               />
-            </>
+              <Button
+                onClick={handleSubmitImage}
+                title="Gửi ảnh"
+                btnStyles="bg-green-300 font-semibold"
+                titleStyles=""
+              />
+            </div>
           )}
         </React.Fragment>
       ) : (
@@ -178,21 +186,23 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
               checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
               guides={true}
             />
-            <Button
-              onClick={() => {
-                setImgCropped('');
-                setImageBase64('');
-              }}
-              title="Chọn lại ảnh"
-              btnStyles="mx-auto border mt-4 select-none"
-              titleStyles=""
-            />
-            <Button
-              onClick={getCropData}
-              title="Xác nhận vùng đã chọn"
-              btnStyles="mx-auto border mt-4 select-none"
-              titleStyles=""
-            />
+            <div className={Styles.FLEX_BETWEEN}>
+              <Button
+                onClick={() => {
+                  setImgCropped('');
+                  setImageBase64('');
+                }}
+                title="Chọn lại ảnh"
+                btnStyles="mx-auto border mt-4 select-none mr-4 font-semibold"
+                titleStyles=""
+              />
+              <Button
+                onClick={getCropData}
+                title="Xác nhận"
+                btnStyles="mx-auto border mt-4 select-none bg-green-300 text-black-100 font-semibold"
+                titleStyles=""
+              />
+            </div>
           </div>
         )
       )}
