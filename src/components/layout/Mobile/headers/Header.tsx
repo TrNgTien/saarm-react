@@ -1,5 +1,5 @@
 import { EMethods } from '@/common';
-import { RestEndpoints } from '@/common/constants';
+import { RestEndpoints, UserType } from '@/common/constants';
 import { IRoom } from '@/common/types/room';
 import { IconWrapper } from '@/components/common';
 import { getDecodedToken } from '@/helpers';
@@ -34,8 +34,11 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
+    if (token?.role !== UserType.TENANT) {
+      return;
+    }
     getRoom();
-  }, []);
+  }, [token]);
 
   return (
     <div

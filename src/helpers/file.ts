@@ -5,7 +5,7 @@ export const isValidFileUploaded = (fileType: string): boolean => {
     return false;
   }
 
-  const validExtensions = ['png', 'jpeg', 'jpg', 'webp'];
+  const validExtensions = ['png', 'jpeg', 'jpg'];
   const fileExtension = fileType.split('/')[1];
 
   return validExtensions.includes(fileExtension);

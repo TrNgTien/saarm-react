@@ -1,15 +1,16 @@
 import { lazy } from 'react';
 
-const HomeMobile = lazy(() => import('./HomeMobile'));
+const BillMobile = lazy(() => import('./BillMobile'));
 const MobileLayout = lazy(
   () => import('@/components/layout/Mobile/MobileLayout'),
 );
-const HomeMobileLazy = () => {
+
+const BillPageLazy = () => {
   return (
     <MobileLayout>
-      <HomeMobile />
+      <BillMobile />
     </MobileLayout>
   );
 };
 
-export default HomeMobileLazy;
+export default BillPageLazy;

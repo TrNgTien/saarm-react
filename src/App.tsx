@@ -3,18 +3,17 @@ import { SnackbarOrigin, SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, RouteProps, Routes } from 'react-router-dom';
 import { RoutePath } from './common/constants';
-import MobileLayout from './components/layout/Mobile/MobileLayout';
 import PrivateRoute from './navigator/PrivateRoute';
 import {
   BillPage,
   LoginPage,
   Notification,
   RegisterPage,
-  SettingMobile,
+  SettingPage,
   WaterMeter,
   WelcomePage,
 } from './pages';
-import { HomeMobile } from './pages/home';
+import HomePage from './pages/home';
 import MessagePage from './pages/message/MessagePage';
 import { store } from './redux/store';
 
@@ -39,16 +38,8 @@ const publicRoutes: RouteProps[] = [
 
 const privateRoutes: RouteProps[] = [
   {
-    id: 'water-meter',
-    element: <WaterMeter />,
-    path: RoutePath.WATER_METER,
-  },
-];
-
-const mobileLayouts: RouteProps[] = [
-  {
     id: 'home',
-    element: <HomeMobile />,
+    element: <HomePage />,
     path: RoutePath.HOME,
   },
   {
@@ -68,8 +59,13 @@ const mobileLayouts: RouteProps[] = [
   },
   {
     id: 'setting',
-    element: <SettingMobile />,
+    element: <SettingPage />,
     path: RoutePath.SETTING,
+  },
+  {
+    id: 'water-meter',
+    element: <WaterMeter />,
+    path: RoutePath.WATER_METER,
   },
 ];
 
@@ -99,21 +95,6 @@ const App = () => {
               {publicRoutes.map((r) => (
                 <Route key={r.id} {...r} />
               ))}
-
-              {mobileLayouts.map((r) => {
-                const { id, element, ...rest } = r;
-                return (
-                  <Route
-                    key={r.id}
-                    {...rest}
-                    element={
-                      <PrivateRoute>
-                        <MobileLayout>{element}</MobileLayout>
-                      </PrivateRoute>
-                    }
-                  />
-                );
-              })}
 
               {privateRoutes.map((r) => {
                 const { id, element, ...rest } = r;

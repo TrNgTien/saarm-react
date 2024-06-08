@@ -17,14 +17,14 @@ import { ErrorModal } from '../modal';
 
 interface IImageCropperProps {
   imageSrc: string | undefined;
-  setImageBase64: Dispatch<string | undefined>;
+  setImageBase64: Dispatch<string>;
 }
 
 function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const [imgCropped, setImgCropped] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [imgCropped, setImgCropped] = useState('');
   const [waterDetected, setWaterDetected] = useState<string>('');
   const token = useMemo(getDecodedToken, [getDecodedToken]);
   const isFailDetect = useAppSelector((state) => state.detection.isFailDetect);
@@ -60,8 +60,6 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       }
 
       setWaterDetected(rs.data[0]);
-
-      setIsLoading(false);
     } catch (e: any) {
       console.error('[handleSubmitImage] | %s', e);
       setTimeout(() => {
@@ -70,6 +68,8 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
           variant: 'error',
         });
       }, 1000);
+    } finally {
+      setIsLoading(false);
     }
   }, [imgCropped, token]);
 

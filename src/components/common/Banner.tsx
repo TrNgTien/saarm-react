@@ -30,16 +30,16 @@ export const Banner = () => {
       });
 
       if (!rs.data) {
-        setIsLoading(false);
         return;
       }
 
-      setIsLoading(false);
       dispatch(setIsSubmitWater(rs.data));
       setIsSubmittedWaterMeter(rs.data);
     } catch (e) {
       setIsLoading(false);
       console.error('[getIsSumittedWaterMeter]: | %s', e);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 

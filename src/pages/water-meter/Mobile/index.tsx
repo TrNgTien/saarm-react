@@ -8,17 +8,20 @@ import { useAppSelector } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { shallowEqual } from 'react-redux';
 
 const WaterMeter = () => {
   const { enqueueSnackbar } = useSnackbar();
-  const isSubmitWater = useAppSelector((state) => state.room.isSubmitWater);
+  const isSubmitWater = useAppSelector(
+    (state) => state.room.isSubmitWater,
+    shallowEqual,
+  );
   const token = useMemo(getDecodedToken, [getDecodedToken]);
   const [histories, setHistories] = useState<IHistory[] | undefined>([]);
-  const [imageBase64, setImageBase64] = useState<string | undefined>();
+  const [imageBase64, setImageBase64] = useState<string | undefined>('');
 
   const getHistorySubmit = useCallback(async () => {
     const rs = await networkInstance.send({
@@ -53,12 +56,9 @@ const WaterMeter = () => {
       }
 
       if (!isValidFileUploaded(file.type)) {
-        return enqueueSnackbar(
-          'Chỉ chấp nhận tệp ảnh loại png, jpeg, jpg, webp',
-          {
-            variant: 'error',
-          },
-        );
+        return enqueueSnackbar('Chỉ chấp nhận tệp ảnh loại png, jpeg, jpg', {
+          variant: 'error',
+        });
       }
 
       const reader = new FileReader();
@@ -73,7 +73,7 @@ const WaterMeter = () => {
   return (
     <div className={Styles.FLEX_COL}>
       <PageHeader title={'Cập nhật đồng hồ nước'} />
-      <div className={clsx(Styles.FLEX_BETWEEN, 'mt-2 p-4')}>
+      <div className={cn(Styles.FLEX_BETWEEN, 'mt-2 p-4')}>
         {imageBase64 ? (
           <div className="w-full">
             <ImageCropper
@@ -86,7 +86,7 @@ const WaterMeter = () => {
             {!isSubmitWater && (
               <label
                 htmlFor="upload-file"
-                className={clsx(
+                className={cn(
                   Styles.FLEX_BETWEEN,
                   'relative bg-green-300 rounded-lg p-6 w-11/12 shadow-md',
                 )}>

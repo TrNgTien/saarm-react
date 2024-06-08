@@ -46,6 +46,8 @@ export class RoutePath {
   static readonly BILLING = '/billing';
   static readonly SETTING = '/setting';
   static readonly UTIL = '/util';
+
+  static readonly CURRENT_PAGE = '#';
 }
 
 export const MONTHS: string[] = ['Thang 1', 'Thang 2', 'Thang 3', 'Thang 4'];

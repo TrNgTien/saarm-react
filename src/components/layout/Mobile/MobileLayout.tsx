@@ -1,6 +1,6 @@
-import React from 'react';
-import BottomNav from './BottomNav';
-import Header from './headers/HomeHeader';
+import React, { lazy } from 'react';
+const BottomNav = lazy(() => import('./BottomNav'));
+const Header = lazy(() => import('./headers/Header'));
 
 interface IMobileLayoutProps {
   children: React.ReactNode;

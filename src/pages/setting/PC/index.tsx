@@ -1,12 +1,12 @@
-import { Loading } from '@/components';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 const SettingPC = lazy(() => import('./SettingPC'));
+const PcLayout = lazy(() => import('@/components/layout/PC/PcLayout'));
 
 const Setting = () => {
   return (
-    <Suspense fallback={<Loading />}>
+    <PcLayout>
       <SettingPC />
-    </Suspense>
+    </PcLayout>
   );
 };
 

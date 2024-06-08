@@ -1,12 +1,12 @@
-import { Loading } from '@/components';
-import { lazy, Suspense } from 'react';
+import MobileLayout from '@/components/layout/Mobile/MobileLayout';
+import { lazy } from 'react';
 const SettingMobile = lazy(() => import('./SettingMobile'));
 
 const Setting = () => {
   return (
-    <Suspense fallback={<Loading />}>
+    <MobileLayout>
       <SettingMobile />
-    </Suspense>
+    </MobileLayout>
   );
 };
 

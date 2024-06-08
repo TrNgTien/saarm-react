@@ -1,6 +1,6 @@
 import { EMethods, IRoomBill } from '@/common';
 import { RestEndpoints, RoutePath } from '@/common/constants';
-import { Divider, MoneyText } from '@/components';
+import { Divider, MoneyText, SkeletonWrapper } from '@/components';
 import { ShowMore } from '@/components/layout/ShowMoreList';
 import { getDecodedToken } from '@/helpers';
 import { networkInstance } from '@/services';
@@ -12,9 +12,11 @@ import { FaMoneyCheckDollar } from 'react-icons/fa6';
 export const CurrentBill = () => {
   const token = useMemo(getDecodedToken, [getDecodedToken]);
   const [roomBill, setRoomBill] = useState<IRoomBill>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getRoomBill = useCallback(async () => {
     try {
+      setIsLoading(true);
       const params = new URLSearchParams({
         monthRequest: dayjs().toISOString(),
       });
@@ -47,6 +49,8 @@ export const CurrentBill = () => {
       setRoomBill(bill);
     } catch (e) {
       console.error('[getRoom] | %s', e);
+    } finally {
+      setIsLoading(false);
     }
   }, [dayjs, token]);
 
@@ -54,18 +58,21 @@ export const CurrentBill = () => {
     getRoomBill();
   }, []);
 
-  return (
+  return isLoading ? (
+    <SkeletonWrapper stylesOverride="mt-2" />
+  ) : (
     <div className="shadow-2xl mt-2 text-white-10 xs:rounded-xl lsm:rounded-3xl bg-green-80">
       <div className="xs:p-4 lsm:p-6">
         <ShowMore
-          path={RoutePath.WATER_METER}
+          path={RoutePath.BILLING}
+          isDisable={isLoading}
           title={`Tiền nhà tháng ${dayjs().month()}, ${dayjs().year()}`}
           navigateTitle={'Xem chi tiết'}>
           <div className="flex items-center jutify-center my-4 shadow-2xl">
             <FaMoneyCheckDollar size={24} />
             <MoneyText
               styling="ml-2 font-semibold text-3xl"
-              value={`${roomBill?.roomPrice}`}
+              value={`${roomBill?.totalMoney}`}
             />
           </div>
           <Divider lineStyle="border border-white-10" />
@@ -82,10 +89,6 @@ export const CurrentBill = () => {
               <p className="font-semibold">{'Khác'}</p>
               <MoneyText value={`${roomBill?.extraFee}`} />
             </div>
-          </div>
-          <div className="flex mt-8">
-            <p className="font-semibold text-xl mr-2">{'Tổng tiền: '}</p>
-            <MoneyText styling="text-lg" value={`${roomBill?.totalMoney}`} />
           </div>
         </ShowMore>
       </div>

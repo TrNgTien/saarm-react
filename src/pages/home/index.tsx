@@ -1,17 +1,18 @@
 import { Loading } from '@/components';
 import { useOnPhone } from '@/hooks';
 import { lazy, Suspense } from 'react';
-const WaterMeterMobile = lazy(() => import('./Mobile'));
-const WaterMeterPC = lazy(() => import('./PC'));
 
-const WaterMeter = () => {
+const HomeMobilePage = lazy(() => import('./Mobile'));
+const HomePcPage = lazy(() => import('./PC'));
+
+const HomePage = () => {
   const isMobile = useOnPhone();
 
   return (
     <Suspense fallback={<Loading />}>
-      {!isMobile ? <WaterMeterPC /> : <WaterMeterMobile />}
+      {isMobile ? <HomeMobilePage /> : <HomePcPage />}
     </Suspense>
   );
 };
 
-export default WaterMeter;
+export default HomePage;
