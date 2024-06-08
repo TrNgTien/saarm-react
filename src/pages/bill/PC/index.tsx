@@ -1,5 +1,6 @@
 import { Loading } from '@/components';
 import { lazy, Suspense } from 'react';
+
 const PcLayout = lazy(() => import('@/components/layout/PC/PcLayout'));
 const BillPC = lazy(() => import('./BillPC'));
 
