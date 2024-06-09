@@ -11,14 +11,16 @@ import { Styles } from '@/theme';
 import dayjs from 'dayjs';
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { shallowEqual } from 'react-redux';
+import { shallowEqual, useDispatch } from 'react-redux';
 
 const WaterMeter = () => {
   const { enqueueSnackbar } = useSnackbar();
+
   const isSubmitWater = useAppSelector(
     (state) => state.room.isSubmitWater,
     shallowEqual,
   );
+
   const token = useMemo(getDecodedToken, [getDecodedToken]);
   const [histories, setHistories] = useState<IHistory[] | undefined>([]);
   const [imageBase64, setImageBase64] = useState<string | undefined>('');

@@ -37,6 +37,7 @@ const Header = () => {
     if (token?.role !== UserType.TENANT) {
       return;
     }
+
     getRoom();
   }, [token]);
 

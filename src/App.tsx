@@ -14,7 +14,7 @@ import {
   WelcomePage,
 } from './pages';
 import HomePage from './pages/home';
-import MessagePage from './pages/message/MessagePage';
+import MessagePage from './pages/message';
 import { store } from './redux/store';
 
 const publicRoutes: RouteProps[] = [

@@ -33,7 +33,7 @@ const AuthPage: React.FC = () => {
   const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isTriggeredLogin, setIsTriggeredLogin] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [_, setToken] = useLocalStorage('token', '', {
+  const [_value, setToken] = useLocalStorage('token', '', {
     raw: true,
   });
 

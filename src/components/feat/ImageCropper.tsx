@@ -10,6 +10,7 @@ import 'cropperjs/dist/cropper.css';
 import { useSnackbar } from 'notistack';
 import React, { Dispatch, useCallback, useMemo, useRef, useState } from 'react';
 import Cropper, { ReactCropperElement } from 'react-cropper';
+import { shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common';
 import { Loading } from '../loading';
@@ -22,14 +23,18 @@ interface IImageCropperProps {
 
 function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
   const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useAppDispatch();
+  const cropperRef = useRef<ReactCropperElement>(null);
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [imgCropped, setImgCropped] = useState('');
   const [waterDetected, setWaterDetected] = useState<string>('');
   const token = useMemo(getDecodedToken, [getDecodedToken]);
-  const isFailDetect = useAppSelector((state) => state.detection.isFailDetect);
-  const dispatch = useAppDispatch();
-  const cropperRef = useRef<ReactCropperElement>(null);
+
+  const isFailDetect = useAppSelector(
+    (state) => state.detection.isFailDetect,
+    shallowEqual,
+  );
 
   const getCropData = useCallback(() => {
     if (typeof cropperRef.current?.cropper === 'undefined') {
@@ -54,7 +59,6 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
       });
 
       if (!rs.data?.[0]) {
-        setIsLoading(false);
         dispatch(setIsFailDetection(true));
         return;
       }
@@ -63,13 +67,14 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
     } catch (e: any) {
       console.error('[handleSubmitImage] | %s', e);
       setTimeout(() => {
-        setIsLoading(false);
         enqueueSnackbar(`${e.toString().split(':')[1]}`, {
           variant: 'error',
         });
       }, 1000);
     } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
   }, [imgCropped, token]);
 
@@ -111,12 +116,17 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
     }
   }, [token, waterDetected]);
 
+  const handleRetakeModal = useCallback(() => {
+    dispatch(setIsFailDetection(false));
+    setImageBase64('');
+  }, [dispatch]);
+
   return (
     <div>
       {isLoading && <Loading />}
       {imgCropped ? (
         <React.Fragment>
-          {!!isFailDetect && <ErrorModal />}
+          {!!isFailDetect && <ErrorModal onClick={handleRetakeModal} />}
           <img
             className="rounded-lg mx-auto my-10"
             width={250}

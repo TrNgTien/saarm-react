@@ -57,6 +57,7 @@ export const CurrentBill = () => {
   useEffect(() => {
     getRoomBill();
   }, []);
+  console.log("roomBill?.extraFee", roomBill?.extraFee)
 
   return isLoading ? (
     <SkeletonWrapper stylesOverride="mt-2" />
@@ -76,18 +77,22 @@ export const CurrentBill = () => {
             />
           </div>
           <Divider lineStyle="border border-white-10" />
-          <div className={`${Styles.FLEX_BETWEEN} w-full mt-6`}>
+          <div className={`${Styles.FLEX_ALIGN_CENTER} my-4`}>
+            <p className="font-semibold">{'Tiền Phòng:'}</p>
+            <MoneyText styling="ml-2" value={`${roomBill?.roomPrice}`} />
+          </div>
+          <div className={`${Styles.FLEX_BETWEEN} w-full`}>
             <div>
-              <p className="font-semibold">{'Điện'}</p>
+              <p className="font-semibold">Điện</p>
               <MoneyText value={`${roomBill?.electricityMoney}`} />
             </div>
             <div>
-              <p className="font-semibold">{'Nước'}</p>
+              <p className="font-semibold">Nước</p>
               <MoneyText value={`${roomBill?.waterMoney}`} />
             </div>
             <div>
-              <p className="font-semibold">{'Khác'}</p>
-              <MoneyText value={`${roomBill?.extraFee}`} />
+              <p className="font-semibold">Khác</p>
+              <MoneyText value={`${roomBill?.extraFee || '0'}`} />
             </div>
           </div>
         </ShowMore>

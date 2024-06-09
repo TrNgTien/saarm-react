@@ -15,7 +15,7 @@ export const userSlice = createSlice({
     setUserData: (state, action) => {
       const { payload } = action;
 
-      return { ...state, token: payload.value };
+      return { ...state, ...payload };
     },
   },
 });
