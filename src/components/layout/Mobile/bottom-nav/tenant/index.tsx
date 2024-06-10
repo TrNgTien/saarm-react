@@ -13,8 +13,7 @@ import {
 import { LuClipboardList as BillIcon } from 'react-icons/lu';
 import { TbMessageCircle2 as MessageIcon } from 'react-icons/tb';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useWindowScroll } from 'react-use';
-import { NavigationItem } from './components/NavigationItems';
+import { NavigationItem } from '../../components/NavigationItems';
 
 interface INavItems {
   id: string;
@@ -27,7 +26,6 @@ interface INavItems {
 const BottomNav = () => {
   const { pathname = '' } = useLocation();
   const navigate = useNavigate();
-  const windowScroll = useWindowScroll();
 
   const navItems: Array<INavItems> = useMemo(() => {
     return [

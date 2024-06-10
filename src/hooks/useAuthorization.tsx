@@ -1,8 +1,13 @@
+import { UserType } from '@/common/constants';
 import { getDecodedToken } from '@/helpers';
 import { useMemo } from 'react';
-export const useAuthorization = () => {
-  const token = useMemo(getDecodedToken, [getDecodedToken]);
-  console.log("checking token", token)
 
-  return true;
+export const useAuthorization = (): string => {
+  const token = useMemo(getDecodedToken, [getDecodedToken]);
+
+  if (!token?.role && !UserType.isValid(token?.role || '')) {
+    throw Error('not-found');
+  }
+
+  return token?.role ?? '';
 };

@@ -1,11 +1,16 @@
+import { UserType } from '@/common/constants';
 import PcLayout from '@/components/layout/PC/PcLayout';
+import { useAuthorization } from '@/hooks';
 import { lazy } from 'react';
-const HomePC = lazy(() => import('./HomePC'));
+const HomeTenantPC = lazy(() => import('./tenant'));
+const HomeOwnerPC = lazy(() => import('./home-owner'));
 
 const Home = () => {
+  const permission = useAuthorization();
+
   return (
     <PcLayout>
-      <HomePC />
+      {permission === UserType.HOMEOWNER ? <HomeOwnerPC /> : <HomeTenantPC />}
     </PcLayout>
   );
 };

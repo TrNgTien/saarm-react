@@ -15,6 +15,24 @@ const Header = () => {
   const token = useMemo(getDecodedToken, [getDecodedToken]);
   const [room, setRoom] = useState<IRoom>();
 
+  const getHomeowner = useCallback(async () => {
+    try {
+      const rs = await networkInstance.send({
+        method: EMethods.GET,
+        path: `${RestEndpoints.USER}/${token?.userId}`,
+      });
+
+      if (!rs.success) {
+        return;
+      }
+
+      setRoom(rs.data);
+      dispatch(setRoomData(rs.data));
+    } catch (e) {
+      console.error('[getRoom] | %s', e);
+    }
+  }, []);
+
   const getRoom = useCallback(async () => {
     try {
       const rs = await networkInstance.send({
@@ -35,6 +53,7 @@ const Header = () => {
 
   useEffect(() => {
     if (token?.role !== UserType.TENANT) {
+      getHomeowner();
       return;
     }
 

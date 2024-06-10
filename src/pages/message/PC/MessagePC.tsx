@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
-const HomePC = () => {
-  return <div>HomePC</div>;
+const MessagePC = () => {
+  return <div>MessagePC</div>;
 };
 
-export default memo(HomePC);
+export default memo(MessagePC);

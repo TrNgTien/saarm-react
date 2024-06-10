@@ -1,29 +1,50 @@
 import WaterMeterImg from '@/assets/images/crop-guide.jpeg';
 import { EMethods, IHistory } from '@/common';
 import { RestEndpoints } from '@/common/constants';
-import { CameraButton, InformationCard, PageHeader } from '@/components';
+import {
+  CameraButton,
+  InformationCard,
+  Loading,
+  PageHeader,
+} from '@/components';
 import ImageCropper from '@/components/feat/ImageCropper';
 import { MAX_FILE_SIZE, getDecodedToken, isValidFileUploaded } from '@/helpers';
-import { useAppSelector } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
 import dayjs from 'dayjs';
 import { useSnackbar } from 'notistack';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useDispatch } from 'react-redux';
 
 const WaterMeter = () => {
   const { enqueueSnackbar } = useSnackbar();
-
-  const isSubmitWater = useAppSelector(
-    (state) => state.room.isSubmitWater,
-    shallowEqual,
-  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSubmitWater, setIsSubmitWater] = useState<boolean>(false);
 
   const token = useMemo(getDecodedToken, [getDecodedToken]);
   const [histories, setHistories] = useState<IHistory[] | undefined>([]);
   const [imageBase64, setImageBase64] = useState<string | undefined>('');
+
+  const getIsSumittedWaterMeter = useCallback(async () => {
+    try {
+      setIsLoading(true);
+
+      const rs = await networkInstance.send({
+        method: EMethods.GET,
+        path: `${RestEndpoints.ROOM}/${token?.roomId}/${RestEndpoints.IS_SUBMIT_WATER_METER}`,
+      });
+
+      if (!rs.data) {
+        return;
+      }
+
+      setIsSubmitWater(rs.data);
+    } catch (e) {
+      console.error('[getIsSumittedWaterMeter]: | %s', e);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
   const getHistorySubmit = useCallback(async () => {
     const rs = await networkInstance.send({
@@ -40,6 +61,7 @@ const WaterMeter = () => {
 
   useEffect(() => {
     getHistorySubmit();
+    getIsSumittedWaterMeter();
   }, []);
 
   const handlePreviewFile = useCallback(
@@ -74,6 +96,7 @@ const WaterMeter = () => {
 
   return (
     <div className={Styles.FLEX_COL}>
+      {isLoading && <Loading />}
       <PageHeader title={'Cập nhật đồng hồ nước'} />
       <div className={cn(Styles.FLEX_BETWEEN, 'mt-2 p-4')}>
         {imageBase64 ? (

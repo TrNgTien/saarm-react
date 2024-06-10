@@ -1,10 +1,18 @@
 export class RestEndpoints {
+  // authentication & authorization
   static readonly SIGN_IN = 'auth/sign-in';
   static readonly SIGN_IN_TENANT = 'auth/sign-in/tenant';
   static readonly SIGN_UP = 'auth/sign-up';
   static readonly LOGIN_GOOGLE = 'auth/google';
+
+  // user
+  static readonly USER = 'users';
+
+  // room
   static readonly ROOM = 'rooms';
   static readonly ROOM_BILL = 'bills';
+
+  // water-meters
   static readonly HISTORY_WATER_METER = `water-meters/histories`;
   static readonly DETECT_WATER_METER = `water-meters/detect`;
   static readonly SUBMIT_WATER_METER = `water-meters/submit`;
@@ -14,6 +22,11 @@ export class RestEndpoints {
 export class UserType {
   static readonly TENANT = 'tenant';
   static readonly HOMEOWNER = 'homeowner';
+  static readonly UserRoleSet = new Set([this.TENANT, this.HOMEOWNER]);
+
+  static isValid(scheme: string): boolean {
+    return this.UserRoleSet.has(scheme);
+  }
 }
 
 export class LimitRecords {
