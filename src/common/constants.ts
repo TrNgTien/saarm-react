@@ -13,7 +13,7 @@ export class RestEndpoints {
 
 export class UserType {
   static readonly TENANT = 'tenant';
-  static readonly HOMEOWNER = 'landlord';
+  static readonly HOMEOWNER = 'homeowner';
 }
 
 export class LimitRecords {

@@ -57,7 +57,6 @@ export const CurrentBill = () => {
   useEffect(() => {
     getRoomBill();
   }, []);
-  console.log("roomBill?.extraFee", roomBill?.extraFee)
 
   return isLoading ? (
     <SkeletonWrapper stylesOverride="mt-2" />
