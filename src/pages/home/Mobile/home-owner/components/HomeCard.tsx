@@ -29,7 +29,12 @@ export const HomeCard = (props: IApartment) => {
             <Skeleton className="h-full rounded-xl w-full bg-gray-300" />
           </div>
         )}
-        <img src={Apartment} onLoad={handleImageLoaded} alt="apartment" />
+        <img
+          src={Apartment}
+          onLoad={handleImageLoaded}
+          alt="apartment"
+          loading="lazy"
+        />
       </div>
       <div className={'flex-1 ml-2'}>
         <p>{name}</p>
