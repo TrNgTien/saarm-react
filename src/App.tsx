@@ -14,6 +14,7 @@ import {
   WaterMeter,
   WelcomePage,
 } from './pages';
+import ApartmentCreate from './pages/apartment/Mobile/home-owner/Create';
 import HomePage from './pages/home';
 import MessagePage from './pages/message';
 import { store } from './redux/store';
@@ -72,6 +73,11 @@ const privateRoutes: RouteProps[] = [
     id: 'detail-apartment',
     element: <ApartmentPage />,
     path: `${RoutePath.APARTMENT}/:id`,
+  },
+  {
+    id: 'create-apartment',
+    element: <ApartmentCreate />,
+    path: RoutePath.APARTMENT_CREATE,
   },
 ];
 

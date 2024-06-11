@@ -69,6 +69,7 @@ export class RoutePath {
 
   // home-owner
   static readonly APARTMENT = '/apartment';
+  static readonly APARTMENT_CREATE = `${this.APARTMENT}/create`;
 
 
 }

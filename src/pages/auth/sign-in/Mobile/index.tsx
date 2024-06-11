@@ -163,7 +163,7 @@ const AuthPage: React.FC = () => {
             }));
           }}
           errorText={
-            !userInfo.username && isTriggeredLogin ? 'Thieu tên đăng nhập' : ''
+            !userInfo.username && isTriggeredLogin ? 'Thiếu tên đăng nhập' : ''
           }
           name="username"
           required
@@ -182,7 +182,7 @@ const AuthPage: React.FC = () => {
             }}
             onKeyDown={handleEnterLogin}
             errorText={
-              !userInfo.password && isTriggeredLogin ? 'Thieu mật khẩu' : ''
+              !userInfo.password && isTriggeredLogin ? 'Thiếu mật khẩu' : ''
             }
             title={'Mật khẩu'}
             name="password"

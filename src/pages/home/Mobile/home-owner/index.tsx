@@ -1,16 +1,19 @@
 import { EMethods, IApartment } from '@/common';
-import { RestEndpoints } from '@/common/constants';
-import { Loading } from '@/components';
+import { RestEndpoints, RoutePath } from '@/common/constants';
+import { Button, Loading } from '@/components';
 import { getDecodedToken } from '@/helpers';
 import { cn } from '@/lib/utils';
 import { networkInstance } from '@/services';
 import { Styles } from '@/theme';
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { LuPlus as PlusIcon } from 'react-icons/lu';
 import { HomeCard } from './components/HomeCard';
+import { useNavigate } from 'react-router-dom';
 
 const HomeMobile = () => {
   const [apartments, setApartments] = useState<IApartment[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate()
   const token = useMemo(getDecodedToken, [getDecodedToken]);
 
   const getApartments = useCallback(async () => {
@@ -25,7 +28,7 @@ const HomeMobile = () => {
         throw Error('Can not get apartment!');
       }
 
-      setApartments(apartmentData?.data);
+      setApartments(apartmentData?.data || []);
     } catch (e) {
       throw Error(`[getApartments]: ${e}`);
     } finally {
@@ -42,15 +45,16 @@ const HomeMobile = () => {
       {isLoading && <Loading />}
 
       <div className={cn(Styles.FLEX_BETWEEN, 'text-black-900 py-4')}>
-        <p className="w-10/12 font-semibold text-black-100">Danh sách nhà</p>
-        {/*
+        <p className="font-semibold text-black-100">Danh sách nhà</p>
+        <div>
           <Button
             title="Thêm"
-            onClick={() => console.log("clicked")}
-            btnStyles="bg-[#E3EFE9] border border-[#9EC4AF] w-2/12 px-14"
-            titleStyles="font-semibold text-md"
-          />
-        */}
+            onClick={() => navigate(RoutePath.APARTMENT_CREATE)}
+            btnStyles="bg-[#E3EFE9] border border-[#9EC4AF] px-10"
+            titleStyles="font-semibold text-md ml-2">
+            <PlusIcon />
+          </Button>
+        </div>
       </div>
       <div>
         {!isLoading && !apartments?.length ? (
