@@ -2,7 +2,6 @@ import LogoDarkUrl from '@/assets/icons/logo-dark.svg';
 import OnBoard from '@/assets/images/on-board.svg';
 import { RoutePath } from '@/common/constants';
 import { Button } from '@/components';
-import { Skeleton } from '@/components/ui/skeleton';
 import { cn } from '@/lib/utils';
 import { Styles } from '@/theme';
 import clsx from 'clsx';
@@ -24,20 +23,21 @@ const WelcomePage: React.FC = () => {
         <h1 className="font-bold text-xl ml-2">Placepad</h1>
       </div>
       <div className="p-4 text-center">
-        {imageLoading && (
-          <div className={cn(Styles.FLEX_COL, 'space-y-2 w-full mt-8')}>
-            <Skeleton className="h-[300px] rounded-xl w-full bg-gray-300" />
-          </div>
-        )}
-        <img
-          src={OnBoard}
-          className="mx-auto"
-          height={300}
-          width={300}
-          loading="lazy"
-          alt="image"
-          onLoad={handleImageLoaded}
-        />
+        <div
+          className={cn(
+            'h-[300px] rounded-xl w-full',
+            imageLoading && 'bg-gray-300',
+          )}>
+          <img
+            src={OnBoard}
+            className="mx-auto"
+            height={300}
+            width={300}
+            loading="lazy"
+            alt="image"
+            onLoad={handleImageLoaded}
+          />
+        </div>
         <h1 className="font-semibold text-xl mt-8">
           Giải pháp quản lý nhà cửa thông minh
         </h1>
