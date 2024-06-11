@@ -32,6 +32,8 @@ export const HomeCard = (props: IApartment) => {
         <img
           src={Apartment}
           onLoad={handleImageLoaded}
+          height={80}
+          width={80}
           alt="apartment"
           loading="lazy"
         />

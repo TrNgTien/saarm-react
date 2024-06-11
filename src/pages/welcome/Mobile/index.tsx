@@ -32,6 +32,8 @@ const WelcomePage: React.FC = () => {
         <img
           src={OnBoard}
           className="mx-auto"
+          height={300}
+          width={300}
           loading="lazy"
           alt="image"
           onLoad={handleImageLoaded}
