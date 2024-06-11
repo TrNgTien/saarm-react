@@ -1,13 +1,14 @@
 import Apartment from '@/assets/icons/apartment-placeholder.svg';
-import { IApartment } from '@/common';
+import { IApartmentRoom } from '@/common';
 import { RoutePath } from '@/common/constants';
+import { MoneyText } from '@/components';
 import { cn } from '@/lib/utils';
 import { Styles } from '@/theme';
-import { RiDoorOpenFill as RoomIcon } from 'react-icons/ri';
+import { MdPeopleAlt as PeopleIcon } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 
-export const HomeCard = (props: IApartment) => {
-  const { name, address, totalRoom, roomAvailable, id } = props;
+export const RoomCard = (props: IApartmentRoom) => {
+  const { id, roomName, roomPrice, maxPeople, currentPeople } = props;
   const navigate = useNavigate();
   return (
     <div
@@ -16,7 +17,7 @@ export const HomeCard = (props: IApartment) => {
         'border shadow-md mb-4 rounded-lg p-4 text-black-500',
       )}
       onClick={() =>
-        navigate(`${RoutePath.APARTMENT}/${id}`, { state: { name } })
+        navigate(`${RoutePath.ROOM}/${id}`, { state: { name: roomName } })
       }>
       <div className="h-[80px] bg-gray-300 rounded-lg">
         <img
@@ -28,12 +29,12 @@ export const HomeCard = (props: IApartment) => {
         />
       </div>
       <div className={'flex-1 ml-2'}>
-        <p>{name}</p>
-        <p className="text-sm">{address}</p>
+        <p>{roomName}</p>
+        <MoneyText styling="" value={`${roomPrice}`} />
         <div className={cn(Styles.FLEX_ALIGN_CENTER)}>
-          <RoomIcon />
+          <PeopleIcon />
           <p>
-            Phòng trống: {roomAvailable}/{totalRoom}
+            Số nhân khẩu: {currentPeople}/{maxPeople}
           </p>
         </div>
       </div>

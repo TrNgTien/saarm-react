@@ -5,7 +5,6 @@ import { BrowserRouter, Route, RouteProps, Routes } from 'react-router-dom';
 import { RoutePath } from './common/constants';
 import PrivateRoute from './navigator/PrivateRoute';
 import {
-  ApartmentPage,
   BillPage,
   LoginPage,
   Notification,
@@ -15,9 +14,12 @@ import {
   WelcomePage,
 } from './pages';
 import ApartmentCreate from './pages/apartment/Mobile/home-owner/Create';
+import DetailApartment from './pages/apartment/Mobile/home-owner/Detail';
 import HomePage from './pages/home';
 import MessagePage from './pages/message';
+import RoomCreate from './pages/room/Mobile/home-owner/Create';
 import { store } from './redux/store';
+import DetailRoom from './pages/room/Mobile/home-owner/Detail';
 
 const publicRoutes: RouteProps[] = [
   {
@@ -71,13 +73,23 @@ const privateRoutes: RouteProps[] = [
   },
   {
     id: 'detail-apartment',
-    element: <ApartmentPage />,
-    path: `${RoutePath.APARTMENT}/:id`,
+    element: <DetailApartment />,
+    path: `${RoutePath.APARTMENT_DETAIL}`,
   },
   {
     id: 'create-apartment',
     element: <ApartmentCreate />,
     path: RoutePath.APARTMENT_CREATE,
+  },
+  {
+    id: 'apartment-create-room',
+    element: <RoomCreate />,
+    path: RoutePath.APARTMENT_CREATE_ROOM,
+  },
+  {
+    id: 'detail-room',
+    element: <DetailRoom />,
+    path: RoutePath.ROOM_DETAIL,
   },
 ];
 

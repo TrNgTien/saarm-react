@@ -1,4 +1,4 @@
-import { EMethods } from '@/common';
+import { EMethods, INewApartment } from '@/common';
 import { RestEndpoints, RoutePath } from '@/common/constants';
 import { Button, LabelInput, Loading, PageHeader } from '@/components';
 import { networkInstance } from '@/services';
@@ -6,21 +6,13 @@ import { useSnackbar } from 'notistack';
 import { Suspense, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-interface IApartment {
-  name: string;
-  locationUrl: string;
-  address: string;
-  totalRoom: number;
-  roomAvailable: number;
-}
-
 const ApartmentCreate = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [apartment, setApartment] = useState<IApartment>({
+  const [apartment, setApartment] = useState<INewApartment>({
     name: '',
     locationUrl: '',
     address: '',

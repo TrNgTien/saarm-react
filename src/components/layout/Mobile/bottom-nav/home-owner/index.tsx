@@ -1,4 +1,5 @@
 import { RoutePath } from '@/common/constants';
+import { BsBarChartFill as Chart } from "react-icons/bs";
 import { IconWrapper } from '@/components/common';
 import { cn } from '@/lib/utils';
 import { Color, Styles } from '@/theme';
@@ -45,7 +46,7 @@ const BottomNav = () => {
       },
       {
         id: 'bill',
-        name: 'Tiền phòng trọ',
+        name: 'Thống kê tiền trọ',
         path: RoutePath.BILLING,
         icon: (
           <IconWrapper
@@ -54,7 +55,7 @@ const BottomNav = () => {
               pathname === RoutePath.BILLING ? Color.PRIMARY : Color.BLACK_500
             }
             strokeWidth={1.5}>
-            <BillIcon />
+            <Chart />
           </IconWrapper>
         ),
       },

@@ -7,9 +7,9 @@ import { MoneyText } from '../text';
 export const InformationCard = (
   props: { imgSrc: string | undefined } & IHistory,
 ) => {
-  const { imgSrc, waterMeter, waterConsume, createdAt } = props;
+  const { waterMeter, waterConsume, createdAt } = props;
   const waterMoney = `${20_000 * waterConsume}`;
-  const timeSubmit = dayjs(createdAt).format('DD-MM-YYYY HH:mm')
+  const timeSubmit = dayjs(createdAt).format('DD-MM-YYYY HH:mm');
 
   return (
     <div
@@ -17,15 +17,15 @@ export const InformationCard = (
         Styles.FLEX_BETWEEN,
         'shadow-md p-4 rounded-lg my-2 border',
       )}>
-      <div className="w-3/12">
-        <img
-          src={imgSrc}
-          height={84}
-          width={84}
-          alt="image-submitted"
-          loading="lazy"
-        />
-      </div>
+      {/* <div className="w-3/12">
+            <img
+            src={imgSrc}
+            height={84}
+            width={84}
+            alt="image-submitted"
+            loading="lazy"
+            />
+            </div> */}
       <div className="flex-1 px-2">
         <div className={Styles.FLEX_BETWEEN}>
           <h1 className="font-semibold">{`Tháng ${dayjs().month()}/${dayjs().year()}`}</h1>

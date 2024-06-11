@@ -70,8 +70,11 @@ export class RoutePath {
   // home-owner
   static readonly APARTMENT = '/apartment';
   static readonly APARTMENT_CREATE = `${this.APARTMENT}/create`;
+  static readonly APARTMENT_DETAIL = `${this.APARTMENT}/:id`;
+  static readonly APARTMENT_CREATE_ROOM = `${this.APARTMENT}/:id/room`;
 
-
+  static readonly ROOM = '/room';
+  static readonly ROOM_DETAIL = `${this.ROOM}/:id`;
 }
 
 export const MONTHS: string[] = ['Thang 1', 'Thang 2', 'Thang 3', 'Thang 4'];

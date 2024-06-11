@@ -22,6 +22,8 @@ const SettingMobile = () => {
     dispatch(resetRoomState());
     dispatch(resetDetection());
 
+    localStorage.removeItem('token');
+
     navigate(RoutePath.LOGIN);
   }, [navigate, dispatch]);
 
