@@ -1,16 +1,18 @@
 import comingSoon from '@/assets/animations/coming-soon.json';
+import { RoutePath } from '@/common/constants';
 import { LottieAnimation } from '@/components';
-import MobileLayout from '@/components/layout/Mobile/MobileLayout';
+import { Link } from 'react-router-dom';
 
 const RegisterMobile: React.FC = () => {
   return (
-    <MobileLayout>
-      <div className="text-white-10 h-full bg-white-50">
-        <div className="h-full border rounded-lg">
-          <LottieAnimation animationJson={comingSoon} />
-        </div>
+    <div className="h-screen text-center">
+      <div className="h-[50%] mx-auto mt-[20%]">
+        <LottieAnimation animationJson={comingSoon} />
       </div>
-    </MobileLayout>
+      <Link className="text-black" to={RoutePath.LOGIN}>
+        &#x2190;Trở lại
+      </Link>
+    </div>
   );
 };
 export default RegisterMobile;
