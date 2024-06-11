@@ -1,3 +1,4 @@
+export * from './apartment';
 export * from './common';
 export * from './login';
 export * from './room';

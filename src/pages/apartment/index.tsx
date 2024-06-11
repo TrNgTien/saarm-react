@@ -2,16 +2,16 @@ import { Loading } from '@/components';
 import { useOnPhone } from '@/hooks';
 import { Suspense, lazy } from 'react';
 
-const WelcomeMobile = lazy(() => import('./Mobile'));
-const WelcomePC = lazy(() => import('./PC'));
+const ApartmentPC = lazy(() => import('./PC'));
+const ApartmentMobile = lazy(() => import('./Mobile'));
 
-const WelcomePage = () => {
+const ApartmentPage = () => {
   const isPhone = useOnPhone();
   return (
     <Suspense fallback={<Loading />}>
-      {isPhone ? <WelcomeMobile /> : <WelcomePC />}
+      {isPhone ? <ApartmentMobile /> : <ApartmentPC />}
     </Suspense>
   );
 };
 
-export default WelcomePage;
+export default ApartmentPage;

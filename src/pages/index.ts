@@ -1,5 +1,6 @@
-export { default as LoginPage } from './auth/LoginPage';
-export { default as RegisterPage } from './auth/RegisterPage';
+export { default as ApartmentPage } from './apartment';
+export { default as LoginPage } from './auth/sign-in';
+export { default as RegisterPage } from './auth/sign-up';
 export { default as BillPage } from './bill';
 export { default as MessagePage } from './message';
 export { default as Notification } from './notification';

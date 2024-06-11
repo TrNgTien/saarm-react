@@ -50,7 +50,7 @@ const HomeMobile = () => {
   // }, []);
 
   return (
-    <div className="text-white-10 h-screen bg-white-50">
+    <div className="text-white-10 h-full">
       <div className="bg-[#0A150F] text-white-0 p-4">
         <Banner />
         <CurrentBill />
@@ -65,7 +65,7 @@ const HomeMobile = () => {
           </div>
         </ShowMore>
         <div className="xs:mt-4 mt-8">
-          <ShowMore path={RoutePath.CURRENT_PAGE} title={'Hóa đơn gần đây'}>
+          <ShowMore path={RoutePath.CURRENT_PAGE} title={'Thông báo từ chủ nhà'}>
             <div className="xs:max-h-28 sm:max-h-60 lsm:max-h-64 overflow-auto">
               {utilityItems.map((i, idx) => {
                 const { id } = i;

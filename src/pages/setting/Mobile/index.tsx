@@ -1,13 +1,22 @@
+import { UserType } from '@/common/constants';
+import { useAuthorization } from '@/hooks';
 import { lazy } from 'react';
+
 const MobileLayout = lazy(
   () => import('@/components/layout/Mobile/MobileLayout'),
 );
-const SettingMobile = lazy(() => import('./SettingMobile'));
+const SettingTenant = lazy(() => import('./tenant'));
+const SettingHomeOwner = lazy(() => import('./home-owner'));
 
 const Setting = () => {
+  const permission = useAuthorization();
   return (
     <MobileLayout>
-      <SettingMobile />
+      {permission === UserType.HOMEOWNER ? (
+        <SettingHomeOwner />
+      ) : (
+        <SettingTenant />
+      )}
     </MobileLayout>
   );
 };

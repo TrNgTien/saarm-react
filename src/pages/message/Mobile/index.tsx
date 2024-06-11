@@ -1,5 +1,7 @@
-import MobileLayout from '@/components/layout/Mobile/MobileLayout';
 import { lazy } from 'react';
+const MobileLayout = lazy(
+  () => import('@/components/layout/Mobile/MobileLayout'),
+);
 const MessageMobile = lazy(() => import('./MessageMobile'));
 
 const Home = () => {

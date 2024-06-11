@@ -5,6 +5,7 @@ import { BrowserRouter, Route, RouteProps, Routes } from 'react-router-dom';
 import { RoutePath } from './common/constants';
 import PrivateRoute from './navigator/PrivateRoute';
 import {
+  ApartmentPage,
   BillPage,
   LoginPage,
   Notification,
@@ -66,6 +67,11 @@ const privateRoutes: RouteProps[] = [
     id: 'water-meter',
     element: <WaterMeter />,
     path: RoutePath.WATER_METER,
+  },
+  {
+    id: 'detail-apartment',
+    element: <ApartmentPage />,
+    path: `${RoutePath.APARTMENT}/:id`,
   },
 ];
 

@@ -8,6 +8,9 @@ export class RestEndpoints {
   // user
   static readonly USER = 'users';
 
+  // apartment
+  static readonly APARTMENTS = 'apartments';
+
   // room
   static readonly ROOM = 'rooms';
   static readonly ROOM_BILL = 'bills';
@@ -49,18 +52,25 @@ export class Statuses {
 }
 
 export class RoutePath {
+  // common
   static readonly WELCOME = '/';
   static readonly LOGIN = '/login';
   static readonly REGISTER = '/register';
   static readonly HOME = '/home';
-  static readonly WATER_METER = '/water-meter';
   static readonly MESSAGE = '/message';
   static readonly NOTIFICATION = '/notification';
-  static readonly BILLING = '/billing';
   static readonly SETTING = '/setting';
   static readonly UTIL = '/util';
-
   static readonly CURRENT_PAGE = '#';
+
+  // tenant
+  static readonly WATER_METER = '/water-meter';
+  static readonly BILLING = '/billing';
+
+  // home-owner
+  static readonly APARTMENT = '/apartment';
+
+
 }
 
 export const MONTHS: string[] = ['Thang 1', 'Thang 2', 'Thang 3', 'Thang 4'];
