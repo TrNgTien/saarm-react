@@ -1,7 +1,6 @@
 import { RoutePath } from '@/common/constants';
 import { Button } from '@/components';
 import { cn } from '@/lib/utils';
-import { resetDetection } from '@/redux/slices/detection.slice';
 import { resetRoomState } from '@/redux/slices/room.slice';
 import { resetUserData } from '@/redux/slices/user.slice';
 import { Styles } from '@/theme';
@@ -20,7 +19,6 @@ const SettingMobile = () => {
   const handleLogout = useCallback(() => {
     dispatch(resetUserData());
     dispatch(resetRoomState());
-    dispatch(resetDetection());
 
     navigate(RoutePath.LOGIN);
   }, [navigate, dispatch]);

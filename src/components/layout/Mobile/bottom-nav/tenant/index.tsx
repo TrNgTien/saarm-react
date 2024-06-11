@@ -118,7 +118,7 @@ const BottomNav = () => {
           return (
             <NavigationItem
               key={id}
-              styleOverride="text-black-900 font-semibold"
+              styleOverride="text-black-900 font-semibold pb-2"
               icon={icon}
               onClick={() =>
                 navigate(path, {
@@ -135,7 +135,7 @@ const BottomNav = () => {
         return (
           <NavigationItem
             key={id}
-            styleOverride="text-black-500"
+            styleOverride="text-black-500 pb-2"
             icon={icon}
             onClick={() =>
               navigate(path, {

@@ -1,14 +1,15 @@
+import { IRoom } from '@/common';
 import { RoutePath } from '@/common/constants';
 import { Button } from '@/components';
 import { cn } from '@/lib/utils';
-import { resetDetection } from '@/redux/slices/detection.slice';
 import { resetRoomState } from '@/redux/slices/room.slice';
 import { resetUserData } from '@/redux/slices/user.slice';
+import { RootState } from '@/redux/store';
 import { Styles } from '@/theme';
 import { dayjs, getPartOfDay } from '@/utils';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { FcClock as Clock } from 'react-icons/fc';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 const SettingMobile = () => {
@@ -17,10 +18,14 @@ const SettingMobile = () => {
   const [partOfDay, setPartOfDay] = useState<string>('');
   const [time, setTime] = useState(dayjs().format('HH:mm:ss'));
 
+  const { apartmentName } = useSelector((st: RootState) => {
+    const { roomName, apartmentName } = st.room.room as IRoom;
+    return { roomName, apartmentName };
+  }, shallowEqual);
+
   const handleLogout = useCallback(() => {
     dispatch(resetUserData());
     dispatch(resetRoomState());
-    dispatch(resetDetection());
 
     navigate(RoutePath.LOGIN);
   }, [navigate, dispatch]);
@@ -49,6 +54,7 @@ const SettingMobile = () => {
       </div>
       <h1 className="font-semibold">Chào, {partOfDay}</h1>
 
+      <h1 className="mt-8">{apartmentName}</h1>
       <Button
         title="Đăng xuất"
         onClick={handleLogout}

@@ -1,8 +1,9 @@
 import { Loading } from '@/components';
 import { useOnPhone } from '@/hooks';
-import { Suspense } from 'react';
-import SettingMobile from './Mobile';
-import SettingPC from './PC';
+import { Suspense, lazy } from 'react';
+
+const SettingMobile = lazy(() => import('./Mobile'));
+const SettingPC = lazy(() => import('./PC'));
 
 const SettingPage = () => {
   const isMobile = useOnPhone();

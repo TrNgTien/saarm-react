@@ -14,7 +14,7 @@ export const HomeCard = (props: IApartment) => {
     <div
       className={cn(
         Styles.FLEX_BETWEEN,
-        'border shadow-md my-4 rounded-lg p-4 text-black-500',
+        'border shadow-md mb-4 rounded-lg p-4 text-black-500',
       )}
       onClick={() => navigate(`${RoutePath.APARTMENT}/${id}`)}>
       <div className="rounded-lg">

@@ -1,10 +1,11 @@
 import comingSoon from '@/assets/animations/coming-soon.json';
 import { LottieAnimation } from '@/components';
 import { memo } from 'react';
-const BillMobile = () => {
+
+const MessageMobile = () => {
   return (
     <div className="h-full p-4">
-      <h1 className="my-4">Danh sách hoá đơn</h1>
+      <h1 className="my-4">Tin nhắn</h1>
       <div className="h-full border rounded-lg">
         <LottieAnimation animationJson={comingSoon} />
       </div>
@@ -12,4 +13,4 @@ const BillMobile = () => {
   );
 };
 
-export default memo(BillMobile);
+export default memo(MessageMobile);

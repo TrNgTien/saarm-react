@@ -99,11 +99,10 @@ const BottomNav = () => {
       )}>
       {navItems.map((i) => {
         const { icon, path, name, id, headerTitle } = i;
-
         return (
           <NavigationItem
             key={id}
-            styleOverride="text-black-500"
+            styleOverride="text-black-500 pb-2"
             icon={icon}
             onClick={() =>
               navigate(path, {
