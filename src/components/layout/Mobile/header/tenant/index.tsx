@@ -1,5 +1,5 @@
 import { EMethods } from '@/common';
-import { RestEndpoints, UserType } from '@/common/constants';
+import { RestEndpoints } from '@/common/constants';
 import { IRoom } from '@/common/types/room';
 import { IconWrapper } from '@/components/common';
 import { getDecodedToken } from '@/helpers';
@@ -14,24 +14,6 @@ const Header = () => {
   const dispatch = useAppDispatch();
   const token = useMemo(getDecodedToken, [getDecodedToken]);
   const [room, setRoom] = useState<IRoom>();
-
-  const getHomeowner = useCallback(async () => {
-    try {
-      const rs = await networkInstance.send({
-        method: EMethods.GET,
-        path: `${RestEndpoints.USER}/${token?.userId}`,
-      });
-
-      if (!rs.success) {
-        return;
-      }
-
-      setRoom(rs.data);
-      dispatch(setRoomData(rs.data));
-    } catch (e) {
-      console.error('[getRoom] | %s', e);
-    }
-  }, []);
 
   const getRoom = useCallback(async () => {
     try {
@@ -52,13 +34,8 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (token?.role !== UserType.TENANT) {
-      getHomeowner();
-      return;
-    }
-
     getRoom();
-  }, [token]);
+  }, []);
 
   return (
     <div

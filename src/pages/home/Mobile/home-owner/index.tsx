@@ -41,15 +41,6 @@ const HomeMobile = () => {
     <div className="h-screen m-4">
       {isLoading && <Loading />}
 
-      {/*
-          <input
-            type="text"
-            className="border p-4 rounded-lg w-full"
-            placeholder="Tìm theo số nhà"
-            onChange={() => {}}
-          />
-      */}
-
       <div className={cn(Styles.FLEX_BETWEEN, 'text-black-900 py-4')}>
         <p className="w-10/12 font-semibold text-black-100">Danh sách nhà</p>
         {/*
@@ -62,7 +53,7 @@ const HomeMobile = () => {
         */}
       </div>
       <div>
-        {!apartments.length ? (
+        {!isLoading && !apartments?.length ? (
           <h1>Vui lòng thêm mới thông tin nhà để quản lí</h1>
         ) : (
           apartments.map((item) => {

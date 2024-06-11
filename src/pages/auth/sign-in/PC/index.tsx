@@ -113,21 +113,23 @@ const AuthPage: React.FC = () => {
   );
 
   return (
-    <div className="p-8">
+    <div className="">
       {isLoading && <Loading />}
       <div className={cn(Styles.FLEX_BETWEEN)}>
         <div className="w-6/12">
-          <img
-            alt="image-placehoder"
-            loading="lazy"
-            height={200}
-            width={200}
-            src={Apartment}
-            className="w-full h-full"
-          />
+          <div className=" h-full p-4">
+            <img
+              alt="image-placehoder"
+              loading="lazy"
+              height={150}
+              width={150}
+              src={Apartment}
+              className="w-full h-full"
+            />
+          </div>
         </div>
 
-        <div className={cn('ml-4 w-6/12 h-full p-4')}>
+        <div className="w-6/12 px-6">
           <div className="flex items-center justify-end text-black-400 text-sm">
             <IconWrapper size={20}>
               <QuestionIcon />
