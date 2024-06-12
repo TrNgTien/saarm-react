@@ -5,20 +5,6 @@ import { UserConfig } from 'vite';
 import checker from 'vite-plugin-checker';
 import Inspect from 'vite-plugin-inspect';
 import { VitePWA } from 'vite-plugin-pwa';
-import pkg from './package.json';
-
-const { dependencies, devDependencies, name, version } = pkg;
-
-const PLATFORM = process.platform;
-
-const __APP_INFO__ = {
-  pkg: { dependencies, devDependencies, name, version },
-  lastBuildTime: new Date(),
-  lastBuildTimeMs: Date.now(),
-  // envPrefix: ENV_PREFIX,
-  platform: PLATFORM,
-  // env: process.env
-};
 
 const replaceOptions: RollupReplaceOptions = {
   __DATE__: new Date().toISOString(),
