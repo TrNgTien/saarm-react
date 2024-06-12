@@ -23,8 +23,7 @@ const SettingMobile = () => {
     dispatch(resetDetection());
 
     localStorage.removeItem('token');
-
-    navigate(RoutePath.LOGIN);
+    navigate(RoutePath.LOGIN, { replace: true });
   }, [navigate, dispatch]);
 
   useEffect(() => {

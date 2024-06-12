@@ -29,7 +29,8 @@ const SettingMobile = () => {
     dispatch(resetRoomState());
     dispatch(resetDetection());
 
-    navigate(RoutePath.LOGIN);
+    localStorage.removeItem('token');
+    navigate(RoutePath.LOGIN, {replace: true});
   }, [navigate, dispatch]);
 
   useEffect(() => {
