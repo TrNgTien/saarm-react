@@ -141,7 +141,7 @@ const RoomCreate = () => {
           onChange={(e: any) => {
             setRoom((prev) => ({
               ...prev,
-              [e.target.name]: e.target.value,
+              [e.target.name]: e.target.value.replace(/,*/gm, ''),
             }));
           }}
           errorText={
