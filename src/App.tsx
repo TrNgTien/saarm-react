@@ -3,6 +3,7 @@ import { SnackbarOrigin, SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, RouteProps, Routes } from 'react-router-dom';
 import { RoutePath } from './common/constants';
+import PromptPWA from './components/modal/PromptPWA';
 import PrivateRoute from './navigator/PrivateRoute';
 import {
   BillPage,
@@ -113,6 +114,7 @@ const App = () => {
       autoHideDuration={2000}
       anchorOrigin={getPositionSnackbar()}>
       <Provider store={store}>
+        <PromptPWA />
         <div className="">
           <BrowserRouter>
             <Routes>
