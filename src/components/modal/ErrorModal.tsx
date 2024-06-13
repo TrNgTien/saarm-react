@@ -11,7 +11,7 @@ export const ErrorModal = (props: { onClick: () => void }) => {
         <div className="w-fit mx-auto -mt-28 bg-transparent">
           <img alt="err" src={ErrorMobile} />
         </div>
-        <div className="">
+        <div>
           <div className="text-center p-4">
             <h1 className="text-2xl font-semibold py-4">Đã có lỗi xảy ra</h1>
             <p className="text-sm font-normal text-black-900">

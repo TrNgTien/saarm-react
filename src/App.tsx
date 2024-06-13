@@ -18,8 +18,8 @@ import DetailApartment from './pages/apartment/Mobile/home-owner/Detail';
 import HomePage from './pages/home';
 import MessagePage from './pages/message';
 import RoomCreate from './pages/room/Mobile/home-owner/Create';
-import { store } from './redux/store';
 import DetailRoom from './pages/room/Mobile/home-owner/Detail';
+import { store } from './redux/store';
 
 const publicRoutes: RouteProps[] = [
   {
