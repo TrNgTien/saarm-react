@@ -6,6 +6,7 @@ import {
   InformationCard,
   Loading,
   PageHeader,
+  Skeleton,
 } from '@/components';
 import ImageCropper from '@/components/feat/ImageCropper';
 import { MAX_FILE_SIZE, getDecodedToken, isValidFileUploaded } from '@/helpers';
@@ -108,7 +109,11 @@ const WaterMeter = () => {
           </div>
         ) : (
           <div className="w-full">
-            {!isSubmitWater && (
+            {isLoading && (
+              <Skeleton className="h-[100px] rounded-xl w-full bg-gray-300 my-4" />
+            )}
+
+            {!isSubmitWater && !isLoading && (
               <label
                 htmlFor="upload-file"
                 className={cn(

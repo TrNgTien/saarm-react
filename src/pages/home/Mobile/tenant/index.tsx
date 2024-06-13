@@ -4,7 +4,7 @@ import Statistic from '@/assets/icons/statistic.svg';
 import UpdateWater from '@/assets/icons/update-water.svg';
 import { IUtilityCircle } from '@/common';
 import { RoutePath } from '@/common/constants';
-import { Banner, DropDownBilling, IconImage } from '@/components';
+import { Banner, IconImage } from '@/components';
 import { UtilityCircle } from '@/components/common/UtilityCircle';
 import { ShowMore } from '@/components/layout/ShowMoreList';
 import { Styles } from '@/theme';
@@ -64,9 +64,10 @@ const HomeMobile = () => {
         <div className="xs:mt-4 mt-8">
           <ShowMore
             path={RoutePath.NOTIFICATION}
-            hasShowMore
+            hasShowMore={false}
             title={'Thông báo từ chủ nhà'}>
-            <div>
+            <p className="m-2 italic">Hiện tại chưa có thông báo</p>
+            {/* <div>
               {utilityItems.map((i, idx) => {
                 const { id } = i;
                 return (
@@ -75,7 +76,7 @@ const HomeMobile = () => {
                   </div>
                 );
               })}
-            </div>
+            </div> */}
           </ShowMore>
         </div>
       </div>
