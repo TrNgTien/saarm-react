@@ -19,9 +19,14 @@ export const roomSlice = createSlice({
       const { payload } = action;
       return set(state, 'isSubmitWater', payload);
     },
+
+    resetRoomState: () => {
+      return { ...initialState };
+    },
   },
 });
 
-export const { setRoomData, setIsSubmitWater } = roomSlice.actions;
+export const { setRoomData, setIsSubmitWater, resetRoomState } =
+  roomSlice.actions;
 
 export default roomSlice.reducer;

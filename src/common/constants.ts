@@ -1,10 +1,21 @@
 export class RestEndpoints {
+  // authentication & authorization
   static readonly SIGN_IN = 'auth/sign-in';
   static readonly SIGN_IN_TENANT = 'auth/sign-in/tenant';
   static readonly SIGN_UP = 'auth/sign-up';
   static readonly LOGIN_GOOGLE = 'auth/google';
+
+  // user
+  static readonly USER = 'users';
+
+  // apartment
+  static readonly APARTMENTS = 'apartments';
+
+  // room
   static readonly ROOM = 'rooms';
   static readonly ROOM_BILL = 'bills';
+
+  // water-meters
   static readonly HISTORY_WATER_METER = `water-meters/histories`;
   static readonly DETECT_WATER_METER = `water-meters/detect`;
   static readonly SUBMIT_WATER_METER = `water-meters/submit`;
@@ -13,7 +24,12 @@ export class RestEndpoints {
 
 export class UserType {
   static readonly TENANT = 'tenant';
-  static readonly LANDLORD = 'landlord';
+  static readonly HOMEOWNER = 'homeowner';
+  static readonly UserRoleSet = new Set([this.TENANT, this.HOMEOWNER]);
+
+  static isValid(scheme: string): boolean {
+    return this.UserRoleSet.has(scheme);
+  }
 }
 
 export class LimitRecords {
@@ -36,16 +52,29 @@ export class Statuses {
 }
 
 export class RoutePath {
+  // common
   static readonly WELCOME = '/';
   static readonly LOGIN = '/login';
   static readonly REGISTER = '/register';
   static readonly HOME = '/home';
-  static readonly WATER_METER = '/water-meter';
   static readonly MESSAGE = '/message';
   static readonly NOTIFICATION = '/notification';
-  static readonly BILLING = '/billing';
   static readonly SETTING = '/setting';
   static readonly UTIL = '/util';
+  static readonly CURRENT_PAGE = '#';
+
+  // tenant
+  static readonly WATER_METER = '/water-meter';
+  static readonly BILLING = '/billing';
+
+  // home-owner
+  static readonly APARTMENT = '/apartment';
+  static readonly APARTMENT_CREATE = `${this.APARTMENT}/create`;
+  static readonly APARTMENT_DETAIL = `${this.APARTMENT}/:id`;
+  static readonly APARTMENT_CREATE_ROOM = `${this.APARTMENT}/:id/room`;
+
+  static readonly ROOM = '/room';
+  static readonly ROOM_DETAIL = `${this.ROOM}/:id`;
 }
 
 export const MONTHS: string[] = ['Thang 1', 'Thang 2', 'Thang 3', 'Thang 4'];

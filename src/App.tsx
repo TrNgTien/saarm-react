@@ -3,19 +3,23 @@ import { SnackbarOrigin, SnackbarProvider } from 'notistack';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, RouteProps, Routes } from 'react-router-dom';
 import { RoutePath } from './common/constants';
-import MobileLayout from './components/layout/Mobile/MobileLayout';
+import PromptPWA from './components/modal/PromptPWA';
 import PrivateRoute from './navigator/PrivateRoute';
 import {
   BillPage,
   LoginPage,
   Notification,
   RegisterPage,
-  SettingMobile,
+  SettingPage,
   WaterMeter,
   WelcomePage,
 } from './pages';
-import { HomeMobile } from './pages/home';
-import MessagePage from './pages/message/MessagePage';
+import ApartmentCreate from './pages/apartment/Mobile/home-owner/Create';
+import DetailApartment from './pages/apartment/Mobile/home-owner/Detail';
+import HomePage from './pages/home';
+import MessagePage from './pages/message';
+import RoomCreate from './pages/room/Mobile/home-owner/Create';
+import DetailRoom from './pages/room/Mobile/home-owner/Detail';
 import { store } from './redux/store';
 
 const publicRoutes: RouteProps[] = [
@@ -39,16 +43,8 @@ const publicRoutes: RouteProps[] = [
 
 const privateRoutes: RouteProps[] = [
   {
-    id: 'water-meter',
-    element: <WaterMeter />,
-    path: RoutePath.WATER_METER,
-  },
-];
-
-const mobileLayouts: RouteProps[] = [
-  {
     id: 'home',
-    element: <HomeMobile />,
+    element: <HomePage />,
     path: RoutePath.HOME,
   },
   {
@@ -68,8 +64,33 @@ const mobileLayouts: RouteProps[] = [
   },
   {
     id: 'setting',
-    element: <SettingMobile />,
+    element: <SettingPage />,
     path: RoutePath.SETTING,
+  },
+  {
+    id: 'water-meter',
+    element: <WaterMeter />,
+    path: RoutePath.WATER_METER,
+  },
+  {
+    id: 'detail-apartment',
+    element: <DetailApartment />,
+    path: `${RoutePath.APARTMENT_DETAIL}`,
+  },
+  {
+    id: 'create-apartment',
+    element: <ApartmentCreate />,
+    path: RoutePath.APARTMENT_CREATE,
+  },
+  {
+    id: 'apartment-create-room',
+    element: <RoomCreate />,
+    path: RoutePath.APARTMENT_CREATE_ROOM,
+  },
+  {
+    id: 'detail-room',
+    element: <DetailRoom />,
+    path: RoutePath.ROOM_DETAIL,
   },
 ];
 
@@ -93,27 +114,13 @@ const App = () => {
       autoHideDuration={2000}
       anchorOrigin={getPositionSnackbar()}>
       <Provider store={store}>
+        <PromptPWA />
         <div className="">
           <BrowserRouter>
             <Routes>
               {publicRoutes.map((r) => (
                 <Route key={r.id} {...r} />
               ))}
-
-              {mobileLayouts.map((r) => {
-                const { id, element, ...rest } = r;
-                return (
-                  <Route
-                    key={r.id}
-                    {...rest}
-                    element={
-                      <PrivateRoute>
-                        <MobileLayout>{element}</MobileLayout>
-                      </PrivateRoute>
-                    }
-                  />
-                );
-              })}
 
               {privateRoutes.map((r) => {
                 const { id, element, ...rest } = r;

@@ -1,5 +1,10 @@
 import { JwtPayload, jwtDecode } from 'jwt-decode';
 
+interface IUserToken {
+  userId?: string;
+  roomId?: string;
+  role?: string;
+}
 export const getDecodedToken = () => {
   const token = localStorage.getItem('token');
 
@@ -7,8 +12,5 @@ export const getDecodedToken = () => {
     return;
   }
 
-  return jwtDecode<JwtPayload>(token) as JwtPayload & {
-    userId?: string;
-    roomId?: string;
-  };
+  return jwtDecode<JwtPayload>(token) as JwtPayload & IUserToken;
 };

@@ -10,6 +10,7 @@ interface IButtonProps {
   children?: React.ReactNode;
   disabled?: boolean;
 }
+
 export const Button = (props: IButtonProps) => {
   const { title, onClick, btnStyles, children, titleStyles, disabled } = props;
   return (

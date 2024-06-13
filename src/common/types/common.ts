@@ -19,3 +19,12 @@ export interface IBase {
   createdAt: string;
   modifiedAt: string;
 }
+
+export type TActionRedux = {
+  type: string;
+  payload?: {
+    keyReplace?: string;
+    value: unknown;
+  };
+};
+

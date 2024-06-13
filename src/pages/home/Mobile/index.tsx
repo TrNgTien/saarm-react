@@ -1,13 +1,24 @@
-import { Loading } from '@/components';
-import { lazy, Suspense } from 'react';
-const HomeMobile = lazy(() => import('./HomeMobile'));
+import { UserType } from '@/common/constants';
+import { useAuthorization } from '@/hooks';
+import { lazy } from 'react';
 
-const Home = () => {
+const HomeTenantMobile = lazy(() => import('./tenant'));
+const HomeOwnerMobile = lazy(() => import('./home-owner'));
+const MobileLayout = lazy(
+  () => import('@/components/layout/Mobile/MobileLayout'),
+);
+const HomeMobileLazy = () => {
+  const permission = useAuthorization();
+
   return (
-    <Suspense fallback={<Loading />}>
-      <HomeMobile />
-    </Suspense>
+    <MobileLayout>
+      {permission === UserType.HOMEOWNER ? (
+        <HomeOwnerMobile />
+      ) : (
+        <HomeTenantMobile />
+      )}
+    </MobileLayout>
   );
 };
 
-export default Home;
+export default HomeMobileLazy;

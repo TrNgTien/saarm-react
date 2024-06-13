@@ -1,12 +1,15 @@
 import { Loading } from '@/components';
+import { useOnPhone } from '@/hooks';
 import { lazy, Suspense } from 'react';
 
-const MessagePage = lazy(() => import('./MessagePage'));
+const MessageMobile = lazy(() => import('./Mobile'));
+const MessagePC = lazy(() => import('./PC'));
 
 const Message = () => {
+  const isMobile = useOnPhone();
   return (
     <Suspense fallback={<Loading />}>
-      <MessagePage />
+      {isMobile ? <MessageMobile /> : <MessagePC />}
     </Suspense>
   );
 };

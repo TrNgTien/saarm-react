@@ -1,12 +1,17 @@
-import { Loading } from '@/components';
-import { lazy, Suspense } from 'react';
-const HomePC = lazy(() => import('./HomePC'));
+import { UserType } from '@/common/constants';
+import PcLayout from '@/components/layout/PC/PcLayout';
+import { useAuthorization } from '@/hooks';
+import { lazy } from 'react';
+const HomeTenantPC = lazy(() => import('./tenant'));
+const HomeOwnerPC = lazy(() => import('./home-owner'));
 
 const Home = () => {
+  const permission = useAuthorization();
+
   return (
-    <Suspense fallback={<Loading />}>
-      <HomePC />
-    </Suspense>
+    <PcLayout>
+      {permission === UserType.HOMEOWNER ? <HomeOwnerPC /> : <HomeTenantPC />}
+    </PcLayout>
   );
 };
 
