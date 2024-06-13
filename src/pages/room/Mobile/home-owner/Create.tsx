@@ -1,6 +1,12 @@
 import { EMethods } from '@/common';
 import { RestEndpoints } from '@/common/constants';
-import { Button, LabelInput, Loading, PageHeader } from '@/components';
+import {
+  Button,
+  LabelInput,
+  Loading,
+  NumericInput,
+  PageHeader,
+} from '@/components';
 import { networkInstance } from '@/services';
 import { useSnackbar } from 'notistack';
 import { Suspense, useCallback, useState } from 'react';
@@ -99,7 +105,7 @@ const RoomCreate = () => {
           onChange={(e: any) => {
             setRoom((prev) => ({
               ...prev,
-              [e.target.name]: e.target.value,
+              [e.target.name]: e.target.value.toLowerCase(),
             }));
           }}
           errorText={
@@ -130,7 +136,7 @@ const RoomCreate = () => {
           labelStyles="font-semibold text-black-400"
           wrapperStyles="mb-4"
         />
-        <LabelInput
+        <NumericInput
           title={'Tiền phòng'}
           onChange={(e: any) => {
             setRoom((prev) => ({
