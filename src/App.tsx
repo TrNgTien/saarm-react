@@ -115,26 +115,24 @@ const App = () => {
       anchorOrigin={getPositionSnackbar()}>
       <Provider store={store}>
         <PromptPWA />
-        <div className="">
-          <BrowserRouter>
-            <Routes>
-              {publicRoutes.map((r) => (
-                <Route key={r.id} {...r} />
-              ))}
+        <BrowserRouter>
+          <Routes>
+            {publicRoutes.map((r) => (
+              <Route key={r.id} {...r} />
+            ))}
 
-              {privateRoutes.map((r) => {
-                const { id, element, ...rest } = r;
-                return (
-                  <Route
-                    key={r.id}
-                    {...rest}
-                    element={<PrivateRoute>{element}</PrivateRoute>}
-                  />
-                );
-              })}
-            </Routes>
-          </BrowserRouter>
-        </div>
+            {privateRoutes.map((r) => {
+              const { id, element, ...rest } = r;
+              return (
+                <Route
+                  key={r.id}
+                  {...rest}
+                  element={<PrivateRoute>{element}</PrivateRoute>}
+                />
+              );
+            })}
+          </Routes>
+        </BrowserRouter>
       </Provider>
     </SnackbarProvider>
   );

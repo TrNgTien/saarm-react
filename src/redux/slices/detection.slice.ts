@@ -11,7 +11,6 @@ export const detectionSlice = createSlice({
   reducers: {
     setIsFailDetection: (state, action) => {
       const { payload } = action;
-      console.log('payload', payload);
       return set(state, 'isFailDetect', payload);
     },
     resetDetection: () => {
