@@ -44,6 +44,9 @@
     "tailwindcss-animate": "^1.0.7",
     "yarn": "^1.22.22"
   },
+  "resolutions": {
+    "braces": "3.0.3"
+  },
   "devDependencies": {
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.12.7",
