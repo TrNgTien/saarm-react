@@ -1,16 +1,16 @@
 import { RoutePath } from '@/common/constants';
-import { BsBarChartFill as Chart } from "react-icons/bs";
 import { IconWrapper } from '@/components/common';
+import { useOnPWA } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { Color, Styles } from '@/theme';
 import clsx from 'clsx';
 import { useMemo } from 'react';
 import { IconBaseProps } from 'react-icons';
+import { BsBarChartFill as Chart } from 'react-icons/bs';
 import {
   IoHomeOutline as HomeIcon,
   IoSettingsOutline as SettingIcon,
 } from 'react-icons/io5';
-import { LuClipboardList as BillIcon } from 'react-icons/lu';
 import { TbMessageCircle2 as MessageIcon } from 'react-icons/tb';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NavigationItem } from '../../components/NavigationItems';
@@ -26,6 +26,7 @@ interface INavItems {
 const BottomNav = () => {
   const { pathname = '' } = useLocation();
   const navigate = useNavigate();
+  const isPWA = useOnPWA();
 
   const navItems: Array<INavItems> = useMemo(() => {
     return [
@@ -95,8 +96,9 @@ const BottomNav = () => {
     <div
       className={cn(
         Styles.FLEX_BETWEEN,
-        'fixed xs:p-4 sm:p-6 bottom-0 bg-white-10 border w-full rounded-t-3xl lg:hidden',
+        'fixed xs:p-4 bottom-0 bg-white-10 border w-full rounded-t-3xl lg:hidden',
         'xs:text-xs',
+        isPWA ? 'sm:p-6' : 'sm:p-4',
       )}>
       {navItems.map((i) => {
         const { icon, path, name, id, headerTitle } = i;

@@ -40,3 +40,15 @@ export const useOnDesktop = () => {
   const { width } = useWindowSize();
   return width >= DevicesBoundary.DESKTOP_LOWER_BOUNDARY;
 };
+
+export const useOnPWA = () => {
+  const mqStandAlone = '(display-mode: standalone)';
+  if (
+    (navigator as any).standalone ||
+    window.matchMedia(mqStandAlone).matches
+  ) {
+    return true;
+  }
+
+  return false;
+};

@@ -40,16 +40,16 @@ const DetailApartment = () => {
   }, [id]);
 
   useEffect(() => {
-    if (!state.name) {
+    if (!state?.name) {
       return navigate(RoutePath.HOME);
     }
 
     getRoomsByApartmentId();
-  }, [getRoomsByApartmentId, state.name]);
+  }, [getRoomsByApartmentId, state?.name]);
 
   return (
     <Suspense fallback={<Loading />}>
-      <PageHeader title={state.name} />
+      <PageHeader title={state?.name} />
       <div className="h-screen p-4">
         {isLoading && <Loading />}
         <div className={cn(Styles.FLEX_BETWEEN, 'text-black-900')}>

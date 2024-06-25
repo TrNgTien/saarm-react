@@ -38,9 +38,7 @@ export default (): UserConfig => {
       manifest: true,
       chunkSizeWarningLimit: 626,
     },
-
     plugins: [
-      // VitePWA(pwaOptions),
       VitePWA({
         registerType: 'autoUpdate',
         injectRegister: 'auto',

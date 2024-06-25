@@ -42,7 +42,6 @@ const Header = () => {
   useEffect(() => {
     getHomeowner();
   }, []);
-  console.log ("checking", user)
 
   return (
     <div
