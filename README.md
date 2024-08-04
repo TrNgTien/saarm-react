@@ -5,6 +5,11 @@
 
 # Demo:
 
+### Search result from Google:
+
+<img width="944" alt="image" src="https://github.com/user-attachments/assets/fcb5cf92-964e-4a92-9a54-e54737f29bfd">
+
+
 ### Login as an tenent:
 <img width="378" alt="image" src="https://github.com/user-attachments/assets/841e3439-7e07-4065-8e63-453a16b4ee97">
 
