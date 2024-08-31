@@ -1,11 +1,9 @@
-import GoogleIc from '@/assets/icons/google.svg';
 import Logo from '@/assets/icons/logo-dark.svg';
 import { EMethods } from '@/common';
 import { RestEndpoints, RoutePath } from '@/common/constants';
 import { ILoginForm } from '@/common/types/login';
 import {
   Button,
-  Divider,
   IconImage,
   IconWrapper,
   LabelInput,
@@ -18,7 +16,6 @@ import { useSnackbar } from 'notistack';
 import { KeyboardEvent, useCallback, useState } from 'react';
 import { BsQuestionCircle as QuestionIcon } from 'react-icons/bs';
 import { FaRegEyeSlash as ClosedIcon } from 'react-icons/fa';
-import { FaGoogle as GoogleDisable } from 'react-icons/fa6';
 import { LiaEyeSolid as EyeOpenIcon } from 'react-icons/lia';
 import { useNavigate } from 'react-router-dom';
 import { useLocalStorage } from 'react-use';
@@ -37,24 +34,6 @@ const AuthPage: React.FC = () => {
     raw: true,
   });
 
-  // const loginGoogle = useGoogleLogin({
-  //   onSuccess: async ({ code }) => {
-  //     try {
-  //       // const googleInformation: IUserGoogle = await networkInstance.send({
-  //       //   method: EMethods.POST,
-  //       //   path: RestEndpoints.LOGIN_GOOGLE,
-  //       //   body: {
-  //       //     code,
-  //       //   },
-  //       // });
-  //       console.log('[loginGoogle] ', code);
-  //     } catch (e) {
-  //       console.error('[loginGoogle]: ', e);
-  //     }
-  //   },
-  //   flow: 'auth-code',
-  // });
-
   const handleBasicLogin = useCallback(async () => {
     try {
       setIsTriggeredLogin(true);
@@ -70,8 +49,8 @@ const AuthPage: React.FC = () => {
         path: RestEndpoints.SIGN_IN,
         body: {
           ...userInfo,
-          username: userInfo.username.toLowerCase(),
-          password: userInfo.password.toLowerCase(),
+          username: userInfo.username,
+          password: userInfo.password,
         },
       });
 
@@ -128,32 +107,7 @@ const AuthPage: React.FC = () => {
           Đăng nhập để tiếp tục
         </h3>
       </div>
-      <Button
-        title="Đăng nhập với Google"
-        onClick={() => {
-          enqueueSnackbar('Hiện tại chưa hỗ trợ đăng nhập với Google', {
-            variant: 'error',
-            anchorOrigin: { vertical: 'bottom', horizontal: 'center' },
-            autoHideDuration: 2000,
-          });
-          // loginGoogle;
-        }}
-        titleStyles="text-sm font-semibold text-black-200"
-        btnStyles="mt-4 border text-gray-400 bg-gray-200 hover:cursor-not-allowed">
-        {true ? (
-          //TODO: current not implement Login with Google
-          <GoogleDisable height={24} width={24} className="mr-2" />
-        ) : (
-          <IconImage src={GoogleIc} height={24} width={24} styles="mr-2" />
-        )}
-      </Button>
-      <Divider
-        textSeparate={true}
-        textMid="Hoặc"
-        lineStyle="border border-black-300 my-6"
-        textStyle="text-black-400 text-sm"
-      />
-      <form>
+      <form className="mt-8">
         <LabelInput
           title={'Tên đăng nhập'}
           onChange={(e: any) => {

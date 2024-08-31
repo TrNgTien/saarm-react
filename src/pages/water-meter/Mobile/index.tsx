@@ -122,7 +122,7 @@ const WaterMeter = () => {
                 )}>
                 <div>
                   <h1 className="font-semibold text-xl">
-                    {`Tháng ${dayjs().month()}/${dayjs().year()}`}
+                    {`Gửi nước tháng ${dayjs().month()}/${dayjs().year()}`}
                   </h1>
                   <p className="font-normal mt-2 text-xs">Bấm để tải ảnh lên</p>
                 </div>

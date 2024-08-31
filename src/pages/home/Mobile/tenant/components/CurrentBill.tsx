@@ -32,18 +32,20 @@ export const CurrentBill = () => {
 
       const waterMoney = Number(rs.data.waterConsume ?? 0) * 20_000;
       const electricityMoney = Number(rs.data.electricityConsume ?? 0) * 3500;
-      const extraFeeMoney = 0;
+      const extraFee = rs.data.extraFee.reduce((total: number, fee: { value: any }) => total + Number(fee.value), 0);
       const totalMoney =
         waterMoney +
         electricityMoney +
         Number(rs.data.roomPrice) +
-        extraFeeMoney;
+        extraFee;
+      const roomPrice = rs.data.roomPrice;
 
       const bill = {
-        ...rs.data,
+        roomPrice,
         waterMoney,
-        electricityMoney: +rs.data.electricityConsume * 3500,
+        electricityMoney,
         totalMoney,
+        extraFee,
       };
 
       setRoomBill(bill);

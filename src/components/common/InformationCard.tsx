@@ -9,7 +9,7 @@ export const InformationCard = (
 ) => {
   const { waterMeter, waterConsume, createdAt } = props;
   const waterMoney = `${20_000 * waterConsume}`;
-  const timeSubmit = dayjs(createdAt).format('DD-MM-YYYY HH:mm');
+  const timeSubmit = dayjs(createdAt).format('DD/MM/YYYY HH:mm');
 
   return (
     <div
@@ -28,13 +28,13 @@ export const InformationCard = (
             </div> */}
       <div className="flex-1 px-2">
         <div className={Styles.FLEX_BETWEEN}>
-          <h1 className="font-semibold">{`Tháng ${dayjs().month()}/${dayjs().year()}`}</h1>
-          <p className="font-normal text-xs">Gửi:&nbsp;{timeSubmit}</p>
+          <h1 className="font-semibold">Ngày gửi:</h1>
+          <h1 className="font-semibold">{timeSubmit}</h1>
         </div>
         <div>
           <div className={clsx(Styles.FLEX_BETWEEN)}>
             <p className="font-normal mt-2 text-xs">Số nước mới: </p>
-            <p className="font-normal mt-2 text-xs">{waterMeter}</p>
+            <p className="font-normal mt-2 text-xs">{waterMeter.slice(0, 4)}</p>
           </div>
           <div className={clsx(Styles.FLEX_BETWEEN)}>
             <p className="font-normal mt-2 text-xs">Tiêu thụ:</p>
