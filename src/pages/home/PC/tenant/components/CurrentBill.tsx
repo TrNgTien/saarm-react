@@ -58,6 +58,7 @@ export const CurrentBill = () => {
     getRoomBill();
   }, []);
 
+
   return isLoading ? (
     <SkeletonWrapper stylesOverride="mt-2" />
   ) : (
@@ -91,7 +92,7 @@ export const CurrentBill = () => {
             </div>
             <div>
               <p className="font-semibold">Khác</p>
-              <MoneyText value={`${roomBill?.extraFee || '0'}`} />
+              <MoneyText value={`${roomBill?.extraFee}`} />
             </div>
           </div>
         </ShowMore>

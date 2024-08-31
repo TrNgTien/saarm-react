@@ -13,6 +13,7 @@ import Cropper, { ReactCropperElement } from 'react-cropper';
 import { shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../common';
+import { LabelInput } from '../input';
 import { Loading } from '../loading';
 import { ErrorModal } from '../modal';
 
@@ -142,7 +143,34 @@ function ImageCropper({ imageSrc, setImageBase64 }: IImageCropperProps) {
                   {waterDetected}
                 </p>
               </div>
-              <div className={cn(Styles.FLEX_AROUND, 'mt-20 font-semibold')}>
+              <div className="mt-4">
+                <p className="text-sm opacity-60 italic">
+                  *Số nước đúng vui lòng bấm "Xác nhận" để tính tiền.
+                </p>
+                <p className="text-sm opacity-60 italic my-4">
+                  *Hoặc tự điền lại số nước như hình đã chụp vào ô "Số nước
+                  xác nhận", sau đó bấm xác nhận.
+                </p>
+                <LabelInput
+                  title={'Số nước xác nhận:'}
+                  onChange={(e: any) => {
+                    const inputData = e.target.value.slice(0, 7);
+
+                    if (!inputData.length) {
+                      return;
+                    }
+
+                    setWaterDetected(inputData);
+                  }}
+                  maxLength={6}
+                  value={waterDetected}
+                  required
+                  placeholder="Số nước xác nhận"
+                  labelStyles="font-semibold text-black-400 items-start"
+                  wrapperStyles="my-4"
+                />
+              </div>
+              <div className={cn(Styles.FLEX_AROUND, 'mt-4 font-semibold')}>
                 <Button
                   onClick={() => setImageBase64('')}
                   title="Chụp lại"

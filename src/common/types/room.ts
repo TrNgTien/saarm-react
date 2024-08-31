@@ -8,13 +8,10 @@ export interface IRoom extends IBase {
   apartmentAddress: string;
 }
 
-export interface IRoomBill extends IBase {
-  id: string;
-  waterConsume: string;
-  electricityConsume: string;
-  extraFee: string;
+export interface IRoomBill {
   roomPrice: string;
   waterMoney: number;
   electricityMoney: number;
   totalMoney: number;
+  extraFee: number;
 }

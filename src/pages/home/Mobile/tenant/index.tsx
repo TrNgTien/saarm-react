@@ -12,7 +12,8 @@ import { memo, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CurrentBill } from './components';
 
-const ICON_STYLE = 'bg-green-200 rounded-full p-2 h-14';
+const ACTIVED_ICON_STYLE = 'bg-green-200 rounded-full p-2 h-14';
+const DISABLED_ICON_STYLE = 'bg-gray-200 rounded-full p-2 h-14';
 
 const HomeMobile = () => {
   const navigate = useNavigate();
@@ -20,27 +21,27 @@ const HomeMobile = () => {
     () => [
       {
         id: 'update-water-meter',
-        name: 'Cập nhật đồng hồ nước',
-        icon: <IconImage src={UpdateWater} styles={ICON_STYLE} />,
+        name: 'Lịch sử cập nhật đồng hồ nước',
+        icon: <IconImage src={UpdateWater} styles={ACTIVED_ICON_STYLE} />,
         onClick: () => navigate(RoutePath.WATER_METER),
       },
       {
         id: 'bill',
         name: 'Thanh toán tiền nhà',
-        icon: <IconImage src={Billing} styles={ICON_STYLE} />,
-        onClick: () => {},
+        icon: <IconImage src={Billing} styles={DISABLED_ICON_STYLE} />,
+        onClick: () => { },
       },
       {
         id: 'citizen',
-        name: 'Thông tin lưu trú',
-        icon: <IconImage src={Citizen} styles={ICON_STYLE} />,
-        onClick: () => {},
+        name: 'Thông tin wifi',
+        icon: <IconImage src={Citizen} styles={DISABLED_ICON_STYLE} />,
+        onClick: () => { },
       },
       {
         id: 'statistic',
         name: 'Thống kê chi phí',
-        icon: <IconImage src={Statistic} styles={ICON_STYLE} />,
-        onClick: () => {},
+        icon: <IconImage src={Statistic} styles={DISABLED_ICON_STYLE} />,
+        onClick: () => { },
       },
     ],
     [navigate],

@@ -18,7 +18,7 @@ export const PageHeader = (props: {
 
   return (
     <div
-      className={`${Styles.FLEX_BETWEEN} p-4 leading-4 text-black-900 shadow-md bg-white-900`}>
+      className={`${Styles.FLEX_BETWEEN} p-4 leading-4 text-black-900 shadow-md bg-white-900 sticky top-0`}>
       <IconWrapper size={24} color={Color.BLACK_900} onClick={handlePrivious}>
         <BackIcon />
       </IconWrapper>

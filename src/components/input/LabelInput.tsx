@@ -16,6 +16,7 @@ export const LabelInput = (props: {
   name?: string;
   onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
   errorText?: string;
+  maxLength?: number;
 }) => {
   const {
     title,
@@ -31,6 +32,7 @@ export const LabelInput = (props: {
     name,
     errorText,
     onKeyDown,
+    maxLength,
   } = props;
   return (
     <div className={clsx(Styles.FLEX_COL, wrapperStyles)}>
@@ -42,6 +44,7 @@ export const LabelInput = (props: {
           'border rounded-md p-4 shadow-md bg-white-900 focus:outline-none text-sm mt-1',
           inputStyles,
         )}
+        max={maxLength}
         type={type}
         autoComplete="off"
         onKeyDown={onKeyDown}
