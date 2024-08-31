@@ -250,7 +250,10 @@ const RoomCreate = () => {
                 title={`Giá trị phí dịch vụ ${index + 1}:`}
                 onChange={(e: any) => {
                   const newExtraFees = [...room.extraFee];
-                  newExtraFees[index] = { ...newExtraFees[index], value: e.target.value };
+                  newExtraFees[index] = {
+                    ...newExtraFees[index],
+                    value: e.target.value.replace(/,*/gm, '')
+                  };
                   setRoom((prev) => ({
                     ...prev,
                     extraFee: newExtraFees,
